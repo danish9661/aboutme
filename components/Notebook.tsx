@@ -24,13 +24,13 @@ export default function Notebook() {
         aria-hidden
       />
 
-      <div className="relative overflow-hidden rounded-2xl border border-line bg-surface px-9 pb-9 pt-10 shadow-[0_34px_70px_-28px_rgba(132,94,194,0.5)]">
+      <div className="relative overflow-hidden rounded-2xl border border-line bg-surface px-9 pb-9 pt-10 shadow-[0_34px_70px_-28px_rgba(56,189,248,0.5)]">
         {/* ruled lines */}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 top-10"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(transparent 0 35px, rgba(132,94,194,0.12) 35px 36px)",
+              "repeating-linear-gradient(transparent 0 35px, rgba(56,189,248,0.12) 35px 36px)",
           }}
           aria-hidden
         />

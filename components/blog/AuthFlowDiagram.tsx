@@ -13,16 +13,16 @@ export interface FlowStep {
  * both light and dark. */
 const ACTOR_COLOR: Record<string, string> = {
   Browser: "var(--ink-2)",
-  Google: "#d98324",
-  Backend: "#845ec2",
-  Frontend: "#ff4e9b",
+  Google: "#0284c7",
+  Backend: "#38bdf8",
+  Frontend: "#2563eb",
 };
 
 const HL = {
   danger: {
-    bg: "rgba(255,107,107,0.12)",
+    bg: "rgba(59,130,246,0.12)",
     border: "rgba(226,86,59,0.42)",
-    color: "#e2563b",
+    color: "#1d4ed8",
     tag: "exposed",
   },
   success: {
@@ -54,7 +54,7 @@ export default function AuthFlowDiagram({
   const actors = Array.from(new Set(steps.flatMap((s) => [s.from, s.to])));
 
   return (
-    <div className="my-9 overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(132,94,194,0.35)]">
+    <div className="my-9 overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(56,189,248,0.35)]">
       <div className="bg-candy h-1.5 w-full" aria-hidden />
       <div className="p-5 sm:p-6">
         {caption && (

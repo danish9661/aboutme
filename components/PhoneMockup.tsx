@@ -16,7 +16,7 @@ export default function PhoneMockup() {
         aria-hidden
       />
 
-      <div className="animate-float relative rounded-[2.9rem] border-[3px] border-[#2a2a2e] bg-[#0e0e10] p-[6px] shadow-[0_40px_80px_-30px_rgba(132,94,194,0.6)]">
+      <div className="animate-float relative rounded-[2.9rem] border-[3px] border-[#2a2a2e] bg-[#0e0e10] p-[6px] shadow-[0_40px_80px_-30px_rgba(56,189,248,0.6)]">
         {/* side buttons */}
         <span className="absolute -left-[5px] top-24 h-11 w-[3px] rounded-l bg-[#2a2a2e]" aria-hidden />
         <span className="absolute -left-[5px] top-[150px] h-11 w-[3px] rounded-l bg-[#2a2a2e]" aria-hidden />

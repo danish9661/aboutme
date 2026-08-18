@@ -2,40 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens — "Gradient Candy" ──────────────────────────── */
+/* ─── Design tokens — "Ocean Wave" ──────────────────────────────── */
 :root {
   color-scheme: light;
 
-  --bg: #fff6f6;
+  --bg: #f5f9ff;
   --surface: #ffffff;
-  --line: rgba(132, 94, 194, 0.14);
-  --line-strong: rgba(132, 94, 194, 0.28);
+  --line: rgba(37, 99, 235, 0.14);
+  --line-strong: rgba(37, 99, 235, 0.28);
 
-  --ink: #2b1b3d;
-  --ink-2: #6b5b7b;
-  --ink-3: #9a8caa;
+  --ink: #0f1e33;
+  --ink-2: #4a5b73;
+  --ink-3: #8095ad;
 
-  /* primary — pink */
-  --accent: #ff4e9b;
-  --accent-bright: #ff6b6b;
-  --accent-wash: rgba(255, 78, 155, 0.1);
+  /* primary — royal blue */
+  --accent: #2563eb;
+  --accent-bright: #3b82f6;
+  --accent-wash: rgba(37, 99, 235, 0.1);
 
-  /* secondary — purple */
-  --accent-2: #845ec2;
-  --accent-2-bright: #9a78d6;
-  --accent-2-wash: rgba(132, 94, 194, 0.12);
+  /* secondary — sky */
+  --accent-2: #38bdf8;
+  --accent-2-bright: #7dd3fc;
+  --accent-2-wash: rgba(56, 189, 248, 0.12);
 
-  /* tertiary — orange / coral */
-  --accent-3: #ffb347;
-  --accent-3-wash: rgba(255, 179, 71, 0.16);
-  --coral: #ff6b6b;
+  /* tertiary — mid blue */
+  --accent-3: #60a5fa;
+  --accent-3-wash: rgba(96, 165, 250, 0.16);
+  --coral: #3b82f6;
 
   /* signature gradient */
-  --candy: linear-gradient(135deg, #ff6b6b, #ff4e9b, #845ec2);
+  --candy: linear-gradient(135deg, #2563eb, #3b82f6, #38bdf8);
 
   /* terminal */
-  --term-bg: #17121f;
-  --term-line: #2e2440;
+  --term-bg: #0d1526;
+  --term-line: #1e2c47;
 }
 
 /* ─── Dark palette ──────────────────────────────────────────────────
@@ -45,48 +45,48 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #141019;
-    --surface: #1d1730;
-    --line: rgba(154, 120, 214, 0.16);
-    --line-strong: rgba(154, 120, 214, 0.3);
-    --ink: #f3edfb;
-    --ink-2: #bcaad3;
-    --ink-3: #a294bd;
-    --accent: #ff6bab;
-    --accent-bright: #ff8080;
-    --accent-wash: rgba(255, 107, 171, 0.16);
-    --accent-2: #a982e6;
-    --accent-2-bright: #bd9bf0;
-    --accent-2-wash: rgba(154, 120, 214, 0.2);
-    --accent-3: #ffc266;
-    --accent-3-wash: rgba(255, 179, 71, 0.18);
-    --coral: #ff8080;
-    --candy: linear-gradient(135deg, #ff7a7a, #ff5ea3, #9a78d6);
-    --term-bg: #0f0b17;
-    --term-line: #2e2440;
+    --bg: #0b1220;
+    --surface: #141f33;
+    --line: rgba(96, 165, 250, 0.16);
+    --line-strong: rgba(96, 165, 250, 0.3);
+    --ink: #e8f0fc;
+    --ink-2: #a9bdd8;
+    --ink-3: #8ba2c0;
+    --accent: #60a5fa;
+    --accent-bright: #93c5fd;
+    --accent-wash: rgba(96, 165, 250, 0.16);
+    --accent-2: #38bdf8;
+    --accent-2-bright: #7dd3fc;
+    --accent-2-wash: rgba(56, 189, 248, 0.2);
+    --accent-3: #7dd3fc;
+    --accent-3-wash: rgba(125, 211, 252, 0.18);
+    --coral: #60a5fa;
+    --candy: linear-gradient(135deg, #3b82f6, #60a5fa, #7dd3fc);
+    --term-bg: #070d18;
+    --term-line: #1e2c47;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #141019;
-  --surface: #1d1730;
-  --line: rgba(154, 120, 214, 0.16);
-  --line-strong: rgba(154, 120, 214, 0.3);
-  --ink: #f3edfb;
-  --ink-2: #bcaad3;
-  --ink-3: #a294bd;
-  --accent: #ff6bab;
-  --accent-bright: #ff8080;
-  --accent-wash: rgba(255, 107, 171, 0.16);
-  --accent-2: #a982e6;
-  --accent-2-bright: #bd9bf0;
-  --accent-2-wash: rgba(154, 120, 214, 0.2);
-  --accent-3: #ffc266;
-  --accent-3-wash: rgba(255, 179, 71, 0.18);
-  --coral: #ff8080;
-  --candy: linear-gradient(135deg, #ff7a7a, #ff5ea3, #9a78d6);
-  --term-bg: #0f0b17;
-  --term-line: #2e2440;
+  --bg: #0b1220;
+  --surface: #141f33;
+  --line: rgba(96, 165, 250, 0.16);
+  --line-strong: rgba(96, 165, 250, 0.3);
+  --ink: #e8f0fc;
+  --ink-2: #a9bdd8;
+  --ink-3: #8ba2c0;
+  --accent: #60a5fa;
+  --accent-bright: #93c5fd;
+  --accent-wash: rgba(96, 165, 250, 0.16);
+  --accent-2: #38bdf8;
+  --accent-2-bright: #7dd3fc;
+  --accent-2-wash: rgba(56, 189, 248, 0.2);
+  --accent-3: #7dd3fc;
+  --accent-3-wash: rgba(125, 211, 252, 0.18);
+  --coral: #60a5fa;
+  --candy: linear-gradient(135deg, #3b82f6, #60a5fa, #7dd3fc);
+  --term-bg: #070d18;
+  --term-line: #1e2c47;
 }
 
 /* ─── Base ──────────────────────────────────────────────────────── */
@@ -192,7 +192,7 @@
   .prose-blog a {
     color: var(--accent);
     text-decoration: underline;
-    text-decoration-color: rgba(255, 78, 155, 0.35);
+    text-decoration-color: rgba(37, 99, 235, 0.35);
     text-underline-offset: 3px;
     transition: text-decoration-color 0.2s;
   }
@@ -236,7 +236,7 @@
     background: none;
     padding: 0;
     font-size: inherit;
-    color: #f2ecff;
+    color: #eaf2ff;
   }
   /* Shiki keeps its own token colors but wears our brand dark frame. */
   .prose-blog pre.shiki {

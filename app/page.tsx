@@ -37,41 +37,41 @@ const JSON_LD = {
 const STACK = [
   {
     title: "Languages",
-    grad: "linear-gradient(135deg,#ff6b6b,#ffb347)",
-    color: "#e2563b",
-    wash: "rgba(255,107,107,0.12)",
+    grad: "linear-gradient(135deg,#3b82f6,#60a5fa)",
+    color: "#1d4ed8",
+    wash: "rgba(59,130,246,0.12)",
     items: ["C", "C++", "Rust", "TypeScript", "JavaScript", "Python", "Assembly"],
   },
   {
     title: "Emulators & Systems",
-    grad: "linear-gradient(135deg,#ff4e9b,#ff6b6b)",
-    color: "#ff4e9b",
-    wash: "rgba(255,78,155,0.12)",
+    grad: "linear-gradient(135deg,#2563eb,#3b82f6)",
+    color: "#2563eb",
+    wash: "rgba(37,99,235,0.12)",
     items: ["WebAssembly (WASM)", "Unicorn Engine", "RISC-V (RV32)", "ARM Cortex-M", "QEMU", "Renode"],
   },
   {
     title: "Embedded & Hardware",
-    grad: "linear-gradient(135deg,#845ec2,#ff4e9b)",
-    color: "#845ec2",
-    wash: "rgba(132,94,194,0.13)",
+    grad: "linear-gradient(135deg,#38bdf8,#2563eb)",
+    color: "#38bdf8",
+    wash: "rgba(56,189,248,0.13)",
     items: ["STM32 (F1/F4)", "ESP32-S3", "RP2040", "USB HID / FIDO2", "BLE / Wi-Fi", "I2C / SPI / UART"],
   },
   {
     title: "Web & DevOps",
-    grad: "linear-gradient(135deg,#ffb347,#ff4e9b)",
-    color: "#d98324",
-    wash: "rgba(255,179,71,0.16)",
+    grad: "linear-gradient(135deg,#60a5fa,#2563eb)",
+    color: "#0284c7",
+    wash: "rgba(96,165,250,0.16)",
     items: ["React / Next.js", "Node.js", "Web Workers", "Docker", "CI/CD", "Tailwind"],
   },
 ];
 
 const FACTS = [
-  { key: "FOCUS", value: "Systems · WASM Emulation", color: "#ff6b6b" },
-  { key: "OPEN SOURCE", value: "Core Contributor @ OpenHW Studio", color: "#ff4e9b" },
-  { key: "DELIVERED", value: "550+ Commits · 480k+ LoC", color: "#e2563b" },
-  { key: "SPECIALTY", value: "Emulators, Firmware, Microcontrollers", color: "#845ec2" },
-  { key: "LOOKING FOR", value: "Systems & SWE roles / Internships", color: "#e2563b" },
-  { key: "BASED", value: "India · remote-friendly", color: "#d98324" },
+  { key: "FOCUS", value: "Systems · WASM Emulation", color: "#3b82f6" },
+  { key: "OPEN SOURCE", value: "Core Contributor @ OpenHW Studio", color: "#2563eb" },
+  { key: "DELIVERED", value: "550+ Commits · 480k+ LoC", color: "#1d4ed8" },
+  { key: "SPECIALTY", value: "Emulators, Firmware, Microcontrollers", color: "#38bdf8" },
+  { key: "LOOKING FOR", value: "Systems & SWE roles / Internships", color: "#1d4ed8" },
+  { key: "BASED", value: "India · remote-friendly", color: "#0284c7" },
 ];
 
 export default function Home() {
@@ -144,7 +144,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.05}>
-              <dl className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(132,94,194,0.35)]">
+              <dl className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(56,189,248,0.35)]">
                 <div className="bg-candy h-1.5 w-full" aria-hidden />
                 {FACTS.map((fact, i) => (
                   <div
@@ -202,7 +202,7 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {STACK.map((col, i) => (
             <Reveal key={col.title} delay={i * 0.05}>
-              <div className="group h-full overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_-20px_rgba(132,94,194,0.45)]">
+              <div className="group h-full overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_-20px_rgba(56,189,248,0.45)]">
                 <div className="h-1.5 w-full" style={{ background: col.grad }} aria-hidden />
                 <div className="p-6">
                   <h3

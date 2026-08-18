@@ -10,19 +10,19 @@ export const metadata: Metadata = {
     "Case study: secure per-client workspaces, per-tenant data isolation, and a dashboard that surfaces what actually changed across GA4, Meta and LinkedIn. Live in production.",
 };
 
-const PALETTE = ["#ff4e9b", "#845ec2", "#e2563b", "#d98324"];
+const PALETTE = ["#2563eb", "#38bdf8", "#1d4ed8", "#0284c7"];
 const WASHES = [
-  "rgba(255,78,155,0.10)",
-  "rgba(132,94,194,0.12)",
-  "rgba(255,107,107,0.12)",
-  "rgba(255,179,71,0.16)",
+  "rgba(37,99,235,0.10)",
+  "rgba(56,189,248,0.12)",
+  "rgba(59,130,246,0.12)",
+  "rgba(96,165,250,0.16)",
 ];
 
 const STACK_PILLS = [
-  { label: "Next.js", color: "#ff4e9b", wash: "rgba(255,78,155,0.12)" },
-  { label: "FastAPI", color: "#845ec2", wash: "rgba(132,94,194,0.13)" },
-  { label: "PostgreSQL", color: "#e2563b", wash: "rgba(255,107,107,0.14)" },
-  { label: "JWT", color: "#d98324", wash: "rgba(255,179,71,0.18)" },
+  { label: "Next.js", color: "#2563eb", wash: "rgba(37,99,235,0.12)" },
+  { label: "FastAPI", color: "#38bdf8", wash: "rgba(56,189,248,0.13)" },
+  { label: "PostgreSQL", color: "#1d4ed8", wash: "rgba(59,130,246,0.14)" },
+  { label: "JWT", color: "#0284c7", wash: "rgba(96,165,250,0.18)" },
   { label: "Vercel", color: "#5a5a5f", wash: "rgba(90,90,95,0.08)" },
 ];
 
@@ -69,7 +69,7 @@ const SECURITY = [
 /** Gradient-topped fact card with colour-dotted keys. */
 function FactCard({ rows }: { rows: { key: string; value: string }[] }) {
   return (
-    <dl className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(132,94,194,0.35)]">
+    <dl className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(56,189,248,0.35)]">
       <div className="bg-candy h-1.5 w-full" aria-hidden />
       {rows.map((h, i) => (
         <div
@@ -108,7 +108,7 @@ export default function ArbFlowCaseStudy() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(132,94,194,0.12) 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(56,189,248,0.12) 1px, transparent 1px)",
             backgroundSize: "22px 22px",
             maskImage: "linear-gradient(to bottom, black, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
@@ -128,13 +128,13 @@ export default function ArbFlowCaseStudy() {
         {/* floating ArbFlow-style badges (desktop) */}
         <span
           className="pointer-events-none absolute right-2 top-8 hidden rotate-3 items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[12px] font-medium shadow-md lg:inline-flex"
-          style={{ background: "rgba(255,107,107,0.16)", color: "#e2563b" }}
+          style={{ background: "rgba(59,130,246,0.16)", color: "#1d4ed8" }}
         >
           ● GA4 synced
         </span>
         <span
           className="pointer-events-none absolute right-20 top-28 hidden -rotate-3 rounded-full px-3 py-1.5 font-mono text-[12px] font-medium shadow-md lg:inline-block"
-          style={{ background: "rgba(132,94,194,0.16)", color: "#845ec2" }}
+          style={{ background: "rgba(56,189,248,0.16)", color: "#38bdf8" }}
         >
           🔒 per-tenant
         </span>

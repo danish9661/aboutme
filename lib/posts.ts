@@ -64,24 +64,24 @@ export const POSTS_BY_SLUG: Record<string, PostData> = Object.fromEntries(
 /** Card accent cycle — same palette rhythm as the Stack cards. */
 export const POST_ACCENTS = [
   {
-    grad: "linear-gradient(135deg,#ff4e9b,#ff6b6b)",
-    color: "#ff4e9b",
-    wash: "rgba(255,78,155,0.12)",
+    grad: "linear-gradient(135deg,#2563eb,#2563eb)",
+    color: "#3b82f6",
+    wash: "rgba(37,99,235,0.12)",
   },
   {
-    grad: "linear-gradient(135deg,#845ec2,#ff4e9b)",
-    color: "#845ec2",
-    wash: "rgba(132,94,194,0.13)",
+    grad: "linear-gradient(135deg,#38bdf8,#2563eb)",
+    color: "#38bdf8",
+    wash: "rgba(56,189,248,0.13)",
   },
   {
-    grad: "linear-gradient(135deg,#ff6b6b,#ffb347)",
-    color: "#e2563b",
-    wash: "rgba(255,107,107,0.12)",
+    grad: "linear-gradient(135deg,#3b82f6,#60a5fa)",
+    color: "#1d4ed8",
+    wash: "rgba(59,130,246,0.12)",
   },
   {
-    grad: "linear-gradient(135deg,#ffb347,#ff4e9b)",
-    color: "#d98324",
-    wash: "rgba(255,179,71,0.16)",
+    grad: "linear-gradient(135deg,#60a5fa,#2563eb)",
+    color: "#0284c7",
+    wash: "rgba(96,165,250,0.16)",
   },
 ];
 

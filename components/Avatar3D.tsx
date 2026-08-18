@@ -63,13 +63,13 @@ export default function Avatar3D() {
       >
         <defs>
           <linearGradient id="shirtGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#ff6b6b" />
-            <stop offset="50%" stopColor="#ff4e9b" />
-            <stop offset="100%" stopColor="#845ec2" />
+            <stop offset="0%" stopColor="#2563eb" />
+            <stop offset="50%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#38bdf8" />
           </linearGradient>
           <linearGradient id="pantsGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#6f4aa8" />
-            <stop offset="100%" stopColor="#4f3578" />
+            <stop offset="100%" stopColor="#1e3a5f" />
           </linearGradient>
           <radialGradient id="faceShade" cx="38%" cy="34%" r="75%">
             <stop offset="0%" stopColor="#ffd9b8" />
@@ -78,17 +78,17 @@ export default function Avatar3D() {
         </defs>
 
         {/* ground shadow */}
-        <ellipse cx="110" cy="280" rx="54" ry="8" fill="rgba(132,94,194,0.18)" />
+        <ellipse cx="110" cy="280" rx="54" ry="8" fill="rgba(56,189,248,0.18)" />
 
         <g className="char-bob">
           {/* ── legs ── */}
           <g className="char-leg-l">
             <rect x="92" y="202" width="15" height="52" rx="7.5" fill="url(#pantsGrad)" />
-            <ellipse cx="99" cy="256" rx="12" ry="7" fill="#2b1b3d" />
+            <ellipse cx="99" cy="256" rx="12" ry="7" fill="#0f1e33" />
           </g>
           <g className="char-leg-r">
             <rect x="113" y="202" width="15" height="52" rx="7.5" fill="url(#pantsGrad)" />
-            <ellipse cx="121" cy="256" rx="12" ry="7" fill="#2b1b3d" />
+            <ellipse cx="121" cy="256" rx="12" ry="7" fill="#0f1e33" />
           </g>
 
           {/* ── left arm (sways) ── */}
@@ -120,8 +120,8 @@ export default function Avatar3D() {
           <circle cx="110" cy="112" r="39" fill="url(#faceShade)" />
 
           {/* blush */}
-          <ellipse cx="88" cy="126" rx="8" ry="5" fill="rgba(255,78,155,0.30)" />
-          <ellipse cx="132" cy="126" rx="8" ry="5" fill="rgba(255,78,155,0.30)" />
+          <ellipse cx="88" cy="126" rx="8" ry="5" fill="rgba(37,99,235,0.30)" />
+          <ellipse cx="132" cy="126" rx="8" ry="5" fill="rgba(37,99,235,0.30)" />
 
           {/* hair */}
           <path
@@ -130,20 +130,20 @@ export default function Avatar3D() {
           />
 
           {/* glasses */}
-          <g stroke="#2b1b3d" strokeWidth="2.6" fill="rgba(255,255,255,0.18)">
+          <g stroke="#0f1e33" strokeWidth="2.6" fill="rgba(255,255,255,0.18)">
             <rect x="83" y="103" width="25" height="21" rx="9" />
             <rect x="112" y="103" width="25" height="21" rx="9" />
           </g>
-          <line x1="108" y1="111" x2="112" y2="111" stroke="#2b1b3d" strokeWidth="2.6" />
-          <line x1="71" y1="112" x2="83" y2="110" stroke="#2b1b3d" strokeWidth="2.6" strokeLinecap="round" />
-          <line x1="137" y1="110" x2="149" y2="112" stroke="#2b1b3d" strokeWidth="2.6" strokeLinecap="round" />
+          <line x1="108" y1="111" x2="112" y2="111" stroke="#0f1e33" strokeWidth="2.6" />
+          <line x1="71" y1="112" x2="83" y2="110" stroke="#0f1e33" strokeWidth="2.6" strokeLinecap="round" />
+          <line x1="137" y1="110" x2="149" y2="112" stroke="#0f1e33" strokeWidth="2.6" strokeLinecap="round" />
 
           {/* eyes — both open, blinking together */}
-          <circle className="char-blink" cx="95" cy="114" r="3.4" fill="#2b1b3d" />
-          <circle className="char-blink" cx="125" cy="114" r="3.4" fill="#2b1b3d" />
+          <circle className="char-blink" cx="95" cy="114" r="3.4" fill="#0f1e33" />
+          <circle className="char-blink" cx="125" cy="114" r="3.4" fill="#0f1e33" />
 
           {/* smile */}
-          <path d="M95 130 q15 16 30 0 q-15 7 -30 0 z" fill="#2b1b3d" />
+          <path d="M95 130 q15 16 30 0 q-15 7 -30 0 z" fill="#0f1e33" />
           <path d="M99 131 q11 6 22 0" fill="#ffffff" opacity="0.9" />
 
           {/* ── right arm (waves) — drawn last so the raised hand is in front of the head ── */}

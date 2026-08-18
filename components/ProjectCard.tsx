@@ -5,7 +5,7 @@ import Chip from "./Chip";
 
 export default function ProjectCard({ project }: { project: ProjectData }) {
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-[0_22px_55px_-18px_rgba(132,94,194,0.4)] motion-reduce:hover:translate-y-0 sm:p-8">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-[0_22px_55px_-18px_rgba(56,189,248,0.4)] motion-reduce:hover:translate-y-0 sm:p-8">
       {/* gradient top accent, revealed on hover */}
       <span
         className="absolute inset-x-0 top-0 h-1 bg-candy opacity-0 transition-opacity duration-300 group-hover:opacity-100"

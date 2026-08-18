@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 };
 
 const STACK_PILLS = [
-  { label: "TypeScript", color: "#ff4e9b", wash: "rgba(255,78,155,0.12)" },
-  { label: "WebAssembly", color: "#845ec2", wash: "rgba(132,94,194,0.13)" },
-  { label: "Rust", color: "#e2563b", wash: "rgba(255,107,107,0.14)" },
-  { label: "Web Workers", color: "#d98324", wash: "rgba(255,179,71,0.18)" },
+  { label: "TypeScript", color: "#2563eb", wash: "rgba(37,99,235,0.12)" },
+  { label: "WebAssembly", color: "#38bdf8", wash: "rgba(56,189,248,0.13)" },
+  { label: "Rust", color: "#1d4ed8", wash: "rgba(59,130,246,0.14)" },
+  { label: "Web Workers", color: "#0284c7", wash: "rgba(96,165,250,0.18)" },
   { label: "Node.js / Express", color: "#5a5a5f", wash: "rgba(90,90,95,0.08)" },
   { label: "Docker", color: "#2496ed", wash: "rgba(36,150,237,0.12)" },
 ];

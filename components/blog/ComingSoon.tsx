@@ -69,7 +69,7 @@ export default function ComingSoon() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(132,94,194,0.12) 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(56,189,248,0.12) 1px, transparent 1px)",
             backgroundSize: "22px 22px",
             maskImage: "linear-gradient(to bottom, black, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",

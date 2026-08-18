@@ -19,7 +19,7 @@ export default function PostCard({ post, index, featured = false }: PostCardProp
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block h-full overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_-20px_rgba(132,94,194,0.45)] motion-reduce:hover:translate-y-0"
+      className="group block h-full overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_-20px_rgba(56,189,248,0.45)] motion-reduce:hover:translate-y-0"
     >
       <div className="h-1.5 w-full" style={{ background: accent.grad }} aria-hidden />
 

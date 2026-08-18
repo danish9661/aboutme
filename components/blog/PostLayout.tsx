@@ -82,7 +82,7 @@ export default function PostLayout({
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(132,94,194,0.12) 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(56,189,248,0.12) 1px, transparent 1px)",
             backgroundSize: "22px 22px",
             maskImage: "linear-gradient(to bottom, black, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
@@ -144,7 +144,7 @@ export default function PostLayout({
           {older ? (
             <Link
               href={`/blog/${older.slug}`}
-              className="group rounded-2xl border border-line bg-surface p-5 transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-24px_rgba(132,94,194,0.35)] motion-reduce:hover:translate-y-0"
+              className="group rounded-2xl border border-line bg-surface p-5 transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-24px_rgba(56,189,248,0.35)] motion-reduce:hover:translate-y-0"
             >
               <span className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
                 <span
@@ -168,7 +168,7 @@ export default function PostLayout({
           {newer && (
             <Link
               href={`/blog/${newer.slug}`}
-              className="group rounded-2xl border border-line bg-surface p-5 text-right transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-24px_rgba(132,94,194,0.35)] motion-reduce:hover:translate-y-0"
+              className="group rounded-2xl border border-line bg-surface p-5 text-right transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-24px_rgba(56,189,248,0.35)] motion-reduce:hover:translate-y-0"
             >
               <span className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
                 Newer

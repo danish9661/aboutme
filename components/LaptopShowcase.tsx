@@ -488,7 +488,7 @@ export default function LaptopShowcase() {
   const lineColor: Record<Exclude<LineKind, "cmd" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami">, string> =
     useMemo(
       () => ({
-        out: "text-[#c6b9d6]",
+        out: "text-[#b9cbe0]",
         sys: "text-accent-bright",
         err: "text-accent",
       }),
@@ -499,16 +499,16 @@ export default function LaptopShowcase() {
     default: {
       bg: "bg-term",
       border: "border-term-line",
-      text: "text-[#efe7f7]",
+      text: "text-[#e7f0f9]",
       prompt: "text-accent-bright",
       accent: "bg-[#2a2438] text-accent-bright hover:bg-accent hover:text-white",
     },
     cyberpunk: {
       bg: "bg-[#0b0813]",
-      border: "border-[#ff007f]/40",
+      border: "border-[#1d4ed8]/40",
       text: "text-[#00f0ff]",
-      prompt: "text-[#ff007f]",
-      accent: "bg-[#1f002b] text-[#00f0ff] hover:bg-[#ff007f] hover:text-black",
+      prompt: "text-[#1d4ed8]",
+      accent: "bg-[#1f002b] text-[#00f0ff] hover:bg-[#1d4ed8] hover:text-black",
     },
     matrix: {
       bg: "bg-[#050e07]",
@@ -566,7 +566,7 @@ export default function LaptopShowcase() {
             viewport={{ once: true, margin: "-120px" }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: "center bottom" }}
-            className="relative rounded-[20px] border border-[#3a3a3c] bg-[#1c1c1e] p-2.5 shadow-[0_40px_90px_-30px_rgba(132,94,194,0.5)] sm:p-3"
+            className="relative rounded-[20px] border border-[#3a3a3c] bg-[#1c1c1e] p-2.5 shadow-[0_40px_90px_-30px_rgba(56,189,248,0.5)] sm:p-3"
           >
             {/* camera notch */}
             <div className="absolute left-1/2 top-2.5 z-20 h-4 w-28 -translate-x-1/2 rounded-b-xl bg-[#1c1c1e] sm:top-3">
@@ -618,7 +618,7 @@ export default function LaptopShowcase() {
                       </button>
                       <span className="h-3.5 w-3.5 rounded-full bg-[#28c840]" aria-hidden />
                     </div>
-                    <span className="ml-3 truncate font-mono text-[11px] text-[#8c7ba0]">
+                    <span className="ml-3 truncate font-mono text-[11px] text-[#7b93ad]">
                       {view === "project" && activeProject
                         ? `~/projects/${activeProject.id}`
                         : "danish — zsh — projects"}
@@ -641,16 +641,16 @@ export default function LaptopShowcase() {
                       onClick={() => inputRef.current?.focus({ preventScroll: true })}
                       className={`flex-1 overflow-y-auto px-4 py-4 text-[13px] leading-relaxed transition-all duration-200 sm:text-[14px] ${activeFont}`}
                     >
-                      <p className="text-[#c6b9d6]">
+                      <p className="text-[#b9cbe0]">
                         DanishOS v2.4 (x86_64-wasm) · {PROJECTS.length} systems &amp; emulator builds.
                       </p>
-                      <p className="mt-1 text-[#6f5f85]">
+                      <p className="mt-1 text-[#5f7590]">
                         # Quick commands: <code className="text-accent-bright">ls</code> · <code className="text-accent-bright">neofetch</code> · <code className="text-accent-bright">stats</code> · <code className="text-accent-bright">emu</code>
                       </p>
 
                       {/* Interactive suggestion pills */}
                       <div className={`mt-3 flex flex-wrap items-center gap-1.5 border-b pb-3 transition-colors ${activeTheme.border}`}>
-                        <span className="text-[11px] text-[#8c7ba0] mr-1">Suggestions:</span>
+                        <span className="text-[11px] text-[#7b93ad] mr-1">Suggestions:</span>
                         {SUGGESTIONS.map((s) => (
                           <button
                             key={s.cmd}
@@ -690,7 +690,7 @@ export default function LaptopShowcase() {
                                   >
                                     {p.id}
                                   </button>
-                                  <span className="text-[#a596ba] text-[12px]">{p.tag}</span>
+                                  <span className="text-[#96abc4] text-[12px]">{p.tag}</span>
                                   <button
                                     type="button"
                                     onClick={() => openProject(p.id)}
@@ -740,7 +740,7 @@ export default function LaptopShowcase() {
                           autoComplete="off"
                           autoCapitalize="off"
                           aria-label="Terminal command input"
-                          className={`min-w-[8ch] flex-1 bg-transparent caret-accent-bright outline-none placeholder:text-[#6f5f85] ${activeTheme.text}`}
+                          className={`min-w-[8ch] flex-1 bg-transparent caret-accent-bright outline-none placeholder:text-[#5f7590] ${activeTheme.text}`}
                           placeholder="type a command or press Tab…"
                         />
                       </div>
@@ -763,12 +763,12 @@ export default function LaptopShowcase() {
                         )}
                       </div>
 
-                      <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-[#c6b9d6]">
+                      <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-[#b9cbe0]">
                         {activeProject.description}
                       </p>
 
                       {activeProject.why && (
-                        <div className="mt-4 rounded-xl border border-line/40 bg-surface/30 p-4 text-[14px] leading-relaxed text-[#a596ba]">
+                        <div className="mt-4 rounded-xl border border-line/40 bg-surface/30 p-4 text-[14px] leading-relaxed text-[#96abc4]">
                           <p className="font-mono text-[11px] uppercase tracking-wider text-accent mb-1">
                             Why it matters
                           </p>
@@ -786,7 +786,7 @@ export default function LaptopShowcase() {
                         <button
                           type="button"
                           onClick={() => setView("cli")}
-                          className="inline-flex items-center gap-2 rounded-full border border-term-line px-4 py-2 font-mono text-[13px] text-[#c6b9d6] transition-colors hover:border-accent-bright hover:text-white"
+                          className="inline-flex items-center gap-2 rounded-full border border-term-line px-4 py-2 font-mono text-[13px] text-[#b9cbe0] transition-colors hover:border-accent-bright hover:text-white"
                         >
                           ← back to terminal
                         </button>
@@ -833,24 +833,24 @@ export default function LaptopShowcase() {
 function NeofetchOutput() {
   const n = PORTFOLIO_CONFIG.terminal.neofetch;
   return (
-    <div className="my-2 grid grid-cols-1 gap-4 rounded-lg bg-[#141019]/80 p-3.5 sm:grid-cols-[140px_1fr]">
+    <div className="my-2 grid grid-cols-1 gap-4 rounded-lg bg-[#0b1220]/80 p-3.5 sm:grid-cols-[140px_1fr]">
       <pre className="font-mono text-[10px] leading-tight text-accent select-none">
 {n.asciiArt}
       </pre>
       <div className="space-y-0.5 font-mono text-[12px]">
         <p className="font-bold text-accent-bright">{PORTFOLIO_CONFIG.githubUsername}@portfolio</p>
-        <p className="text-[#6f5f85]">-----------------------</p>
-        <p><span className="text-[#ff4e9b]">OS:</span> {n.os}</p>
-        <p><span className="text-[#ff4e9b]">Host:</span> {n.host}</p>
-        <p><span className="text-[#ff4e9b]">Kernel:</span> {n.kernel}</p>
-        <p><span className="text-[#ff4e9b]">Commits:</span> {n.commits}</p>
-        <p><span className="text-[#ff4e9b]">Languages:</span> {n.languages}</p>
-        <p><span className="text-[#ff4e9b]">Hardware:</span> {n.hardware}</p>
+        <p className="text-[#5f7590]">-----------------------</p>
+        <p><span className="text-[#2563eb]">OS:</span> {n.os}</p>
+        <p><span className="text-[#2563eb]">Host:</span> {n.host}</p>
+        <p><span className="text-[#2563eb]">Kernel:</span> {n.kernel}</p>
+        <p><span className="text-[#2563eb]">Commits:</span> {n.commits}</p>
+        <p><span className="text-[#2563eb]">Languages:</span> {n.languages}</p>
+        <p><span className="text-[#2563eb]">Hardware:</span> {n.hardware}</p>
         <div className="mt-1.5 flex gap-1.5 pt-1">
-          <span className="h-3 w-4 rounded-sm bg-[#ff6b6b]" />
-          <span className="h-3 w-4 rounded-sm bg-[#ff4e9b]" />
-          <span className="h-3 w-4 rounded-sm bg-[#845ec2]" />
-          <span className="h-3 w-4 rounded-sm bg-[#d98324]" />
+          <span className="h-3 w-4 rounded-sm bg-[#2563eb]" />
+          <span className="h-3 w-4 rounded-sm bg-[#3b82f6]" />
+          <span className="h-3 w-4 rounded-sm bg-[#38bdf8]" />
+          <span className="h-3 w-4 rounded-sm bg-[#0284c7]" />
           <span className="h-3 w-4 rounded-sm bg-[#28c840]" />
         </div>
       </div>
@@ -862,28 +862,28 @@ function NeofetchOutput() {
 function StatsOutput({ stats }: { stats: import("@/lib/githubDirectStats").GitHubDirectStats }) {
   return (
     <div className="my-2 space-y-2 font-mono text-[12px]">
-      <div className="rounded-lg border border-accent/20 bg-[#161220] p-3.5">
+      <div className="rounded-lg border border-accent/20 bg-[#0b1526] p-3.5">
         <div className="flex items-center justify-between">
           <p className="font-bold text-accent-bright">GitHub Activity &amp; Streaks (@{PORTFOLIO_CONFIG.githubUsername})</p>
         </div>
-        <div className="mt-2.5 grid grid-cols-1 gap-2 text-[#c6b9d6] sm:grid-cols-3">
+        <div className="mt-2.5 grid grid-cols-1 gap-2 text-[#b9cbe0] sm:grid-cols-3">
           <div className="rounded bg-black/40 p-2.5 text-center">
-            <p className="text-[18px] font-bold text-[#ff4e9b]">
+            <p className="text-[18px] font-bold text-[#2563eb]">
               {stats.loading ? "..." : stats.totalContributions}
             </p>
-            <p className="text-[10px] text-[#8c7ba0]">Total Contributions</p>
+            <p className="text-[10px] text-[#7b93ad]">Total Contributions</p>
           </div>
           <div className="rounded bg-black/40 p-2.5 text-center">
             <p className="text-[18px] font-bold text-[#28c840]">
               {stats.loading ? "..." : `${stats.currentStreak} Days`}
             </p>
-            <p className="text-[10px] text-[#8c7ba0]">Current Streak</p>
+            <p className="text-[10px] text-[#7b93ad]">Current Streak</p>
           </div>
           <div className="rounded bg-black/40 p-2.5 text-center">
-            <p className="text-[18px] font-bold text-[#845ec2]">
+            <p className="text-[18px] font-bold text-[#38bdf8]">
               {stats.loading ? "..." : `${stats.longestStreak} Days`}
             </p>
-            <p className="text-[10px] text-[#8c7ba0]">Longest Streak</p>
+            <p className="text-[10px] text-[#7b93ad]">Longest Streak</p>
           </div>
         </div>
       </div>
@@ -980,11 +980,11 @@ function MatrixOutput() {
 /* ── Custom Danish Face Art Component ── */
 function DanishOutput() {
   return (
-    <div className="my-2 rounded-lg border border-accent/30 bg-[#161220] p-3 font-mono text-[12px]">
-      <pre className="font-mono text-[11px] leading-tight text-[#ff4e9b] select-none">
+    <div className="my-2 rounded-lg border border-accent/30 bg-[#0b1526] p-3 font-mono text-[12px]">
+      <pre className="font-mono text-[11px] leading-tight text-[#2563eb] select-none">
 {PORTFOLIO_CONFIG.terminal.danishFaceArt}
       </pre>
-      <div className="mt-2 flex flex-wrap items-center justify-between border-t border-term-line/60 pt-2 text-[11px] text-[#c6b9d6]">
+      <div className="mt-2 flex flex-wrap items-center justify-between border-t border-term-line/60 pt-2 text-[11px] text-[#b9cbe0]">
         <span>👤 {PORTFOLIO_CONFIG.name}</span>
         <span>⚡ {PORTFOLIO_CONFIG.role}</span>
         <span className="text-accent">@{PORTFOLIO_CONFIG.githubUsername}</span>
@@ -996,14 +996,14 @@ function DanishOutput() {
 /* ── Custom WhoAmI ASCII Banner & Bio Component ── */
 function WhoamiOutput() {
   return (
-    <div className="my-2 rounded-lg border border-accent/30 bg-[#161220] p-4 font-mono text-[12px]">
+    <div className="my-2 rounded-lg border border-accent/30 bg-[#0b1526] p-4 font-mono text-[12px]">
       <pre className="font-mono text-[10px] leading-tight text-accent-bright sm:text-[12px] select-none overflow-x-auto">
 {PORTFOLIO_CONFIG.terminal.whoamiBanner}
       </pre>
-      <p className="mt-2 text-[#efe7f7] leading-relaxed">
+      <p className="mt-2 text-[#e7f0f9] leading-relaxed">
         {PORTFOLIO_CONFIG.terminal.whoami}
       </p>
-      <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-term-line/60 pt-2 text-[11px] text-[#a596ba]">
+      <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-term-line/60 pt-2 text-[11px] text-[#96abc4]">
         <span>Location: India</span>
         <span>•</span>
         <span>Focus: Emulators, WASM, Firmware &amp; Full-Stack Toolchains</span>
