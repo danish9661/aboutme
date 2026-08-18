@@ -1,0 +1,469 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens — "Gradient Candy" ──────────────────────────── */
+:root {
+  color-scheme: light;
+
+  --bg: #fff6f6;
+  --surface: #ffffff;
+  --line: rgba(132, 94, 194, 0.14);
+  --line-strong: rgba(132, 94, 194, 0.28);
+
+  --ink: #2b1b3d;
+  --ink-2: #6b5b7b;
+  --ink-3: #9a8caa;
+
+  /* primary — pink */
+  --accent: #ff4e9b;
+  --accent-bright: #ff6b6b;
+  --accent-wash: rgba(255, 78, 155, 0.1);
+
+  /* secondary — purple */
+  --accent-2: #845ec2;
+  --accent-2-bright: #9a78d6;
+  --accent-2-wash: rgba(132, 94, 194, 0.12);
+
+  /* tertiary — orange / coral */
+  --accent-3: #ffb347;
+  --accent-3-wash: rgba(255, 179, 71, 0.16);
+  --coral: #ff6b6b;
+
+  /* signature gradient */
+  --candy: linear-gradient(135deg, #ff6b6b, #ff4e9b, #845ec2);
+
+  /* terminal */
+  --term-bg: #17121f;
+  --term-line: #2e2440;
+}
+
+/* ─── Dark palette ──────────────────────────────────────────────────
+   Applied when the OS prefers dark (unless the user forced light), and
+   whenever the toggle sets data-theme="dark". Tokens only — every surface
+   reads through the Tailwind utilities, so this recolors the whole site. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #141019;
+    --surface: #1d1730;
+    --line: rgba(154, 120, 214, 0.16);
+    --line-strong: rgba(154, 120, 214, 0.3);
+    --ink: #f3edfb;
+    --ink-2: #bcaad3;
+    --ink-3: #a294bd;
+    --accent: #ff6bab;
+    --accent-bright: #ff8080;
+    --accent-wash: rgba(255, 107, 171, 0.16);
+    --accent-2: #a982e6;
+    --accent-2-bright: #bd9bf0;
+    --accent-2-wash: rgba(154, 120, 214, 0.2);
+    --accent-3: #ffc266;
+    --accent-3-wash: rgba(255, 179, 71, 0.18);
+    --coral: #ff8080;
+    --candy: linear-gradient(135deg, #ff7a7a, #ff5ea3, #9a78d6);
+    --term-bg: #0f0b17;
+    --term-line: #2e2440;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141019;
+  --surface: #1d1730;
+  --line: rgba(154, 120, 214, 0.16);
+  --line-strong: rgba(154, 120, 214, 0.3);
+  --ink: #f3edfb;
+  --ink-2: #bcaad3;
+  --ink-3: #a294bd;
+  --accent: #ff6bab;
+  --accent-bright: #ff8080;
+  --accent-wash: rgba(255, 107, 171, 0.16);
+  --accent-2: #a982e6;
+  --accent-2-bright: #bd9bf0;
+  --accent-2-wash: rgba(154, 120, 214, 0.2);
+  --accent-3: #ffc266;
+  --accent-3-wash: rgba(255, 179, 71, 0.18);
+  --coral: #ff8080;
+  --candy: linear-gradient(135deg, #ff7a7a, #ff5ea3, #9a78d6);
+  --term-bg: #0f0b17;
+  --term-line: #2e2440;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(58rem 40rem at 82% -8%, var(--accent-wash), transparent 60%),
+      radial-gradient(46rem 34rem at -6% 6%, var(--accent-2-wash), transparent 58%),
+      radial-gradient(40rem 30rem at 50% 110%, var(--accent-3-wash), transparent 60%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: theme("fontFamily.sans");
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--accent-wash);
+    color: var(--accent);
+  }
+}
+
+/* ─── Utilities ─────────────────────────────────────────────────── */
+@layer utilities {
+  .bg-candy {
+    background-image: var(--candy);
+  }
+  .text-candy {
+    background-image: var(--candy);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .border-candy {
+    border-image: var(--candy) 1;
+  }
+}
+
+/* ─── Blog post typography (used by components/blog/PostLayout) ── */
+@layer components {
+  .prose-blog {
+    max-width: 42rem;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--ink-2);
+  }
+  .prose-blog > * + * {
+    margin-top: 1.25em;
+  }
+  .prose-blog h2 {
+    position: relative;
+    scroll-margin-top: 90px;
+    margin-top: 2.2em;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .prose-blog h3 {
+    position: relative;
+    scroll-margin-top: 90px;
+    margin-top: 1.8em;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .prose-blog .heading-anchor {
+    margin-left: 0.35em;
+    color: var(--accent);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .prose-blog h2:hover .heading-anchor,
+  .prose-blog h3:hover .heading-anchor,
+  .prose-blog .heading-anchor:focus-visible {
+    opacity: 0.75;
+  }
+  .prose-blog strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .prose-blog a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 78, 155, 0.35);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
+  }
+  .prose-blog a:hover {
+    text-decoration-color: var(--accent);
+  }
+  .prose-blog ul,
+  .prose-blog ol {
+    padding-left: 1.4em;
+  }
+  .prose-blog ul {
+    list-style: disc;
+  }
+  .prose-blog ol {
+    list-style: decimal;
+  }
+  .prose-blog li {
+    margin-top: 0.5em;
+  }
+  .prose-blog li::marker {
+    color: var(--accent-2);
+  }
+  .prose-blog code {
+    border-radius: 6px;
+    background: var(--accent-2-wash);
+    padding: 0.15em 0.4em;
+    font-family: theme("fontFamily.mono");
+    font-size: 0.85em;
+    color: var(--accent-2);
+  }
+  .prose-blog pre {
+    overflow-x: auto;
+    border: 1px solid var(--term-line);
+    border-radius: 16px;
+    background: var(--term-bg);
+    padding: 1.25em 1.4em;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .prose-blog pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    color: #f2ecff;
+  }
+  /* Shiki keeps its own token colors but wears our brand dark frame. */
+  .prose-blog pre.shiki {
+    background: var(--term-bg) !important;
+  }
+  .prose-blog pre.shiki code {
+    color: inherit;
+  }
+  .prose-blog pre.shiki .line {
+    display: inline-block;
+    width: 100%;
+  }
+  .prose-blog blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.2em;
+    font-style: italic;
+    color: var(--ink-2);
+  }
+  .prose-blog hr {
+    margin: 2.5em 0;
+    border: 0;
+    height: 1px;
+    background: var(--line-strong);
+  }
+  .prose-blog mark {
+    background: var(--accent-3-wash);
+    color: var(--ink);
+    padding: 0.05em 0.25em;
+    border-radius: 4px;
+  }
+  .prose-blog img {
+    border-radius: 16px;
+    border: 1px solid var(--line);
+  }
+}
+
+/* ─── Micro-animation ───────────────────────────────────────────── */
+
+/* Shimmer sweep across the coming-soon "draft progress" bar */
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.animate-shimmer {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 70%
+  );
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+
+@keyframes ping-soft {
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.animate-ping-soft {
+  animation: ping-soft 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.animate-cursor {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* Faint waveform drift inside the sleep-apnea demo panel */
+@keyframes osc-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-osc {
+  animation: osc-drift 9s linear infinite;
+}
+
+/* Gentle float (phone mockup) */
+.animate-float {
+  animation: float 5.5s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* ─── Avatar rig ────────────────────────────────────────────────── */
+.char-bob {
+  animation: char-bob 4.5s ease-in-out infinite;
+}
+@keyframes char-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.char-wave {
+  transform-box: fill-box;
+  transform-origin: 50% 92%;
+  animation: char-wave 0.85s ease-in-out infinite;
+}
+@keyframes char-wave {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+  50% {
+    transform: rotate(26deg);
+  }
+}
+
+.char-arm-l {
+  transform-box: fill-box;
+  transform-origin: 50% 8%;
+  animation: char-sway 3.4s ease-in-out infinite;
+}
+@keyframes char-sway {
+  0%,
+  100% {
+    transform: rotate(4deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+
+.char-leg-l {
+  transform-box: fill-box;
+  transform-origin: 50% 6%;
+  animation: char-leg 3.4s ease-in-out infinite;
+}
+.char-leg-r {
+  transform-box: fill-box;
+  transform-origin: 50% 6%;
+  animation: char-leg 3.4s ease-in-out infinite reverse;
+}
+@keyframes char-leg {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.char-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: char-blink 5s infinite;
+}
+@keyframes char-blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ping-soft,
+  .animate-cursor,
+  .animate-osc,
+  .animate-float,
+  .animate-shimmer,
+  .char-bob,
+  .char-wave,
+  .char-arm-l,
+  .char-leg-l,
+  .char-leg-r,
+  .char-blink {
+    animation: none;
+  }
+}
+
+/* ─── View transitions (shared-element title morph) ─────────────────
+   Gentle: a slow, evenly-eased grow (no fast "pop"), and the morphing
+   title crossfades quickly so the scale change reads soft, not as a
+   zoom lunging toward the viewer. */
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 0.22s;
+  animation-timing-function: ease;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
