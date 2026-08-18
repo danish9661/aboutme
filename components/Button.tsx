@@ -41,9 +41,14 @@ export default function Button({
   // (e.g. a static PDF served from /public).
   if (isExternal || newTab) {
     const openNewTab = newTab ?? isHttp;
+    const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    const resolvedHref =
+      !isExternal && href.startsWith("/") && bp && !href.startsWith(bp)
+        ? `${bp}${href}`
+        : href;
     return (
       <a
-        href={href}
+        href={resolvedHref}
         className={cls}
         {...(openNewTab ? { target: "_blank", rel: "noreferrer noopener" } : {})}
       >

@@ -205,7 +205,12 @@ export default function LaptopShowcase() {
             if (isLive && proj.link) {
               next.push({ kind: "sys", text: `↗ Opening live link for ${proj.title}...` });
               if (typeof window !== "undefined") {
-                window.open(proj.link.href, "_blank", "noopener,noreferrer");
+                const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
+                const targetUrl =
+                  proj.link.href.startsWith("/") && bp && !proj.link.href.startsWith(bp)
+                    ? `${bp}${proj.link.href}`
+                    : proj.link.href;
+                window.open(targetUrl, "_blank", "noopener,noreferrer");
               }
             } else {
               next.push({ kind: "sys", text: `opening ${proj.id}…` });

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 /** Production origin — used for canonical URLs */
-export const SITE_URL = "https://danish9661.github.io";
+export const SITE_URL = "https://danish9661.github.io/aboutme";
 
 export interface PostData {
   /** URL segment — the post page must live at app/blog/<slug>/page.tsx */

@@ -37,6 +37,9 @@ export const metadata: Metadata = {
       "Systems, embedded firmware, emulators, and low-level software engineer. Building fast, reliable tools and hardware systems.",
     type: "website",
   },
+  verification: {
+    google: "15oUGn7tDY5qFKh0oX7q0zWcuUJ_nFIIjjZk6ixculo",
+  },
 };
 
 export const viewport: Viewport = {
@@ -62,6 +65,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${jetbrainsMono.variable} ${caveat.variable}`}
     >
+      <head>
+        <meta
+          name="google-site-verification"
+          content="15oUGn7tDY5qFKh0oX7q0zWcuUJ_nFIIjjZk6ixculo"
+        />
+      </head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH }} />
         <ViewTransitions>

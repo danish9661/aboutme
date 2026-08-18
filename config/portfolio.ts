@@ -36,7 +36,7 @@ export const PORTFOLIO_CONFIG = {
   shortName: "Danish.",
   role: "Systems & Software Engineer",
   email: "9661346164h@gmail.com",
-  resumePdfPath: "/resume/Md-Danish-Resume.pdf",
+  resumePdfPath: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/resume/Md-Danish-Resume.pdf`,
 
   // Socials & Package Registry Links
   githubUsername: "danish9661",
