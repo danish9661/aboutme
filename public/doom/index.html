@@ -20,60 +20,35 @@
       font-family: monospace;
       overflow: hidden;
     }
+    #dos, .dosbox-container, canvas, body, html {
+      outline: none !important;
+      border: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
     #dos {
       position: relative;
       width: 100%;
       height: 100%;
+      outline: none !important;
     }
     .dosbox-container {
       width: 100% !important;
       height: 100% !important;
+      border: none !important;
+      outline: none !important;
     }
     canvas {
       width: 100% !important;
       height: 100% !important;
       object-fit: contain;
       background: #000;
-    }
-    #loading-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10, 5, 16, 0.95);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      z-index: 10;
-      transition: opacity 0.3s ease;
-    }
-    .spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid rgba(255, 78, 155, 0.2);
-      border-top-color: #ff4e9b;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    .status-text {
-      font-size: 12px;
-      color: #e7f0f9;
-      letter-spacing: 0.5px;
+      outline: none !important;
+      border: none !important;
     }
   </style>
 </head>
-<body>
-  <div id="loading-overlay">
-    <div class="spinner"></div>
-    <div class="status-text" id="status">Loading DOOM WASM Engine &amp; Assets...</div>
-  </div>
-  <canvas id="dos" tabindex="1" autofocus></canvas>
+<body style="background: #000;">
+  <canvas id="dos" tabindex="1"></canvas>
 
   <script>
     /*
@@ -106,29 +81,80 @@
       }
     });
 
+    var isGameStarted = false;
+
     Dos(canvas, {
       wdosboxUrl: "/doom/wdosbox.js" + CB,
       cycles: "max",
       autolock: true,
+      log: function(msg) {
+        console.log("[DOOM Core]", msg);
+      },
       onprogress: function(stage, total, loaded) {
         var status = document.getElementById("status");
         if (status) {
-          var pct = total > 0 ? Math.round((loaded / total) * 100) : 0;
-          status.innerText = stage + " (" + pct + "%)...";
+          status.innerText = "PREPARING WAD & JIT CORE...";
         }
       }
     }).ready(function(fs, main) {
       fs.extract("/doom/doom.jsdos" + CB).then(function() {
-        var overlay = document.getElementById("loading-overlay");
-        if (overlay) {
-          overlay.style.opacity = "0";
-          setTimeout(function() { overlay.style.display = "none"; }, 300);
-        }
         main(["-c", "DOOM.EXE"]).then(function(ci) {
           focusCanvas();
           if (ci && ci.simulateKeyPress) {
-            // Send initial enter to skip demo screen if needed
-            setTimeout(focusCanvas, 500);
+            setTimeout(function() {
+              ci.simulateKeyPress(13);
+              focusCanvas();
+            }, 100);
+          }
+
+          var graphicsReadySent = false;
+          function notifyGraphicsReady(source) {
+            if (!graphicsReadySent) {
+              graphicsReadySent = true;
+              console.log("[DOOM Core] 🎮 DOOM VGA Graphics active! (Reason: " + source + ", Canvas: " + canvas.width + "x" + canvas.height + "). Emitting DOOM_GRAPHICS_READY.");
+              window.parent.postMessage({ type: "DOOM_GRAPHICS_READY" }, "*");
+              focusCanvas();
+              isGameStarted = true;
+            }
+          }
+
+          // Buffer stdout chunks to reliably detect exit prompts and graphics initialization
+          var stdoutBuffer = "";
+          if (ci && typeof ci.listenStdout === "function") {
+            ci.listenStdout(function(text) {
+              if (text) {
+                stdoutBuffer += text;
+                if (stdoutBuffer.length > 2000) {
+                  stdoutBuffer = stdoutBuffer.slice(-1000);
+                }
+                
+                // DOOM prints 'HU_Init' / 'ST_Init' / 'P_Init: Init Playloop state' when starting the visual game
+                if (!graphicsReadySent && (
+                  stdoutBuffer.indexOf("ST_Init") >= 0 ||
+                  stdoutBuffer.indexOf("HU_Init") >= 0 ||
+                  stdoutBuffer.indexOf("Init Playloop") >= 0 ||
+                  stdoutBuffer.indexOf("S_Init: Setting up sound") >= 0
+                )) {
+                  setTimeout(function() {
+                    notifyGraphicsReady("playloop_stdout");
+                  }, 200);
+                }
+
+                if (isGameStarted) {
+                  var lower = stdoutBuffer.toLowerCase();
+                  if (
+                    lower.indexOf("c:\\>") >= 0 ||
+                    lower.indexOf("c:/>") >= 0 ||
+                    lower.indexOf("exiting doom") >= 0 ||
+                    lower.indexOf("z_free") >= 0 ||
+                    lower.indexOf("dosbox-jsdos") >= 0
+                  ) {
+                    console.log("[DOOM Core] In-game quit detected via buffered stdout! Sending DOOM_EXIT...");
+                    window.parent.postMessage({ type: "DOOM_EXIT", reason: "in_game_quit" }, "*");
+                  }
+                }
+              }
+            });
           }
         });
       });

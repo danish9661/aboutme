@@ -442,6 +442,31 @@
   }
 }
 
+/* ─── Scrollbar Hiding Utilities ─────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* ─── Canvas / Iframe / Laptop Screen Focus Reset ─────────────────── */
+iframe,
+canvas,
+#terminal,
+[tabindex] {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+iframe:focus,
+iframe:focus-visible,
+canvas:focus,
+canvas:focus-visible {
+  outline: none !important;
+  border-color: transparent !important;
+}
+
 /* ─── View transitions (shared-element title morph) ─────────────────
    Gentle: a slow, evenly-eased grow (no fast "pop"), and the morphing
    title crossfades quickly so the scale change reads soft, not as a

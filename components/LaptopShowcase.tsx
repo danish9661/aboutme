@@ -11,7 +11,7 @@ import Chip from "./Chip";
 import Divider from "./Divider";
 import DoomPlayer from "./doom/DoomPlayer";
 
-type View = "home" | "cli" | "project";
+type View = "home" | "cli" | "project" | "doom";
 type LineKind = "cmd" | "out" | "sys" | "err" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake" | "doom";
 type TerminalTheme = "default" | "cyberpunk" | "matrix" | "nord";
 type TerminalFont = "mono" | "pixel" | "hacker" | "sans";
@@ -120,6 +120,9 @@ export default function LaptopShowcase() {
   const [minimized, setMinimized] = useState(false);
   const [terminalTheme, setTerminalTheme] = useState<TerminalTheme>("default");
   const [terminalFont, setTerminalFont] = useState<TerminalFont>("mono");
+  const [doomPreload, setDoomPreload] = useState(false);
+  const [doomReady, setDoomReady] = useState(false);
+  const [showDoomHelp, setShowDoomHelp] = useState(false);
 
   // Command history buffer for Up / Down arrow navigation
   const cmdHistoryRef = useRef<string[]>([]);
@@ -307,7 +310,43 @@ export default function LaptopShowcase() {
       } else if (cmd === "danish") {
         next.push({ kind: "danish" });
       } else if (cmd === "doom") {
-        next.push({ kind: "doom" });
+        setDoomPreload(true);
+        setDoomReady(false);
+
+        const INSTALL_LOGS: Line[] = [
+          { kind: "cmd", text: "sudo apt-get update && apt-get install -y doom-engine-wasm doom-wad" },
+          { kind: "sys", text: "Hit:1 https://deb.danish.dev/danishos stable InRelease" },
+          { kind: "sys", text: "Get:2 https://deb.danish.dev/danishos stable/main wasm-emulators [1,808 kB]" },
+          { kind: "sys", text: "Get:3 https://deb.danish.dev/danishos stable/main doom-wad-shareware [5,482 kB]" },
+          { kind: "out", text: "Fetched 7,290 kB in 0.3s (24.3 MB/s)\nReading package lists... Done\nBuilding dependency tree... Done\nSelecting previously unselected package doom-engine-wasm." },
+          { kind: "sys", text: "Unpacking doom-engine-wasm (1.9-jit-x86) ..." },
+          { kind: "sys", text: "Setting up wdosbox-jit-runtime (6.22.60) ..." },
+          { kind: "out", text: "[  OK  ] Initialized WebAssembly SoundBlaster16 & OPL3 synthesizer.\n[  OK  ] Allocated 16 MB virtual EMS/XMS memory bank.\n[  OK  ] Mounted /dev/vga0 SDL2 hardware surface (320x200 @ 60 FPS)." },
+          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓░░░░░░░░░░░░░░░░░░░░░] 12%  ETA 0.8s" },
+          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░] 38%  ETA 0.5s" },
+          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░] 65%  ETA 0.3s" },
+          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100% (5.3 MB unpacked)" },
+          { kind: "out", text: "C:\\> DOOM.EXE\nDOOM Shareware Startup v1.9 (id Software)\nV_Init: allocate screens (320x200 8-bit VGA).\nZ_Init: 8.0MB zone memory.\nW_Init: adding doom1.wad ... OK\nS_Init: sound initialized (SB16 44.1kHz Stereo)\nP_Init: playloop initialized." },
+          { kind: "sys", text: "🚀 JIT Core ready! Opening DOOM graphics display..." },
+        ];
+
+        // Stream lines into the CLI terminal history
+        let currentIdx = 0;
+        const streamNext = () => {
+          if (currentIdx < INSTALL_LOGS.length) {
+            const item = INSTALL_LOGS[currentIdx];
+            setHistory((prev) => [...prev, item]);
+            currentIdx++;
+            setTimeout(streamNext, currentIdx === INSTALL_LOGS.length ? 500 : 180);
+          } else {
+            // Once terminal logs finish, switch directly to DOOM view
+            setView("doom");
+          }
+        };
+
+        setInput("");
+        streamNext();
+        return;
       } else if (cmd === "snake" || cmd === "game" || cmd === "play") {
         next.push({ kind: "snake" });
       } else if (cmd === "matrix") {
@@ -605,50 +644,141 @@ export default function LaptopShowcase() {
               {showWindow && (
                 <div className="flex h-full flex-col">
                   {/* window title bar */}
-                  <div className={`flex items-center gap-2 border-b px-4 py-3 transition-colors ${activeTheme.border}`}>
-                    <div className="group/tl flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={closeWindow}
-                        aria-label="Close — back to home"
-                        title="Close"
-                        className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#ff5f57] text-[9px] font-bold leading-none text-black/55 transition-colors hover:bg-[#ff7b74]"
-                      >
-                        <span className="opacity-0 group-hover/tl:opacity-100">×</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={minimizeWindow}
-                        aria-label="Minimize"
-                        title="Minimize"
-                        className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#febc2e] text-[10px] font-bold leading-none text-black/55 transition-colors hover:bg-[#ffce5a]"
-                      >
-                        <span className="-mt-px opacity-0 group-hover/tl:opacity-100">–</span>
-                      </button>
-                      <span className="h-3.5 w-3.5 rounded-full bg-[#28c840]" aria-hidden />
+                  <div className={`flex h-[30px] shrink-0 items-center justify-between border-b px-4 transition-colors ${activeTheme.border}`}>
+                    <div className="flex items-center gap-2">
+                      <div className="group/tl flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={closeWindow}
+                          aria-label="Close — back to home"
+                          title="Close"
+                          className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#ff5f57] text-[9px] font-bold leading-none text-black/55 transition-colors hover:bg-[#ff7b74]"
+                        >
+                          <span className="opacity-0 group-hover/tl:opacity-100">×</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={minimizeWindow}
+                          aria-label="Minimize"
+                          title="Minimize"
+                          className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#febc2e] text-[10px] font-bold leading-none text-black/55 transition-colors hover:bg-[#ffce5a]"
+                        >
+                          <span className="-mt-px opacity-0 group-hover/tl:opacity-100">–</span>
+                        </button>
+                        <span className="h-3.5 w-3.5 rounded-full bg-[#28c840]" aria-hidden />
+                      </div>
+                      <span className="ml-3 truncate font-mono text-[11px] text-[#7b93ad]">
+                        {view === "project" && activeProject
+                          ? `~/projects/${activeProject.id}`
+                          : view === "doom"
+                          ? "🎮 DOOM (1993) — WASM JIT"
+                          : "danish — zsh — projects"}
+                      </span>
                     </div>
-                    <span className="ml-3 truncate font-mono text-[11px] text-[#7b93ad]">
-                      {view === "project" && activeProject
-                        ? `~/projects/${activeProject.id}`
-                        : "danish — zsh — projects"}
-                    </span>
-                    {view === "project" && (
+
+                    {/* Right-side actions */}
+                    {view === "doom" ? (
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setShowDoomHelp((prev) => !prev)}
+                          className={`flex items-center gap-1 rounded border px-2 py-0.5 text-[10px] font-bold transition-all ${
+                            showDoomHelp
+                              ? "border-[#ffd166] bg-[#ffd166] text-black"
+                              : "border-[#ff4e9b]/40 bg-[#1f0d28] text-[#ff74b1] hover:bg-[#ff4e9b] hover:text-black"
+                          }`}
+                        >
+                          <span>ℹ Help</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setDoomPreload(false);
+                            setView("cli");
+                          }}
+                          className="flex items-center gap-1 rounded border border-[#ff4e9b] bg-[#ff4e9b] px-2 py-0.5 text-[10px] font-bold text-black shadow-[0_0_8px_rgba(255,78,155,0.4)] transition-transform hover:bg-white active:scale-95"
+                        >
+                          <span>Exit</span>
+                          <kbd className="rounded bg-black/30 px-1 text-[9px] text-white">ESC</kbd>
+                        </button>
+                      </div>
+                    ) : view === "project" ? (
                       <button
                         type="button"
                         onClick={() => setView("cli")}
-                        className="ml-auto font-mono text-[11px] text-accent-bright transition-colors hover:text-white"
+                        className="font-mono text-[11px] text-accent-bright transition-colors hover:text-white"
                       >
                         ← back
                       </button>
-                    )}
+                    ) : null}
                   </div>
+
+                  {/* DOOM Help Drawer Overlay */}
+                  {view === "doom" && showDoomHelp && (
+                    <div className="absolute inset-x-0 top-[30px] z-40 max-h-[85%] overflow-y-auto no-scrollbar border-b border-[#ffd166]/40 bg-[#0e0717]/95 p-4 text-[12px] shadow-2xl backdrop-blur-md">
+                      <div className="flex items-center justify-between border-b border-[#ffd166]/30 pb-2">
+                        <span className="font-bold text-[#ffd166]">📖 DOOM Controls &amp; Gameplay Guide</span>
+                        <button
+                          type="button"
+                          onClick={() => setShowDoomHelp(false)}
+                          className="rounded bg-[#ffd166] px-2 py-0.5 text-[10px] font-bold text-black hover:bg-white"
+                        >
+                          Close
+                        </button>
+                      </div>
+                      <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 text-[#e2d9eb]">
+                        <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5">
+                          <div className="font-semibold text-[#ff74b1]">🎮 Movement &amp; Action</div>
+                          <div className="text-[11px] space-y-1">
+                            <div><strong className="text-white">Arrow Keys / WASD</strong> : Move forward, backward, turn</div>
+                            <div><strong className="text-white">Ctrl / Mouse Left</strong> : Fire weapon / Shoot</div>
+                            <div><strong className="text-white">Space / E</strong> : Open doors &amp; activate switches</div>
+                            <div><strong className="text-white">Shift + Move</strong> : Turbo sprint</div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5">
+                          <div className="font-semibold text-[#38ef7d]">🔫 Weapons &amp; Combat</div>
+                          <div className="text-[11px] space-y-1">
+                            <div><strong className="text-white">1</strong> : Fist / Chainsaw</div>
+                            <div><strong className="text-white">2</strong> : Pistol</div>
+                            <div><strong className="text-white">3</strong> : Shotgun / Super Shotgun</div>
+                            <div><strong className="text-white">4</strong> : Chaingun · <strong className="text-white">5</strong> : Rocket Launcher</div>
+                            <div><strong className="text-white">6</strong> : Plasma Rifle · <strong className="text-white">7</strong> : BFG9000</div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5 sm:col-span-2">
+                          <div className="font-semibold text-[#ffd166]">💡 Pro Tips &amp; Sound</div>
+                          <div className="text-[11px] space-y-1 text-[#b9cbe0]">
+                            <div>• Click inside the game window once to lock mouse/keyboard focus.</div>
+                            <div>• Press <strong className="text-white">ESC</strong> in-game for the options/save menu, or click <strong className="text-[#ff74b1]">Exit</strong> above to return to the terminal.</div>
+                            <div>• Powered by DOSBox WebAssembly JIT with SoundBlaster 16 stereo emulation.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* DOOM Full Screen inside Laptop */}
+                  {(view === "doom" || doomPreload) && (
+                    <div className={`flex-1 overflow-hidden bg-black ${view === "doom" ? "block" : "hidden"}`}>
+                      <DoomPlayer
+                        onExit={() => {
+                          setDoomPreload(false);
+                          setView("cli");
+                        }}
+                        onReady={() => setDoomReady(true)}
+                      />
+                    </div>
+                  )}
 
                   {/* CLI */}
                   {view === "cli" && (
                     <div
                       ref={bodyRef}
                       onClick={() => inputRef.current?.focus({ preventScroll: true })}
-                      className={`flex-1 overflow-y-auto px-4 py-4 text-[13px] leading-relaxed transition-all duration-200 sm:text-[14px] ${activeFont}`}
+                      className={`flex-1 overflow-y-auto no-scrollbar px-4 py-4 text-[13px] leading-relaxed transition-all duration-200 sm:text-[14px] ${activeFont}`}
                     >
                       <p className="text-[#b9cbe0]">
                         DanishOS v2.4 (x86_64-wasm) · {PROJECTS.length} systems &amp; emulator builds.
