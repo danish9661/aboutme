@@ -52,13 +52,12 @@
 
   <script>
     /*
-     * Override Emscripten's locateFile so it fetches WASM from our local
-     * /doom/ directory instead of trying to resolve relative to js-dos CDN.
-     * This is the standard Emscripten pattern for self-hosting wasm binaries.
+     * Override Emscripten's locateFile to load wasm files relative to the current html directory.
+     * This works seamlessly on localhost and GitHub Pages (/aboutme/).
      */
     window.Module = {
       locateFile: function(path) {
-        return '/doom/' + path;
+        return './' + path;
       }
     };
 
@@ -84,7 +83,7 @@
     var isGameStarted = false;
 
     Dos(canvas, {
-      wdosboxUrl: "/doom/wdosbox.js" + CB,
+      wdosboxUrl: "./wdosbox.js" + CB,
       cycles: "max",
       autolock: true,
       log: function(msg) {
@@ -97,7 +96,7 @@
         }
       }
     }).ready(function(fs, main) {
-      fs.extract("/doom/doom.jsdos" + CB).then(function() {
+      fs.extract("./doom.jsdos" + CB).then(function() {
         main(["-c", "DOOM.EXE"]).then(function(ci) {
           focusCanvas();
           if (ci && ci.simulateKeyPress) {

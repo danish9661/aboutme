@@ -55,11 +55,14 @@ export default function DoomPlayer({ onExit, onReady }: DoomPlayerProps) {
     return () => window.removeEventListener("message", handleMessage);
   }, [onExit, onReady]);
 
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const iframeSrc = `${basePath}/doom/index.html`;
+
   return (
     <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-black font-mono text-white">
       <iframe
         ref={iframeRef}
-        src="/doom/index.html"
+        src={iframeSrc}
         title="DOOM WebAssembly Player"
         className={`h-full w-full border-0 transition-opacity duration-300 ${isGraphicsReady ? "opacity-100" : "opacity-0"}`}
         allow="autoplay; fullscreen; gamepad"
