@@ -322,40 +322,19 @@ export default function LaptopShowcase() {
         setDoomPreload(true);
         setDoomReady(false);
 
-        const INSTALL_LOGS: Line[] = [
+        const headerLogs: Line[] = [
           { kind: "cmd", text: "sudo apt-get update && apt-get install -y doom-engine-wasm doom-wad" },
           { kind: "sys", text: "Hit:1 https://deb.danish.dev/danishos stable InRelease" },
           { kind: "sys", text: "Get:2 https://deb.danish.dev/danishos stable/main wasm-emulators [1,808 kB]" },
           { kind: "sys", text: "Get:3 https://deb.danish.dev/danishos stable/main doom-wad-shareware [5,482 kB]" },
-          { kind: "out", text: "Fetched 7,290 kB in 0.3s (24.3 MB/s)\nReading package lists... Done\nBuilding dependency tree... Done\nSelecting previously unselected package doom-engine-wasm." },
+          { kind: "out", text: "Reading package lists... Done\nBuilding dependency tree... Done\nSelecting previously unselected package doom-engine-wasm." },
           { kind: "sys", text: "Unpacking doom-engine-wasm (1.9-jit-x86) ..." },
           { kind: "sys", text: "Setting up wdosbox-jit-runtime (6.22.60) ..." },
           { kind: "out", text: "[  OK  ] Initialized WebAssembly SoundBlaster16 & OPL3 synthesizer.\n[  OK  ] Allocated 16 MB virtual EMS/XMS memory bank.\n[  OK  ] Mounted /dev/vga0 SDL2 hardware surface (320x200 @ 60 FPS)." },
-          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓░░░░░░░░░░░░░░░░░░░░░] 12%  ETA 0.8s" },
-          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░] 38%  ETA 0.5s" },
-          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░] 65%  ETA 0.3s" },
-          { kind: "sys", text: "Extracting DOOM.WAD : [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100% (5.3 MB unpacked)" },
-          { kind: "out", text: "C:\\> DOOM.EXE\nDOOM Shareware Startup v1.9 (id Software)\nV_Init: allocate screens (320x200 8-bit VGA).\nZ_Init: 8.0MB zone memory.\nW_Init: adding doom1.wad ... OK\nS_Init: sound initialized (SB16 44.1kHz Stereo)\nP_Init: playloop initialized." },
-          { kind: "sys", text: "🚀 JIT Core ready! Opening DOOM graphics display..." },
         ];
 
-        // Stream lines into the CLI terminal history
-        let currentIdx = 0;
-        let logsFinished = false;
-
-        const streamNext = () => {
-          if (currentIdx < INSTALL_LOGS.length) {
-            const item = INSTALL_LOGS[currentIdx];
-            setHistory((prev) => [...prev, item]);
-            currentIdx++;
-            setTimeout(streamNext, currentIdx === INSTALL_LOGS.length ? 500 : 180);
-          } else {
-            logsFinished = true;
-          }
-        };
-
+        setHistory((prev) => [...prev, ...headerLogs]);
         setInput("");
-        streamNext();
         return;
       } else if (cmd === "snake" || cmd === "game" || cmd === "play") {
         next.push({ kind: "snake" });
@@ -780,9 +759,30 @@ export default function LaptopShowcase() {
                           setShowDoomHelp(false);
                           setView("cli");
                         }}
+                        onProgress={(data) => {
+                          const filled = Math.floor((data.percent / 100) * 20);
+                          const empty = 20 - filled;
+                          const bar = "▓".repeat(filled) + "░".repeat(empty);
+                          const progressText = `${data.stage} : [${bar}] ${data.percent}%`;
+                          
+                          setHistory((prev) => {
+                            const last = prev[prev.length - 1];
+                            if (last && last.kind === "sys" && typeof last.text === "string" && last.text.includes("[")) {
+                              return [...prev.slice(0, -1), { kind: "sys", text: progressText }];
+                            }
+                            return [...prev, { kind: "sys", text: progressText }];
+                          });
+                        }}
                         onReady={() => {
-                          setDoomReady(true);
-                          setView("doom");
+                          setHistory((prev) => [
+                            ...prev,
+                            { kind: "out", text: "C:\\> DOOM.EXE\nDOOM Shareware Startup v1.9 (id Software)\nV_Init: allocate screens (320x200 8-bit VGA).\nZ_Init: 8.0MB zone memory.\nW_Init: adding doom1.wad ... OK\nS_Init: sound initialized (SB16 44.1kHz Stereo)\nP_Init: playloop initialized." },
+                            { kind: "sys", text: "🚀 DOOM VGA Graphics ready! Switching to display..." }
+                          ]);
+                          setTimeout(() => {
+                            setDoomReady(true);
+                            setView("doom");
+                          }, 300);
                         }}
                       />
                     </div>

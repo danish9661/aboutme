@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 interface DoomPlayerProps {
   onExit?: () => void;
   onReady?: () => void;
+  onProgress?: (data: { stage: string; percent: number; loaded: number; total: number }) => void;
 }
 
 interface InstallStep {
@@ -35,7 +36,7 @@ const INSTALL_SCRIPT: InstallStep[] = [
   { text: "Installation complete. Starting DOOM in Fullscreen mode...", delay: 400, type: "success" },
 ];
 
-export default function DoomPlayer({ onExit, onReady }: DoomPlayerProps) {
+export default function DoomPlayer({ onExit, onReady, onProgress }: DoomPlayerProps) {
   const [isGraphicsReady, setIsGraphicsReady] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -49,11 +50,13 @@ export default function DoomPlayer({ onExit, onReady }: DoomPlayerProps) {
         console.log("[DoomPlayer] Received DOOM_GRAPHICS_READY event! Full VGA graphics active.");
         setIsGraphicsReady(true);
         if (onReady) onReady();
+      } else if (e.data && e.data.type === "DOOM_PROGRESS") {
+        if (onProgress) onProgress(e.data);
       }
     };
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [onExit, onReady]);
+  }, [onExit, onReady, onProgress]);
 
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
   const iframeSrc = `${basePath}/doom/index.html`;

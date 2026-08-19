@@ -90,12 +90,23 @@
         console.log("[DOOM Core]", msg);
       },
       onprogress: function(stage, total, loaded) {
-        var status = document.getElementById("status");
-        if (status) {
-          status.innerText = "PREPARING WAD & JIT CORE...";
-        }
+        var pct = total > 0 ? Math.min(100, Math.round((loaded / total) * 100)) : 0;
+        window.parent.postMessage({
+          type: "DOOM_PROGRESS",
+          stage: stage || "Downloading engine & WAD...",
+          loaded: loaded,
+          total: total,
+          percent: pct
+        }, "*");
       }
     }).ready(function(fs, main) {
+      window.parent.postMessage({
+        type: "DOOM_PROGRESS",
+        stage: "Extracting DOOM.WAD package...",
+        loaded: 100,
+        total: 100,
+        percent: 100
+      }, "*");
       fs.extract("./doom.jsdos" + CB).then(function() {
         main(["-c", "DOOM.EXE"]).then(function(ci) {
           focusCanvas();
