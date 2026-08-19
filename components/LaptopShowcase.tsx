@@ -9,9 +9,10 @@ import { PORTFOLIO_CONFIG } from "@/config/portfolio";
 import Badge from "./Badge";
 import Chip from "./Chip";
 import Divider from "./Divider";
+import DoomPlayer from "./doom/DoomPlayer";
 
 type View = "home" | "cli" | "project";
-type LineKind = "cmd" | "out" | "sys" | "err" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake";
+type LineKind = "cmd" | "out" | "sys" | "err" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake" | "doom";
 type TerminalTheme = "default" | "cyberpunk" | "matrix" | "nord";
 type TerminalFont = "mono" | "pixel" | "hacker" | "sans";
 
@@ -27,6 +28,7 @@ const BASE_COMMANDS = [
   "ls",
   "ls -la",
   "danish",
+  "doom",
   "snake",
   "neofetch",
   "fastfetch",
@@ -92,13 +94,13 @@ const AUTOCOMPLETE_LIST = [
 const SUGGESTIONS = [
   { cmd: "ls", label: "ls" },
   { cmd: "snake", label: "🐍 snake" },
+  { cmd: "doom", label: "🎮 doom" },
   { cmd: "danish", label: "danish" },
   { cmd: "email", label: "email" },
   { cmd: PROJECTS[0] ? `open ${PROJECTS[0].id}` : "ls", label: PROJECTS[0] ? `open ${PROJECTS[0].id}` : "ls" },
   { cmd: "neofetch", label: "neofetch" },
   { cmd: "stats", label: "stats" },
   { cmd: "matrix", label: "matrix" },
-  { cmd: "font hacker", label: "font" },
   { cmd: "theme cyberpunk", label: "theme" },
 ];
 
@@ -304,6 +306,8 @@ export default function LaptopShowcase() {
         });
       } else if (cmd === "danish") {
         next.push({ kind: "danish" });
+      } else if (cmd === "doom") {
+        next.push({ kind: "doom" });
       } else if (cmd === "snake" || cmd === "game" || cmd === "play") {
         next.push({ kind: "snake" });
       } else if (cmd === "matrix") {
@@ -428,7 +432,7 @@ export default function LaptopShowcase() {
           const customCmdList = (PORTFOLIO_CONFIG.terminal.customCommands || []).map((c) => c.command).join(" · ");
           next.push({
             kind: "out",
-            text: `commands: ls · open <project> · socials · email · skills [lang|hw|wasm] · danish · neofetch · stats · matrix · font <name|list> · theme <name|list|random> · history [clear] · uptime · uname -a · sudo <cmd> · date · emu · resume · whoami${customCmdList ? ` · ${customCmdList}` : ""} · clear · home\n(Type \`help <command>\` for detailed usage)`,
+            text: `commands: ls · open <project> · doom · snake · socials · email · skills [lang|hw|wasm] · danish · neofetch · stats · matrix · font <name|list> · theme <name|list|random> · history [clear] · uptime · uname -a · sudo <cmd> · date · emu · resume · whoami${customCmdList ? ` · ${customCmdList}` : ""} · clear · home\n(Type \`help <command>\` for detailed usage)`,
           });
         }
       } else {
@@ -490,7 +494,7 @@ export default function LaptopShowcase() {
     }
   };
 
-  const lineColor: Record<Exclude<LineKind, "cmd" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake">, string> =
+  const lineColor: Record<Exclude<LineKind, "cmd" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake" | "doom">, string> =
     useMemo(
       () => ({
         out: "text-[#b9cbe0]",
@@ -728,6 +732,9 @@ export default function LaptopShowcase() {
                         }
                         if (line.kind === "snake") {
                           return <SnakeGame key={i} onExit={() => run("clear")} />;
+                        }
+                        if (line.kind === "doom") {
+                          return <DoomPlayer key={i} onExit={() => run("clear")} />;
                         }
                         return (
                           <div key={i} className={`mt-1.5 ${lineColor[line.kind]}`}>

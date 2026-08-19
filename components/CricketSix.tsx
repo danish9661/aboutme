@@ -255,7 +255,7 @@ export default function CricketSix() {
   }, [reduce]);
 
   return (
-    <section ref={ref} className="overflow-hidden pb-20 sm:pb-24">
+    <section ref={ref} className="relative overflow-hidden pb-20 sm:pb-24">
       <Divider />
       <div className="mx-auto mt-20 w-full max-w-page px-6 sm:mt-24 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
