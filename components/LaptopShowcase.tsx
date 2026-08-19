@@ -124,6 +124,13 @@ export default function LaptopShowcase() {
   const [doomReady, setDoomReady] = useState(false);
   const [showDoomHelp, setShowDoomHelp] = useState(false);
 
+  // Automatically switch view to DOOM only when both logs have finished and WASM graphics are 100% ready
+  useEffect(() => {
+    if (doomPreload && doomReady) {
+      setView("doom");
+    }
+  }, [doomPreload, doomReady]);
+
   // Command history buffer for Up / Down arrow navigation
   const cmdHistoryRef = useRef<string[]>([]);
   const historyIndexRef = useRef<number>(-1);
@@ -152,6 +159,8 @@ export default function LaptopShowcase() {
 
   const closeWindow = useCallback(() => {
     setMinimized(false);
+    setDoomPreload(false);
+    setShowDoomHelp(false);
     setView("home");
   }, []);
 
@@ -332,6 +341,8 @@ export default function LaptopShowcase() {
 
         // Stream lines into the CLI terminal history
         let currentIdx = 0;
+        let logsFinished = false;
+
         const streamNext = () => {
           if (currentIdx < INSTALL_LOGS.length) {
             const item = INSTALL_LOGS[currentIdx];
@@ -339,8 +350,7 @@ export default function LaptopShowcase() {
             currentIdx++;
             setTimeout(streamNext, currentIdx === INSTALL_LOGS.length ? 500 : 180);
           } else {
-            // Once terminal logs finish, switch directly to DOOM view
-            setView("doom");
+            logsFinished = true;
           }
         };
 
@@ -760,15 +770,20 @@ export default function LaptopShowcase() {
                     </div>
                   )}
 
-                  {/* DOOM Full Screen inside Laptop */}
+                  {/* DOOM Full Screen inside Laptop — Mounted in background during preload, made visible when ready */}
                   {(view === "doom" || doomPreload) && (
                     <div className={`flex-1 overflow-hidden bg-black ${view === "doom" ? "block" : "hidden"}`}>
                       <DoomPlayer
                         onExit={() => {
                           setDoomPreload(false);
+                          setDoomReady(false);
+                          setShowDoomHelp(false);
                           setView("cli");
                         }}
-                        onReady={() => setDoomReady(true)}
+                        onReady={() => {
+                          setDoomReady(true);
+                          setView("doom");
+                        }}
                       />
                     </div>
                   )}
