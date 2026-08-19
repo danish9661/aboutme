@@ -11,7 +11,7 @@ import Chip from "./Chip";
 import Divider from "./Divider";
 
 type View = "home" | "cli" | "project";
-type LineKind = "cmd" | "out" | "sys" | "err" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami";
+type LineKind = "cmd" | "out" | "sys" | "err" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake";
 type TerminalTheme = "default" | "cyberpunk" | "matrix" | "nord";
 type TerminalFont = "mono" | "pixel" | "hacker" | "sans";
 
@@ -27,6 +27,7 @@ const BASE_COMMANDS = [
   "ls",
   "ls -la",
   "danish",
+  "snake",
   "neofetch",
   "fastfetch",
   "stats",
@@ -68,6 +69,7 @@ const BASE_COMMANDS = [
   "help font",
   "help open",
   "help skills",
+  "help snake",
   "date",
   "resume",
   "cat resume",
@@ -89,6 +91,7 @@ const AUTOCOMPLETE_LIST = [
 
 const SUGGESTIONS = [
   { cmd: "ls", label: "ls" },
+  { cmd: "snake", label: "🐍 snake" },
   { cmd: "danish", label: "danish" },
   { cmd: "email", label: "email" },
   { cmd: PROJECTS[0] ? `open ${PROJECTS[0].id}` : "ls", label: PROJECTS[0] ? `open ${PROJECTS[0].id}` : "ls" },
@@ -301,6 +304,8 @@ export default function LaptopShowcase() {
         });
       } else if (cmd === "danish") {
         next.push({ kind: "danish" });
+      } else if (cmd === "snake" || cmd === "game" || cmd === "play") {
+        next.push({ kind: "snake" });
       } else if (cmd === "matrix") {
         next.push({ kind: "matrix" });
       } else if (head === "theme") {
@@ -485,7 +490,7 @@ export default function LaptopShowcase() {
     }
   };
 
-  const lineColor: Record<Exclude<LineKind, "cmd" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami">, string> =
+  const lineColor: Record<Exclude<LineKind, "cmd" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake">, string> =
     useMemo(
       () => ({
         out: "text-[#b9cbe0]",
@@ -720,6 +725,9 @@ export default function LaptopShowcase() {
                         }
                         if (line.kind === "whoami") {
                           return <WhoamiOutput key={i} />;
+                        }
+                        if (line.kind === "snake") {
+                          return <SnakeGame key={i} onExit={() => run("clear")} />;
                         }
                         return (
                           <div key={i} className={`mt-1.5 ${lineColor[line.kind]}`}>
@@ -1007,6 +1015,232 @@ function WhoamiOutput() {
         <span>Location: India</span>
         <span>•</span>
         <span>Focus: Emulators, WASM, Firmware &amp; Full-Stack Toolchains</span>
+      </div>
+    </div>
+  );
+}
+
+/* ── Interactive Retro Snake Game Component ── */
+function SnakeGame({ onExit }: { onExit?: () => void }) {
+  const [snake, setSnake] = useState<{ x: number; y: number }[]>([
+    { x: 5, y: 5 },
+    { x: 4, y: 5 },
+    { x: 3, y: 5 },
+  ]);
+  const [food, setFood] = useState<{ x: number; y: number }>({ x: 12, y: 5 });
+  const [direction, setDirection] = useState<"UP" | "DOWN" | "LEFT" | "RIGHT">("RIGHT");
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [highScore, setHighScore] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const gridWidth = 26;
+  const gridHeight = 13;
+
+  const dirRef = useRef(direction);
+  dirRef.current = direction;
+
+  const moveSnake = useCallback(() => {
+    if (gameOver || paused) return;
+
+    setSnake((prev) => {
+      const head = { ...prev[0] };
+      const currentDir = dirRef.current;
+
+      if (currentDir === "UP") head.y -= 1;
+      if (currentDir === "DOWN") head.y += 1;
+      if (currentDir === "LEFT") head.x -= 1;
+      if (currentDir === "RIGHT") head.x += 1;
+
+      // Wrap around grid boundaries for smooth arcade play
+      if (head.x < 0) head.x = gridWidth - 1;
+      if (head.x >= gridWidth) head.x = 0;
+      if (head.y < 0) head.y = gridHeight - 1;
+      if (head.y >= gridHeight) head.y = 0;
+
+      // Self-collision detection
+      for (let i = 0; i < prev.length; i++) {
+        if (prev[i].x === head.x && prev[i].y === head.y) {
+          setGameOver(true);
+          return prev;
+        }
+      }
+
+      const newSnake = [head, ...prev];
+
+      // Food eaten
+      if (head.x === food.x && head.y === food.y) {
+        setScore((s) => {
+          const next = s + 10;
+          setHighScore((h) => Math.max(h, next));
+          return next;
+        });
+        setFood({
+          x: Math.floor(Math.random() * gridWidth),
+          y: Math.floor(Math.random() * gridHeight),
+        });
+      } else {
+        newSnake.pop();
+      }
+
+      return newSnake;
+    });
+  }, [food, gameOver, paused]);
+
+  useEffect(() => {
+    const interval = setInterval(moveSnake, 110);
+    return () => clearInterval(interval);
+  }, [moveSnake]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      const k = e.key.toLowerCase();
+      if (k === "arrowup" || k === "w") {
+        if (dirRef.current !== "DOWN") setDirection("UP");
+        e.preventDefault();
+      } else if (k === "arrowdown" || k === "s") {
+        if (dirRef.current !== "UP") setDirection("DOWN");
+        e.preventDefault();
+      } else if (k === "arrowleft" || k === "a") {
+        if (dirRef.current !== "RIGHT") setDirection("LEFT");
+        e.preventDefault();
+      } else if (k === "arrowright" || k === "d") {
+        if (dirRef.current !== "LEFT") setDirection("RIGHT");
+        e.preventDefault();
+      } else if (k === " " || k === "p") {
+        setPaused((p) => !p);
+      } else if (k === "r" && gameOver) {
+        setSnake([
+          { x: 5, y: 5 },
+          { x: 4, y: 5 },
+          { x: 3, y: 5 },
+        ]);
+        setDirection("RIGHT");
+        setScore(0);
+        setGameOver(false);
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [gameOver]);
+
+  const restartGame = () => {
+    setSnake([
+      { x: 5, y: 5 },
+      { x: 4, y: 5 },
+      { x: 3, y: 5 },
+    ]);
+    setDirection("RIGHT");
+    setScore(0);
+    setGameOver(false);
+    setPaused(false);
+  };
+
+  return (
+    <div className="my-2 rounded-lg border border-[#28c840]/40 bg-[#0a120c] p-3.5 font-mono text-[12px] select-none text-[#28c840]">
+      {/* Game Header */}
+      <div className="flex flex-wrap items-center justify-between border-b border-[#28c840]/30 pb-2 text-[11px]">
+        <span className="font-bold text-[#a2f0b0]">🐍 DANISH_WASM_SNAKE v1.0</span>
+        <div className="flex items-center gap-3">
+          <span>Score: <strong className="text-white">{score}</strong></span>
+          <span>Best: <strong className="text-[#a2f0b0]">{highScore}</strong></span>
+        </div>
+      </div>
+
+      {/* ASCII Grid View */}
+      <div className="my-3 flex justify-center overflow-x-auto">
+        <div
+          className="grid gap-[2.5px] rounded-md border border-[#28c840]/30 bg-black/90 p-2.5 shadow-inner"
+          style={{
+            gridTemplateColumns: `repeat(${gridWidth}, 16px)`,
+            gridTemplateRows: `repeat(${gridHeight}, 16px)`,
+          }}
+        >
+          {Array.from({ length: gridHeight }).map((_, y) =>
+            Array.from({ length: gridWidth }).map((_, x) => {
+              const isHead = snake[0].x === x && snake[0].y === y;
+              const isBody = snake.slice(1).some((s) => s.x === x && s.y === y);
+              const isFood = food.x === x && food.y === y;
+
+              let cellColor = "bg-[#0f1f13]";
+              let cellContent = "";
+
+              if (isHead) {
+                cellColor = "bg-[#a2f0b0] shadow-sm";
+                cellContent = "•";
+              } else if (isBody) {
+                cellColor = "bg-[#28c840]";
+              } else if (isFood) {
+                cellColor = "bg-[#ff4e9b] animate-pulse";
+                cellContent = "★";
+              }
+
+              return (
+                <div
+                  key={`${x}-${y}`}
+                  className={`flex h-[16px] w-[16px] items-center justify-center rounded-[3px] text-[10px] font-bold text-black ${cellColor}`}
+                >
+                  {cellContent}
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+
+      {/* Game State Overlay & Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px]">
+        {gameOver ? (
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-[#ff4e9b]">💥 GAME OVER!</span>
+            <button
+              type="button"
+              onClick={restartGame}
+              className="rounded bg-[#28c840] px-2 py-0.5 font-bold text-black hover:bg-[#a2f0b0]"
+            >
+              Play Again (R)
+            </button>
+          </div>
+        ) : (
+          <span className="text-[#8c7ba0]">
+            Controls: <code className="text-[#a2f0b0]">WASD</code> or <code className="text-[#a2f0b0]">Arrows</code> · <code className="text-[#a2f0b0]">Space</code> pause
+          </span>
+        )}
+
+        {/* Mobile On-Screen D-Pad */}
+        <div className="flex items-center gap-1 sm:hidden">
+          <button
+            type="button"
+            onClick={() => dirRef.current !== "RIGHT" && setDirection("LEFT")}
+            className="rounded bg-[#1a3320] px-2 py-1 text-white active:bg-[#28c840]"
+          >
+            ◀
+          </button>
+          <div className="flex flex-col gap-1">
+            <button
+              type="button"
+              onClick={() => dirRef.current !== "DOWN" && setDirection("UP")}
+              className="rounded bg-[#1a3320] px-2 py-0.5 text-white active:bg-[#28c840]"
+            >
+              ▲
+            </button>
+            <button
+              type="button"
+              onClick={() => dirRef.current !== "UP" && setDirection("DOWN")}
+              className="rounded bg-[#1a3320] px-2 py-0.5 text-white active:bg-[#28c840]"
+            >
+              ▼
+            </button>
+          </div>
+          <button
+            type="button"
+            onClick={() => dirRef.current !== "LEFT" && setDirection("RIGHT")}
+            className="rounded bg-[#1a3320] px-2 py-1 text-white active:bg-[#28c840]"
+          >
+            ▶
+          </button>
+        </div>
       </div>
     </div>
   );
