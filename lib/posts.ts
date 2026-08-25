@@ -39,18 +39,7 @@ export interface PostData {
  *   glyph: "🫀",
  * }
  */
-export const POSTS: PostData[] = [
-  {
-    slug: "jwts-in-redirect-urls",
-    title: "Why I Don't Put JWTs in Redirect URLs",
-    excerpt:
-      "When OAuth login finishes, the easy move is to redirect back with the session token in the URL. It works on the first try — which is exactly why it's dangerous. Here's what I hand back in ArbFlow instead, and the reasoning behind it.",
-    date: "2026-07-04",
-    readingTime: "10 min",
-    tags: ["Security", "Auth", "ArbFlow"],
-    glyph: "🔐",
-  },
-];
+export const POSTS: PostData[] = [];
 
 /** Newest first. */
 export const SORTED_POSTS: PostData[] = [...POSTS].sort((a, b) =>

@@ -1,51 +1,74 @@
-# Pranav Shukla — Portfolio !!
+# Md. Danish — Portfolio
 
-This is my personal developer portfolio. I'm a CS undergrad and builder, and I ship across applied ML (healthcare biosignals) and full-stack SaaS. I built this site to show — not just tell — that I can take an ambiguous problem and turn it into something that runs.
+This is my personal developer portfolio. I am a Systems & Software Engineer (B.Tech CS undergrad at VIT Bhopal, 2024–2028) and open-source software builder specializing in WebAssembly JIT engines, bare-metal MCU emulators (ARM Cortex-M, Xtensa LX6, RISC-V), hardware security tools, and low-level developer toolchains.
 
-**Live:** https://psportfolio-lyart.vercel.app/
+---
 
-## What it is
+## 🚀 Key Highlights & Work Experience
 
-A single-page site with a few interactive bits I had fun building:
+### **Software Engineer Intern — FOSSEE, IIT Bombay** *(Remote, 2026)*
+- Led an 18-person team over 3 months, architecting the platform across 10 repositories and authoring 554 commits with 236 merged PRs.
+- Shipped **OpenHW Studio** from scratch to public production hosted at [openhw-studio.fossee.in](https://openhw-studio.fossee.in).
 
-- **An articulated avatar of me** — hand-built SVG that bobs, swings its legs, and waves.
-- **An interactive MacBook** — click in to a real terminal, run `ls` / `open arbflow`, and "know more" opens each project in a window inside the laptop. The red/yellow window buttons close and minimise like macOS.
-- **A scroll-driven cricket six** — because I play, and I like a clean straight six the same way I like shipping.
-- **A spiral notebook** with my "field notes" on how I build.
-- **A realistic phone mockup** showing ArbFlow, the analytics SaaS I'm building.
+---
 
-Everything respects `prefers-reduced-motion`, and the whole thing is keyboard-accessible.
+## 🛠️ Featured Engineering Projects
 
-## Selected work
+- **OpenHW Studio (Browser-Based Embedded Systems Simulator)**
+  - *Tech:* Rust (WASM), TypeScript, React, Node.js, Web Workers, Docker.
+  - Rust-WASM Manhattan autowiring & Auto-Fix engine generating dynamic SVG splines and C++ code.
+  - Slashed build latency from ~8s to <200ms via SHA-1 cache (IndexedDB/RAM) across Docker AVR/STM32/RP2040 images.
+  - Integrated Rust-WASM autograding engine and cycle-budgeted Wi-Fi/WebSocket stack (CYW43 SPI, ESP32/Pico W).
 
-- **ArbFlow** — multi-tenant GA4 analytics SaaS, live in production. ([demo](https://marketing-saas-platform-pi.vercel.app/))
-- **Self-Healing MLOps Pipeline** — training pipeline that detects failures and recovers itself.
-- **Sleep Apnea Detection** — 1D CNN on single-lead biosignals, validated leave-one-patient-out (paper in progress).
-- **Pre-Eclampsia Risk Model** — flags high-risk pregnancies early from routine clinical data.
+- **Bare-Metal MCU Emulator Suite (ARM Cortex-M, Xtensa & RISC-V)**
+  - *Tech:* Rust, WebAssembly, Unicorn (QEMU), C/C++, TypeScript, Node.js.
+  - **STM32F103 (Cortex-M3):** Emulates full silicon at 5.1M inst/sec (browser) & 24M/sec (headless) running real STM32duino firmware.
+  - **STM32F407 (Cortex-M4):** Paired Unicorn WASM with Rust peripheral model & Ethernet MAC, booting DOOM in-browser at ~25 FPS.
+  - **ESP32 (Xtensa LX6):** Dual-core boot ROM & ESP-IDF firmware with zero-overhead Rust-WASM MMIO dispatch.
+  - **ESP32-C6 (RISC-V) & NPM:** RV32IMAC SoC emulator for arduino-cli merged.bin images; published all 4 engines on npm.
 
-## Built with
+- **Ankur (CNAMS) Child Growth & Malnutrition Screening System**
+  - *Tech:* Embedded C++, BLE, Flutter, Next.js 14, TypeScript.
+  - On-device WHO LMS z-scores computation (WAZ/HAZ/WHZ/MUAC) classifying SAM/MAM/normal without network dependency.
+  - Automated field measurements by bridging BLE weighing hardware directly into field app records.
 
-Next.js (App Router) · TypeScript · Tailwind CSS · Framer Motion. Deployed on Vercel.
+- **ESP32-S3 Hardware Security Key, HID Console & KVM Bridge**
+  - *Tech:* Embedded C++, FreeRTOS, WebAuthn / CTAP 2.1, AES-256-GCM, TinyUSB, Python.
+  - W3C WebAuthn / CTAP 2.1 passkey generator & official YubiKey 5 emulation (recognized by ykman & KeePassXC).
+  - AES-256-GCM zero-knowledge password vault (100,000 PBKDF2 iterations) with live TOTP auto-fill.
+  - Custom 16-byte UDP KVM protocol with dual-core FreeRTOS architecture achieving sub-frame input latency.
 
-## Running it locally
+---
+
+## 🧰 Technical Skills
+
+- **Languages:** C, C++, Rust, Python, TypeScript / JavaScript, Java, SQL, ARM/RISC-V Assembly
+- **Embedded & Systems:** Embedded C++, STM32duino, FreeRTOS, ARM Cortex-M, Xtensa, RISC-V, BLE, Wi-Fi stacks
+- **Web & Tooling:** React, Next.js, Node.js, WebAssembly, Web Workers, Docker, FastAPI, Streamlit, Git, GitHub Actions CI/CD
+- **ML & Data:** TensorFlow, TensorFlow Lite, OpenCV, Pandas, NumPy, Matplotlib, Random Forests, Model Deployment
+
+---
+
+## 📄 Resume & Download
+
+- **Resume (PDF):** Downloadable from [`/resume/Md-Danish-Resume.pdf`](public/resume/Md-Danish-Resume.pdf)
+
+---
+
+## 🌐 Connect & Links
+
+- **Email:** [9661346164h@gmail.com](mailto:9661346164h@gmail.com)
+- **Phone:** +91-9060777541
+- **GitHub:** [@danish9661](https://github.com/danish9661)
+- **LinkedIn:** [md-danish966](https://www.linkedin.com/in/md-danish966)
+- **npm:** [~danish9661](https://www.npmjs.com/~danish9661)
+
+---
+
+## 💻 Running Locally
 
 ```bash
 npm install
 npm run dev      # http://localhost:3000
 npm run build    # production build
 ```
-
-## Project layout
-
-- `app/` — App Router pages (`/` and `/work/arbflow`), root layout, and the design tokens.
-- `components/` — the building blocks: `Avatar3D`, `LaptopShowcase`, `CricketSix`, `Notebook`, `PhoneMockup`, `ProjectCard`, `FeatureCard`, and friends.
-- `lib/projects.ts` — single source of truth for my project data.
-- `tailwind.config.ts` + `app/globals.css` — the palette and tokens. Everything is driven off CSS variables in the `:root` block, so the whole theme can be swapped from one place.
-
-## Reach me
-
-- Email — pranavmshukla@gmail.com
-- GitHub — [@PranavShukla2](https://github.com/PranavShukla2)
-- LinkedIn — [pranav-shukla-softwaredeveloper](https://www.linkedin.com/in/pranav-shukla-softwaredeveloper/)
-
-I'm open to SWE internships with early-stage teams for 2026. I can think and help you ship, say hi.

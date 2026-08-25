@@ -1,16 +1,16 @@
-# Project Notes — Pranav's Portfolio
+# Project Notes — Md. Danish's Portfolio
 
-Working log so any future session can pick up with full context. Last updated: 2026-06-30.
+Working log so any future session can pick up with full context. Last updated: 2026-08-25.
 
 ---
 
 ## 1. What this is
 
-A personal developer portfolio for **Pranav Shukla** (CS undergrad / builder). Audience: YC / early-stage founders reading a cold email. The page's one job: make them think "this person can ship."
+A personal developer portfolio for **Md. Danish** (CS undergrad / systems engineer). Audience: YC / early-stage founders / engineering teams reading a cold email. The page's one job: make them think "this person can ship."
 
 - **Stack:** Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS v3.4 · Framer Motion 11.
-- **Single main page** at `/`, plus a case-study page at `/work/arbflow` and a blog at `/blog` (see §"Blog").
-- **Deploy target:** Vercel (zero-config, fully static — both routes prerender).
+- **Single main page** at `/`, plus case-study pages and blog.
+- **Deploy target:** Vercel / GitHub Pages.
 - Mobile-first, responsive, accessible, fully respects `prefers-reduced-motion`.
 
 ### Run / build
@@ -21,10 +21,9 @@ npm run build    # static export-style prerender; must stay green
 ```
 
 ### Real links (already wired)
-- GitHub: https://github.com/PranavShukla2
-- LinkedIn: https://www.linkedin.com/in/pranav-shukla-softwaredeveloper/
-- ArbFlow live demo: https://marketing-saas-platform-pi.vercel.app/ (footer + `/work/arbflow`)
-- Email: pranavmshukla@gmail.com
+- GitHub: https://github.com/danish9661
+- LinkedIn: https://www.linkedin.com/in/md-danish966
+- Email: 9661346164h@gmail.com
 
 ---
 
@@ -49,7 +48,7 @@ Utilities added: `.bg-candy`, `.text-candy` (gradient text via background-clip),
 
 **Section eyebrows:** mono 11px, uppercase, `.14em` tracking, ink-3, prefixed with a teal/accent `∿` tick. No 01/02/03 numbering.
 
-> Note: the original brief asked for an Apple-light teal biosignal theme. The user later pivoted the palette to Gradient Candy and asked for more personality. ArbFlow's own marketing site uses the same pink/purple + cute-mascot direction, so the palette is on-brand.
+> Note: The portfolio uses Gradient Candy styling and interactive components for maximum visual impact.
 
 ---
 
@@ -60,7 +59,6 @@ app/
   layout.tsx          root: fonts, sticky header (ScrollProgress + Nav), Footer, metadata, skip link
   page.tsx            main page assembly + STACK/FACTS data + section markup
   globals.css         tokens, keyframes, utilities
-  work/arbflow/page.tsx   ArbFlow case study (uses Eyebrow, Badge, Chip)
 components/
   Hero.tsx            hero: status pill, H1 (candy "signal"), lede, CTAs, Avatar3D
   Avatar3D.tsx        articulated SVG avatar (rig animates via CSS), speech bubble
@@ -68,7 +66,7 @@ components/
   LaptopShowcase.tsx  the big interactive MacBook (see §4)
   CricketSix.tsx      scroll-driven straight-six animation (see §4)
   Notebook.tsx        spiral notebook, handwriting "field notes" (Daniel Sun inspired)
-  PhoneMockup.tsx     realistic phone showing ArbFlow dashboard (About section)
+  PhoneMockup.tsx     realistic phone showing OpenHW Studio dashboard (About section)
   ProjectCard.tsx     work card: gradient glyph tile, badge, chips, link
   FeatureCard.tsx     Sleep Apnea featured card w/ dark "live inference" ECG demo panel
   Section.tsx         section wrapper + Eyebrow; renders Divider at top
@@ -76,9 +74,8 @@ components/
   Reveal.tsx          scroll reveal (IntersectionObserver, fail-safe)
   Badge.tsx           pill badge variants: live | wash | warm | candy | muted
   Chip.tsx            mono tech chip
-  PulseDot.tsx        pulsing accent dot (status/live)
-  Nav.tsx             sticky translucent nav, "Pranav." brand
-  Footer.tsx          © + real social links
+  PulseDot.tsx        pulsing accen  Nav.tsx             sticky translucent nav, "Danish." brand
+Footer.tsx          © + real social links
 lib/
   projects.ts         PROJECTS[] + PROJECTS_BY_ID  (single source of truth; has glyph, tag, callout)
   signal.ts           buildEcgPath() — ECG path generator (used by FeatureCard demo panel)
@@ -93,14 +90,14 @@ README.md             short public readme
 ## 4. Signature interactions (how they work)
 
 ### Avatar3D
-Chibi SVG of Pranav (glasses, brown hair, plaid-gradient shirt). Grouped limbs animate on their own joints via CSS keyframes in globals.css: `.char-bob` (body), `.char-leg-l/-r` (swing), `.char-arm-l` (sway), `.char-wave` (waving right arm), `.char-blink` (both eyes — wink was removed per feedback). Speech bubble "Hi, I'm Pranav 👋" sits by the waving hand (upper-left, `left-0 top-6`, tail `rounded-bl-sm`).
+Chibi SVG of Danish (glasses, brown hair, plaid-gradient shirt). Grouped limbs animate on their own joints via CSS keyframes in globals.css: `.char-bob` (body), `.char-leg-l/-r` (swing), `.char-arm-l` (sway), `.char-wave` (waving right arm), `.char-blink` (both eyes — wink was removed per feedback). Speech bubble "Hi, I'm Danish 👋" sits by the waving hand (upper-left, `left-0 top-6`, tail `rounded-bl-sm`).
 
 ### ScrollProgress (replaced the old ECG "vitals monitor")
 `useScroll().scrollYProgress` → `useSpring` → bar `width`; a glowing node rides the leading edge. Hidden under reduced motion. Lives in the sticky header above the nav.
 
 ### LaptopShowcase — the centerpiece
 A big MacBook whose lid opens (`rotateX` on scroll-in). The screen is an "OS" with three views via `view` state: `home | cli | project`, plus a `minimized` boolean.
-- **home:** bright candy "PranavOS · 4 things I've shipped", clickable project pills, "▶ Click to view projects".
+- **home:** bright candy "DanishOS · 4 things I've shipped", clickable project pills, "▶ Click to view projects".
 - **cli:** real terminal. Commands: `ls`/`projects` (lists projects, rows clickable), `open <id>` / `cat` / `know` (opens detail), `about|stack|contact` (scrolls), `whoami`, `help`, `clear`, `home`/`exit`. Hint comments shown.
 - **project:** detail window inside the laptop (badge, description, callout, chips, real link) with `← back` to cli.
 - **macOS traffic lights are functional:** 🔴 red = close → home; 🟡 yellow = minimize → returns to home with a "Terminal — click to restore" **dock** at the bottom; 🟢 green decorative. Hover shows ×/– glyphs. (The old "⌂ home" text button was removed; red does it now.)
@@ -118,7 +115,7 @@ Section ref + `useScroll({ target, offset:["start end","end start"] })`; a throt
 Spiral-bound notebook (binding rings, ruled lines, tape, margin line) with handwriting (Caveat) "how i build" list; "signal" highlighted with a yellow `<mark>` (`--accent-3`) — a nod to danielsun.space. Lives in its own section between About and Stack.
 
 ### PhoneMockup
-Realistic phone using a true aspect ratio `aspect-[9/19.3]` (this was the fix — earlier it looked squat). Dynamic island, `9:41` status bar, side buttons, ArbFlow header (live pill), `12,480` KPI, gradient bar chart, stat tiles, home indicator. `.animate-float` bob.
+Realistic phone using a true aspect ratio `aspect-[9/19.3]` (this was the fix — earlier it looked squat). Dynamic island, `9:41` status bar, side buttons, OpenHW Studio header (live pill), `12,480` KPI, gradient bar chart, stat tiles, home indicator. `.animate-float` bob.0` KPI, gradient bar chart, stat tiles, home indicator. `.animate-float` bob.
 
 ### Reveal
 IntersectionObserver-driven (`useInView`, once, amount 0.15). **Fail-safe:** if `IntersectionObserver` is unavailable it shows immediately, so content can never get stuck at opacity:0 (that bug — reveals stuck hidden — was the real cause of an earlier "sections not readable" report). Final state shows immediately under reduced motion.

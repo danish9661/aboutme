@@ -8,6 +8,7 @@ import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
 import PulseDot from "@/components/PulseDot";
 import Button from "@/components/Button";
+import { PORTFOLIO_CONFIG } from "@/config/portfolio";
 import { PROJECTS_BY_ID } from "@/lib/projects";
 import { SITE_URL } from "@/lib/posts";
 
@@ -246,7 +247,7 @@ export default function Home() {
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <Button href="mailto:9661346164h@gmail.com">Email me</Button>
               <Button
-                href="/resume/Md-Danish-Resume.pdf"
+                href={PORTFOLIO_CONFIG.resumePdfPath}
                 variant="outline"
                 newTab
               >

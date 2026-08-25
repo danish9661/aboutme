@@ -3,7 +3,7 @@ import PulseDot from "./PulseDot";
 const BARS = [42, 58, 34, 72, 50, 88, 64, 76];
 
 /**
- * Floating phone mockup showing a realistic ArbFlow analytics dashboard.
+ * Floating phone mockup showing a realistic OpenHW Studio dashboard.
  * The screen uses a true phone aspect ratio (~9:19.3) so proportions read
  * correctly. Float is disabled under prefers-reduced-motion.
  */
@@ -39,7 +39,7 @@ export default function PhoneMockup() {
           {/* app header */}
           <div className="bg-candy px-5 py-3 text-white">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[14px] font-semibold">ArbFlow</span>
+              <span className="font-mono text-[14px] font-semibold">OpenHW Studio</span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-2 py-0.5 font-mono text-[10px]">
                 <PulseDot />
                 live

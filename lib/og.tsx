@@ -10,7 +10,7 @@ export const OG_CONTENT_TYPE = "image/png";
  */
 export function postOgImage(slug: string) {
   const post = POSTS_BY_SLUG[slug];
-  const title = post?.title ?? "Pranav Shukla";
+  const title = post?.title ?? "Md. Danish";
   const tags = post?.tags ?? [];
   const meta = post
     ? `${formatPostDate(post.date)} · ${post.readingTime} read`
@@ -31,7 +31,7 @@ export function postOgImage(slug: string) {
         }}
       >
         <div style={{ display: "flex", fontSize: 34, fontWeight: 700, opacity: 0.9 }}>
-          Pranav.&nbsp;&nbsp;·&nbsp;&nbsp;Blog
+          Danish.&nbsp;&nbsp;·&nbsp;&nbsp;Blog
         </div>
 
         <div
