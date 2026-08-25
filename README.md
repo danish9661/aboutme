@@ -58,7 +58,6 @@ This is my personal developer portfolio. I am a Systems & Software Engineer (B.T
 ## 🌐 Connect & Links
 
 - **Email:** [9661346164h@gmail.com](mailto:9661346164h@gmail.com)
-- **Phone:** +91-9060777541
 - **GitHub:** [@danish9661](https://github.com/danish9661)
 - **LinkedIn:** [md-danish966](https://www.linkedin.com/in/md-danish966)
 - **npm:** [~danish9661](https://www.npmjs.com/~danish9661)
