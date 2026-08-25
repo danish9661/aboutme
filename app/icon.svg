@@ -6,9 +6,9 @@
       <stop offset="1" stop-color="#38bdf8"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="15" fill="url(#candy)"/>
-  <text x="30" y="45" text-anchor="middle" fill="#fff"
-        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif"
-        font-size="40" font-weight="700">D</text>
-  <circle cx="46" cy="42" r="3.6" fill="#fff"/>
+  <rect width="64" height="64" rx="14" fill="url(#candy)"/>
+  <text x="26" y="48" text-anchor="middle" fill="#ffffff"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        font-size="48" font-weight="900">D</text>
+  <circle cx="48" cy="44" r="4.5" fill="#ffffff"/>
 </svg>

@@ -18,11 +18,12 @@ export default function AppleIcon() {
           justifyContent: "center",
           background: "linear-gradient(135deg,#2563eb,#3b82f6,#38bdf8)",
           color: "#fff",
-          fontSize: 116,
-          fontWeight: 700,
+          fontSize: 128,
+          fontWeight: 900,
+          fontFamily: "sans-serif",
         }}
       >
-        D
+        D.
       </div>
     ),
     { ...size },

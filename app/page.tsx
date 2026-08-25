@@ -24,6 +24,7 @@ const JSON_LD = {
       "@type": "Person",
       name: "Md. Danish",
       url: SITE_URL,
+      image: `${SITE_URL}/icon.png`,
       jobTitle: "Systems & Software Engineer",
       sameAs: PROFILES,
     },
@@ -31,6 +32,7 @@ const JSON_LD = {
       "@type": "WebSite",
       name: "Md. Danish",
       url: SITE_URL,
+      image: `${SITE_URL}/icon.png`,
     },
   ],
 };

@@ -26,6 +26,15 @@ export const metadata: Metadata = {
   title: "Md. Danish — Systems & Software Engineer",
   description:
     "Systems, embedded firmware, emulators, and low-level software engineer. Building fast, reliable tools and hardware systems.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   alternates: {
     types: {
       "application/rss+xml": [{ url: "/feed.xml", title: "Md. Danish — Blog" }],
@@ -36,6 +45,14 @@ export const metadata: Metadata = {
     description:
       "Systems, embedded firmware, emulators, and low-level software engineer. Building fast, reliable tools and hardware systems.",
     type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Md. Danish — Systems & Software Engineer",
+      },
+    ],
   },
   verification: {
     google: "15oUGn7tDY5qFKh0oX7q0zWcuUJ_nFIIjjZk6ixculo",
