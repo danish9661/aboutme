@@ -8,21 +8,21 @@ export interface FlowStep {
   tag?: string;
 }
 
-/** Actor → colour, drawn from the Gradient Candy palette. "Browser" is the
+/** Actor → colour, drawn from the Ultraviolet Neon palette. "Browser" is the
  * neutral actor and uses the theme-aware ink token so it stays legible in
  * both light and dark. */
 const ACTOR_COLOR: Record<string, string> = {
   Browser: "var(--ink-2)",
-  Google: "#0284c7",
-  Backend: "#38bdf8",
-  Frontend: "#2563eb",
+  Google: "#7C3AED",
+  Backend: "#C084FC",
+  Frontend: "#A855F7",
 };
 
 const HL = {
   danger: {
-    bg: "rgba(59,130,246,0.12)",
+    bg: "rgba(124,58,237,0.12)",
     border: "rgba(226,86,59,0.42)",
-    color: "#1d4ed8",
+    color: "#7C3AED",
     tag: "exposed",
   },
   success: {
@@ -54,8 +54,8 @@ export default function AuthFlowDiagram({
   const actors = Array.from(new Set(steps.flatMap((s) => [s.from, s.to])));
 
   return (
-    <div className="my-9 overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(56,189,248,0.35)]">
-      <div className="bg-candy h-1.5 w-full" aria-hidden />
+    <div className="my-9 overflow-hidden rounded-2xl border border-line bg-surface">
+      <div className="h-1.5 w-full bg-accent" aria-hidden />
       <div className="p-5 sm:p-6">
         {caption && (
           <div className="mb-5 text-[13px] italic leading-relaxed text-ink-2">

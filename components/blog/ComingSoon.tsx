@@ -69,7 +69,7 @@ export default function ComingSoon() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(56,189,248,0.12) 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(124,58,237,0.12) 1px, transparent 1px)",
             backgroundSize: "22px 22px",
             maskImage: "linear-gradient(to bottom, black, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
@@ -80,9 +80,9 @@ export default function ComingSoon() {
       <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
         <Badge label="Coming soon" variant="live" pulse />
 
-        <h1 className="mt-6 text-[40px] font-semibold leading-[1.05] tracking-tightest sm:text-[56px]">
-          The blog is <span className="text-candy">warming up</span>.
-        </h1>
+          <h1 className="mt-6 text-[40px] font-semibold leading-[1.05] tracking-tightest sm:text-[56px]">
+            The blog is warming up.
+          </h1>
 
         <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-2">
           Long-form notes from the build — applied ML, shipping SaaS, and the
@@ -94,7 +94,7 @@ export default function ComingSoon() {
           <div className="flex items-center gap-2 border-b border-term-line px-4 py-3">
             <span className="h-3 w-3 rounded-full bg-[#ff5f57]" aria-hidden />
             <span className="h-3 w-3 rounded-full bg-[#febc2e]" aria-hidden />
-            <span className="h-3 w-3 rounded-full bg-[#28c840]" aria-hidden />
+            <span className="h-3 w-3 rounded-full bg-[#7C3AED]" aria-hidden />
             <span className="ml-3 font-mono text-[11px] tracking-[0.08em] text-white/40">
               ~/blog — drafts
             </span>
@@ -115,7 +115,7 @@ export default function ComingSoon() {
               </span>
               <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
                 <span
-                  className="bg-candy absolute inset-y-0 left-0 w-2/3 rounded-full"
+                  className="absolute inset-y-0 left-0 w-2/3 rounded-full bg-accent-2"
                   aria-hidden
                 />
                 <span className="animate-shimmer absolute inset-y-0 left-0 w-2/3 rounded-full" aria-hidden />

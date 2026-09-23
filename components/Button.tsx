@@ -13,10 +13,10 @@ interface ButtonProps {
 }
 
 const BASE =
-  "inline-flex items-center gap-2 rounded-full px-5 py-3 font-mono text-[13px] transition-all hover:-translate-y-0.5 motion-reduce:hover:translate-y-0";
+  "inline-flex items-center gap-2 rounded-xl px-5 py-3 font-mono text-[13px] transition-colors motion-reduce:transition-none";
 
 const VARIANTS: Record<Variant, string> = {
-  candy: "bg-candy text-white shadow-md shadow-accent/20",
+  candy: "bg-candy text-white shadow-md shadow-accent/20 hover:brightness-110",
   outline:
     "border border-line-strong bg-surface text-ink hover:border-accent hover:text-accent",
 };

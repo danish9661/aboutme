@@ -25,7 +25,7 @@ export function postOgImage(slug: string) {
           display: "flex",
           flexDirection: "column",
           padding: "80px",
-          background: "linear-gradient(135deg,#2563eb,#3b82f6,#38bdf8)",
+          background: "linear-gradient(135deg,#7C3AED,#C084FC)",
           color: "#fff",
           fontFamily: "sans-serif",
         }}

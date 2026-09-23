@@ -50,27 +50,27 @@ export const POSTS_BY_SLUG: Record<string, PostData> = Object.fromEntries(
   POSTS.map((p) => [p.slug, p]),
 );
 
-/** Card accent cycle — same palette rhythm as the Stack cards. */
+/** Card accent cycle — ultraviolet neon rhythm, same as the Stack cards. */
 export const POST_ACCENTS = [
   {
-    grad: "linear-gradient(135deg,#2563eb,#2563eb)",
-    color: "#3b82f6",
-    wash: "rgba(37,99,235,0.12)",
+    grad: "linear-gradient(135deg,#7C3AED,#7C3AED)",
+    color: "#7C3AED",
+    wash: "rgba(124,58,237,0.12)",
   },
   {
-    grad: "linear-gradient(135deg,#38bdf8,#2563eb)",
-    color: "#38bdf8",
-    wash: "rgba(56,189,248,0.13)",
+    grad: "linear-gradient(135deg,#C084FC,#7C3AED)",
+    color: "#A855F7",
+    wash: "rgba(192,132,252,0.14)",
   },
   {
-    grad: "linear-gradient(135deg,#3b82f6,#60a5fa)",
-    color: "#1d4ed8",
-    wash: "rgba(59,130,246,0.12)",
+    grad: "linear-gradient(135deg,#7C3AED,#C084FC)",
+    color: "#7C3AED",
+    wash: "rgba(124,58,237,0.12)",
   },
   {
-    grad: "linear-gradient(135deg,#60a5fa,#2563eb)",
-    color: "#0284c7",
-    wash: "rgba(96,165,250,0.16)",
+    grad: "linear-gradient(135deg,#C084FC,#7C3AED)",
+    color: "#A855F7",
+    wash: "rgba(192,132,252,0.14)",
   },
 ];
 

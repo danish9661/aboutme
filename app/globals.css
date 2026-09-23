@@ -2,91 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens — "Ocean Wave" ──────────────────────────────── */
+/* ─── Design tokens — Ultraviolet Neon (LOCKED) ───────────────────
+   Variant A + brighter Variant-C terminal shell.
+   Jobs: ultraviolet = action + identity · neon lilac = live + data ·
+   signal amber = warnings + notebook marks only. No cyan, no magenta. */
 :root {
   color-scheme: light;
 
-  --bg: #f5f9ff;
-  --surface: #ffffff;
-  --line: rgba(37, 99, 235, 0.14);
-  --line-strong: rgba(37, 99, 235, 0.28);
+  --bg: #FFFFFF;
+  --surface: #F8F7FF;
+  --raised: #FFFFFF;
+  --line: #E6E1F7;
+  --line-strong: #C9BFF0;
 
-  --ink: #0f1e33;
-  --ink-2: #4a5b73;
-  --ink-3: #8095ad;
+  --ink: #1A1033;
+  --ink-2: #4C3F73;
+  --ink-3: #6F6394;
 
-  /* primary — royal blue */
-  --accent: #2563eb;
-  --accent-bright: #3b82f6;
-  --accent-wash: rgba(37, 99, 235, 0.1);
+  /* ultraviolet — identity + calls to action */
+  --accent: #7C3AED;
+  --accent-bright: #6D28D9;
+  --accent-wash: rgba(124, 58, 237, 0.12);
 
-  /* secondary — sky */
-  --accent-2: #38bdf8;
-  --accent-2-bright: #7dd3fc;
-  --accent-2-wash: rgba(56, 189, 248, 0.12);
+  /* neon lilac — live systems, data, telemetry */
+  --accent-2: #C084FC;
+  --accent-2-bright: #A855F7;
+  --accent-2-wash: rgba(192, 132, 252, 0.14);
 
-  /* tertiary — mid blue */
-  --accent-3: #60a5fa;
-  --accent-3-wash: rgba(96, 165, 250, 0.16);
-  --coral: #3b82f6;
+  /* signal amber — warnings, marks, notebook highlighter only */
+  --accent-3: #B45309;
+  --accent-3-wash: rgba(180, 83, 9, 0.12);
 
-  /* signature gradient */
-  --candy: linear-gradient(135deg, #2563eb, #3b82f6, #38bdf8);
+  /* signature ramp — ultraviolet → neon lilac. Two stops, no magenta. */
+  --candy: linear-gradient(135deg, #7C3AED, #C084FC);
 
-  /* terminal */
-  --term-bg: #0d1526;
-  --term-line: #1e2c47;
+  /* semantic */
+  --success: #059669;
+  --warning: #B45309;
+  --error: #DC2626;
+
+  /* terminal — brighter neon shell in BOTH themes (Variant C lock-in).
+     The terminal is always dark glass, even in light mode. */
+  --term-bg: #1E0E44;
+  --term-line: #6D28D9;
+
+  /* legacy alias (used by a few components) */
+  --coral: #7C3AED;
 }
 
 /* ─── Dark palette ──────────────────────────────────────────────────
-   Applied when the OS prefers dark (unless the user forced light), and
-   whenever the toggle sets data-theme="dark". Tokens only — every surface
-   reads through the Tailwind utilities, so this recolors the whole site. */
+   Light and dark are DIFFERENT hues, not one hue dimmed.
+   #7C3AED on #150A2E is ~2.9:1 (fails) — that's why dark uses #C084FC
+   for text accents while keeping #7C3AED for fills and ramps. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0b1220;
-    --surface: #141f33;
-    --line: rgba(96, 165, 250, 0.16);
-    --line-strong: rgba(96, 165, 250, 0.3);
-    --ink: #e8f0fc;
-    --ink-2: #a9bdd8;
-    --ink-3: #8ba2c0;
-    --accent: #60a5fa;
-    --accent-bright: #93c5fd;
-    --accent-wash: rgba(96, 165, 250, 0.16);
-    --accent-2: #38bdf8;
-    --accent-2-bright: #7dd3fc;
-    --accent-2-wash: rgba(56, 189, 248, 0.2);
-    --accent-3: #7dd3fc;
-    --accent-3-wash: rgba(125, 211, 252, 0.18);
-    --coral: #60a5fa;
-    --candy: linear-gradient(135deg, #3b82f6, #60a5fa, #7dd3fc);
-    --term-bg: #070d18;
-    --term-line: #1e2c47;
+    --bg: #150A2E;
+    --surface: #1E0F42;
+    --raised: #281359;
+    --line: #3A2568;
+    --line-strong: #523894;
+    --ink: #F1EAFE;
+    --ink-2: #BCAEE3;
+    --ink-3: #8A7BB8;
+    --accent: #C084FC;
+    --accent-bright: #E9D5FF;
+    --accent-wash: rgba(192, 132, 252, 0.16);
+    --accent-2: #E9D5FF;
+    --accent-2-bright: #E9D5FF;
+    --accent-2-wash: rgba(233, 213, 255, 0.12);
+    --accent-3: #FBBF24;
+    --accent-3-wash: rgba(251, 191, 36, 0.12);
+    --candy: linear-gradient(135deg, #7C3AED, #C084FC);
+    --success: #34D399;
+    --warning: #FBBF24;
+    --error: #F87171;
+    --term-bg: #1E0E44;
+    --term-line: #7C3AED;
+    --coral: #C084FC;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b1220;
-  --surface: #141f33;
-  --line: rgba(96, 165, 250, 0.16);
-  --line-strong: rgba(96, 165, 250, 0.3);
-  --ink: #e8f0fc;
-  --ink-2: #a9bdd8;
-  --ink-3: #8ba2c0;
-  --accent: #60a5fa;
-  --accent-bright: #93c5fd;
-  --accent-wash: rgba(96, 165, 250, 0.16);
-  --accent-2: #38bdf8;
-  --accent-2-bright: #7dd3fc;
-  --accent-2-wash: rgba(56, 189, 248, 0.2);
-  --accent-3: #7dd3fc;
-  --accent-3-wash: rgba(125, 211, 252, 0.18);
-  --coral: #60a5fa;
-  --candy: linear-gradient(135deg, #3b82f6, #60a5fa, #7dd3fc);
-  --term-bg: #070d18;
-  --term-line: #1e2c47;
+  --bg: #150A2E;
+  --surface: #1E0F42;
+  --raised: #281359;
+  --line: #3A2568;
+  --line-strong: #523894;
+  --ink: #F1EAFE;
+  --ink-2: #BCAEE3;
+  --ink-3: #8A7BB8;
+  --accent: #C084FC;
+  --accent-bright: #E9D5FF;
+  --accent-wash: rgba(192, 132, 252, 0.16);
+  --accent-2: #E9D5FF;
+  --accent-2-bright: #E9D5FF;
+  --accent-2-wash: rgba(233, 213, 255, 0.12);
+  --accent-3: #FBBF24;
+  --accent-3-wash: rgba(251, 191, 36, 0.12);
+  --candy: linear-gradient(135deg, #7C3AED, #C084FC);
+  --success: #34D399;
+  --warning: #FBBF24;
+  --error: #F87171;
+  --term-bg: #1E0E44;
+  --term-line: #7C3AED;
+  --coral: #C084FC;
 }
 
 /* ─── Base ──────────────────────────────────────────────────────── */
@@ -109,7 +129,8 @@
       radial-gradient(40rem 30rem at 50% 110%, var(--accent-3-wash), transparent 60%);
     background-attachment: fixed;
     color: var(--ink);
-    font-family: theme("fontFamily.sans");
+    /* Inter for prose; JetBrains Mono for notation — never swap them */
+    font-family: var(--font-sans, "Inter"), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -129,17 +150,56 @@
 
 /* ─── Utilities ─────────────────────────────────────────────────── */
 @layer utilities {
+  /* Signature ramp — reserved for the primary CTA + laptop home screen */
   .bg-candy {
     background-image: var(--candy);
   }
+
+  /* Accent text — solid violet, never a gradient wash */
   .text-candy {
-    background-image: var(--candy);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    background-image: none;
+    color: var(--accent);
   }
+  @media (forced-colors: active) {
+    .text-candy {
+      background-image: none;
+      color: CanvasText;
+      forced-color-adjust: auto;
+    }
+  }
+
   .border-candy {
     border-image: var(--candy) 1;
+  }
+
+  /* k-gradient-text — solid accent alias (gradients stay off type) */
+  .k-gradient-text {
+    background-image: none;
+    color: var(--accent);
+  }
+  @media (forced-colors: active) {
+    .k-gradient-text {
+      background-image: none;
+      color: CanvasText;
+      forced-color-adjust: auto;
+    }
+  }
+
+  /* k-aurora — full signature ramp background */
+  .k-aurora {
+    background-image: var(--candy);
+  }
+
+  /* k-glass — glassmorphism panel */
+  .k-glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px) saturate(1.6);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  :root:not([data-theme="dark"]) .k-glass {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: var(--line);
   }
 }
 
@@ -192,9 +252,9 @@
   .prose-blog a {
     color: var(--accent);
     text-decoration: underline;
-    text-decoration-color: rgba(37, 99, 235, 0.35);
+    text-decoration-color: rgba(91, 76, 230, 0.35);
     text-underline-offset: 3px;
-    transition: text-decoration-color 0.2s;
+    transition: text-decoration-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .prose-blog a:hover {
     text-decoration-color: var(--accent);
@@ -217,11 +277,11 @@
   }
   .prose-blog code {
     border-radius: 6px;
-    background: var(--accent-2-wash);
+    background: var(--accent-wash);
     padding: 0.15em 0.4em;
-    font-family: theme("fontFamily.mono");
+    font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.85em;
-    color: var(--accent-2);
+    color: var(--accent);
   }
   .prose-blog pre {
     overflow-x: auto;
@@ -238,7 +298,6 @@
     font-size: inherit;
     color: #eaf2ff;
   }
-  /* Shiki keeps its own token colors but wears our brand dark frame. */
   .prose-blog pre.shiki {
     background: var(--term-bg) !important;
   }
@@ -275,14 +334,17 @@
 
 /* ─── Micro-animation ───────────────────────────────────────────── */
 
+/* Motion vocabulary A — cubic-bezier(0.2, 0.8, 0.2, 1) — no overshoot
+   Use for anything explaining a computation (panels, steps, data transitions).
+   Durations: 120ms hover · 180ms panel · 280ms step · 420ms merge · 620ms reveal */
+
+/* Motion vocabulary B — cubic-bezier(0.22, 1.2, 0.36, 1) — slight overshoot
+   Use for marketing surfaces only (hero CTAs, badges). Never mix with vocab A. */
+
 /* Shimmer sweep across the coming-soon "draft progress" bar */
 @keyframes shimmer {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
 }
 .animate-shimmer {
   background: linear-gradient(
@@ -295,8 +357,7 @@
 }
 
 @keyframes ping-soft {
-  75%,
-  100% {
+  75%, 100% {
     transform: scale(2.2);
     opacity: 0;
   }
@@ -306,14 +367,8 @@
 }
 
 @keyframes cursor-blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 .animate-cursor {
   animation: cursor-blink 1s step-end infinite;
@@ -321,12 +376,8 @@
 
 /* Faint waveform drift inside the sleep-apnea demo panel */
 @keyframes osc-drift {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 .animate-osc {
   animation: osc-drift 9s linear infinite;
@@ -337,13 +388,8 @@
   animation: float 5.5s ease-in-out infinite;
 }
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-9px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-9px); }
 }
 
 /* ─── Avatar rig ────────────────────────────────────────────────── */
@@ -351,13 +397,8 @@
   animation: char-bob 4.5s ease-in-out infinite;
 }
 @keyframes char-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-7px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-7px); }
 }
 
 .char-wave {
@@ -366,13 +407,8 @@
   animation: char-wave 0.85s ease-in-out infinite;
 }
 @keyframes char-wave {
-  0%,
-  100% {
-    transform: rotate(-14deg);
-  }
-  50% {
-    transform: rotate(26deg);
-  }
+  0%, 100% { transform: rotate(-14deg); }
+  50%       { transform: rotate(26deg); }
 }
 
 .char-arm-l {
@@ -381,13 +417,8 @@
   animation: char-sway 3.4s ease-in-out infinite;
 }
 @keyframes char-sway {
-  0%,
-  100% {
-    transform: rotate(4deg);
-  }
-  50% {
-    transform: rotate(-5deg);
-  }
+  0%, 100% { transform: rotate(4deg); }
+  50%       { transform: rotate(-5deg); }
 }
 
 .char-leg-l {
@@ -401,13 +432,8 @@
   animation: char-leg 3.4s ease-in-out infinite reverse;
 }
 @keyframes char-leg {
-  0%,
-  100% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(5deg);
-  }
+  0%, 100% { transform: rotate(-5deg); }
+  50%       { transform: rotate(5deg); }
 }
 
 .char-blink {
@@ -416,14 +442,8 @@
   animation: char-blink 5s infinite;
 }
 @keyframes char-blink {
-  0%,
-  94%,
-  100% {
-    transform: scaleY(1);
-  }
-  97% {
-    transform: scaleY(0.1);
-  }
+  0%, 94%, 100% { transform: scaleY(1); }
+  97%           { transform: scaleY(0.1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -447,8 +467,8 @@
   display: none;
 }
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* ─── Canvas / Iframe / Laptop Screen Focus Reset ─────────────────── */
@@ -468,21 +488,21 @@ canvas:focus-visible {
 }
 
 /* ─── View transitions (shared-element title morph) ─────────────────
-   Gentle: a slow, evenly-eased grow (no fast "pop"), and the morphing
-   title crossfades quickly so the scale change reads soft, not as a
-   zoom lunging toward the viewer. */
+   Uses PALETTE motion vocabulary A: no-overshoot bezier.
+   Step duration (280ms) is the key one — tuned so the eye follows
+   one thing becoming another. */
 ::view-transition-group(*) {
-  animation-duration: 0.5s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 ::view-transition-old(*),
 ::view-transition-new(*) {
-  animation-duration: 0.22s;
-  animation-timing-function: ease;
+  animation-duration: 180ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.3s;
+  animation-duration: 280ms;
 }
 
 @media (prefers-reduced-motion: reduce) {

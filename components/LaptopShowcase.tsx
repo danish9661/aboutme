@@ -13,7 +13,7 @@ import DoomPlayer from "./doom/DoomPlayer";
 
 type View = "home" | "cli" | "project" | "doom";
 type LineKind = "cmd" | "out" | "sys" | "err" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake" | "doom";
-type TerminalTheme = "default" | "cyberpunk" | "matrix" | "nord";
+type TerminalTheme = "default" | "royal" | "palace" | "neon";
 type TerminalFont = "mono" | "pixel" | "hacker" | "sans";
 
 interface Line {
@@ -55,9 +55,9 @@ const BASE_COMMANDS = [
   "sudo",
   "sudo rm -rf /",
   "theme default",
-  "theme cyberpunk",
-  "theme matrix",
-  "theme nord",
+  "theme royal",
+  "theme palace",
+  "theme neon",
   "theme list",
   "theme random",
   "font mono",
@@ -101,7 +101,7 @@ const SUGGESTIONS = [
   { cmd: "neofetch", label: "neofetch" },
   { cmd: "stats", label: "stats" },
   { cmd: "matrix", label: "matrix" },
-  { cmd: "theme cyberpunk", label: "theme" },
+  { cmd: "theme royal", label: "theme" },
 ];
 
 /**
@@ -342,12 +342,18 @@ export default function LaptopShowcase() {
         next.push({ kind: "matrix" });
       } else if (head === "theme") {
         const sub = (rest[0] || "").toLowerCase();
-        const availableThemes: TerminalTheme[] = ["default", "cyberpunk", "matrix", "nord"];
+        const availableThemes: TerminalTheme[] = ["default", "royal", "palace", "neon"];
+        // Back-compat: old theme names map onto the Ultraviolet Neon family.
+        const ALIASES: Record<string, TerminalTheme> = {
+          cyberpunk: "royal",
+          matrix: "neon",
+          nord: "palace",
+        };
 
         if (sub === "list") {
           next.push({
             kind: "out",
-            text: `Available themes: default · cyberpunk · matrix · nord (current: ${terminalTheme})`,
+            text: `Terminal themes (all ultraviolet): default — neon shell · royal — saturated violet · palace — deep night · neon — brightest pop (current: ${terminalTheme})`,
           });
         } else if (sub === "random") {
           const others = availableThemes.filter((t) => t !== terminalTheme);
@@ -355,17 +361,20 @@ export default function LaptopShowcase() {
           setTerminalTheme(picked);
           next.push({ kind: "sys", text: `🎲 Random theme set to '${picked}'` });
         } else {
-          const choice = (sub === "set" ? rest[1] : sub) || "default";
+          const raw = (sub === "set" ? rest[1] : sub) || "default";
+          const choice = (ALIASES[raw] ?? raw) as TerminalTheme;
           if (availableThemes.includes(choice as TerminalTheme)) {
             setTerminalTheme(choice as TerminalTheme);
+            const note =
+              raw !== choice ? ` (alias '${raw}' → '${choice}')` : "";
             next.push({
               kind: "sys",
-              text: `🎨 Terminal theme set to '${choice}'. Options: default · cyberpunk · matrix · nord`,
+              text: `🎨 Terminal theme set to '${choice}'${note}. Try \`theme list\` for all four.`,
             });
           } else {
             next.push({
               kind: "err",
-              text: `Unknown theme '${choice}'. Use \`theme list\` or choose: default · cyberpunk · matrix · nord`,
+              text: `Unknown theme '${raw}'. Try \`theme list\` — default · royal · palace · neon.`,
             });
           }
         }
@@ -449,7 +458,7 @@ export default function LaptopShowcase() {
       } else if (head === "help") {
         const topic = (rest[0] || "").toLowerCase();
         if (topic === "theme") {
-          next.push({ kind: "out", text: "theme [default|cyberpunk|matrix|nord|list|random] — change terminal palette" });
+          next.push({ kind: "out", text: "theme [default|royal|palace|neon|list|random] — all four are ultraviolet; list shows each mood" });
         } else if (topic === "font") {
           next.push({ kind: "out", text: "font [mono|pixel|hacker|sans|list] — change terminal font style" });
         } else if (topic === "open") {
@@ -460,7 +469,7 @@ export default function LaptopShowcase() {
           const customCmdList = (PORTFOLIO_CONFIG.terminal.customCommands || []).map((c) => c.command).join(" · ");
           next.push({
             kind: "out",
-            text: `commands: ls · open <project> · doom · snake · socials · email · skills [lang|hw|wasm] · danish · neofetch · stats · matrix · font <name|list> · theme <name|list|random> · history [clear] · uptime · uname -a · sudo <cmd> · date · emu · resume · whoami${customCmdList ? ` · ${customCmdList}` : ""} · clear · home\n(Type \`help <command>\` for detailed usage)`,
+            text: `commands: ls · open <project> · doom · snake · socials · email · skills [lang|hw|wasm] · danish · neofetch · stats · matrix · font <name|list> · theme <name|list|random> · history [clear] · uptime · uname -a · sudo <cmd> · date · emu · resume · whoami${customCmdList ? ` · ${customCmdList}` : ""} · clear · home\n(Type \`help <command>\` for detailed usage, \`help theme\` for terminal palettes)`,
           });
         }
       } else {
@@ -525,7 +534,7 @@ export default function LaptopShowcase() {
   const lineColor: Record<Exclude<LineKind, "cmd" | "list" | "neofetch" | "stats" | "emu" | "matrix" | "danish" | "whoami" | "snake" | "doom">, string> =
     useMemo(
       () => ({
-        out: "text-[#b9cbe0]",
+        out: "text-[#BCAEE3]",
         sys: "text-accent-bright",
         err: "text-accent",
       }),
@@ -536,30 +545,30 @@ export default function LaptopShowcase() {
     default: {
       bg: "bg-term",
       border: "border-term-line",
-      text: "text-[#e7f0f9]",
+      text: "text-[#EFE9FF]",
       prompt: "text-accent-bright",
-      accent: "bg-[#2a2438] text-accent-bright hover:bg-accent hover:text-white",
+      accent: "bg-[#2E1065] text-accent-bright hover:bg-accent hover:text-white",
     },
-    cyberpunk: {
-      bg: "bg-[#0b0813]",
-      border: "border-[#1d4ed8]/40",
-      text: "text-[#00f0ff]",
-      prompt: "text-[#1d4ed8]",
-      accent: "bg-[#1f002b] text-[#00f0ff] hover:bg-[#1d4ed8] hover:text-black",
+    royal: {
+      bg: "bg-[#221052]",
+      border: "border-[#7C3AED]/50",
+      text: "text-[#F4EDFF]",
+      prompt: "text-[#C4B5FD]",
+      accent: "bg-[#2E1065] text-[#C4B5FD] hover:bg-[#7C3AED] hover:text-white",
     },
-    matrix: {
-      bg: "bg-[#050e07]",
-      border: "border-[#28c840]/40",
-      text: "text-[#28c840]",
-      prompt: "text-[#a2f0b0]",
-      accent: "bg-[#0a200f] text-[#28c840] hover:bg-[#28c840] hover:text-black",
+    palace: {
+      bg: "bg-[#150A2E]",
+      border: "border-[#523894]/60",
+      text: "text-[#C9B8F2]",
+      prompt: "text-[#C084FC]",
+      accent: "bg-[#281359] text-[#C084FC] hover:bg-[#C084FC] hover:text-[#150A2E]",
     },
-    nord: {
-      bg: "bg-[#2e3440]",
-      border: "border-[#4c566a]",
-      text: "text-[#eceff4]",
-      prompt: "text-[#88c0d0]",
-      accent: "bg-[#3b4252] text-[#88c0d0] hover:bg-[#88c0d0] hover:text-[#2e3440]",
+    neon: {
+      bg: "bg-[#221052]",
+      border: "border-[#C084FC]/50",
+      text: "text-[#F6EFFE]",
+      prompt: "text-[#E9D5FF]",
+      accent: "bg-[#351B78] text-[#E9D5FF] hover:bg-[#C084FC] hover:text-[#150A2E]",
     },
   };
 
@@ -603,7 +612,7 @@ export default function LaptopShowcase() {
             viewport={{ once: true, margin: "-120px" }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: "center bottom" }}
-            className="relative rounded-[20px] border border-[#3a3a3c] bg-[#1c1c1e] p-2.5 shadow-[0_40px_90px_-30px_rgba(56,189,248,0.5)] sm:p-3"
+            className="relative rounded-[20px] border border-[#3a3a3c] bg-[#1c1c1e] p-2.5 shadow-[0_40px_90px_-30px_rgba(124,58,237,0.55)] sm:p-3"
           >
             {/* camera notch */}
             <div className="absolute left-1/2 top-2.5 z-20 h-4 w-28 -translate-x-1/2 rounded-b-xl bg-[#1c1c1e] sm:top-3">
@@ -654,9 +663,9 @@ export default function LaptopShowcase() {
                         >
                           <span className="-mt-px opacity-0 group-hover/tl:opacity-100">–</span>
                         </button>
-                        <span className="h-3.5 w-3.5 rounded-full bg-[#28c840]" aria-hidden />
+                        <span className="h-3.5 w-3.5 rounded-full bg-[#7C3AED]" aria-hidden />
                       </div>
-                      <span className="ml-3 truncate font-mono text-[11px] text-[#7b93ad]">
+                      <span className="ml-3 truncate font-mono text-[11px] text-[#8A7BB8]">
                         {view === "project" && activeProject
                           ? `~/projects/${activeProject.id}`
                           : view === "doom"
@@ -673,8 +682,8 @@ export default function LaptopShowcase() {
                           onClick={() => setShowDoomHelp((prev) => !prev)}
                           className={`flex items-center gap-1 rounded border px-2 py-0.5 text-[10px] font-bold transition-all ${
                             showDoomHelp
-                              ? "border-[#ffd166] bg-[#ffd166] text-black"
-                              : "border-[#ff4e9b]/40 bg-[#1f0d28] text-[#ff74b1] hover:bg-[#ff4e9b] hover:text-black"
+                              ? "border-[#C4B5FD] bg-[#C4B5FD] text-black"
+                              : "border-[#7C3AED]/40 bg-[#221052] text-[#C4B5FD] hover:bg-[#7C3AED] hover:text-white"
                           }`}
                         >
                           <span>ℹ Help</span>
@@ -685,7 +694,7 @@ export default function LaptopShowcase() {
                             setDoomPreload(false);
                             setView("cli");
                           }}
-                          className="flex items-center gap-1 rounded border border-[#ff4e9b] bg-[#ff4e9b] px-2 py-0.5 text-[10px] font-bold text-black shadow-[0_0_8px_rgba(255,78,155,0.4)] transition-transform hover:bg-white active:scale-95"
+                          className="flex items-center gap-1 rounded border border-[#7C3AED] bg-[#7C3AED] px-2 py-0.5 text-[10px] font-bold text-white shadow-[0_0_8px_rgba(124,58,237,0.4)] transition-transform hover:bg-white hover:text-black active:scale-95"
                         >
                           <span>Exit</span>
                           <kbd className="rounded bg-black/30 px-1 text-[9px] text-white">ESC</kbd>
@@ -704,20 +713,20 @@ export default function LaptopShowcase() {
 
                   {/* DOOM Help Drawer Overlay */}
                   {view === "doom" && showDoomHelp && (
-                    <div className="absolute inset-x-0 top-[30px] z-40 max-h-[85%] overflow-y-auto no-scrollbar border-b border-[#ffd166]/40 bg-[#0e0717]/95 p-4 text-[12px] shadow-2xl backdrop-blur-md">
-                      <div className="flex items-center justify-between border-b border-[#ffd166]/30 pb-2">
-                        <span className="font-bold text-[#ffd166]">📖 DOOM Controls &amp; Gameplay Guide</span>
+                    <div className="absolute inset-x-0 top-[30px] z-40 max-h-[85%] overflow-y-auto no-scrollbar border-b border-[#7C3AED]/40 bg-[#1E0E44]/95 p-4 text-[12px] shadow-2xl backdrop-blur-md">
+                      <div className="flex items-center justify-between border-b border-[#7C3AED]/30 pb-2">
+                        <span className="font-bold text-[#C4B5FD]">📖 DOOM Controls &amp; Gameplay Guide</span>
                         <button
                           type="button"
                           onClick={() => setShowDoomHelp(false)}
-                          className="rounded bg-[#ffd166] px-2 py-0.5 text-[10px] font-bold text-black hover:bg-white"
+                          className="rounded bg-[#7C3AED] px-2 py-0.5 text-[10px] font-bold text-white hover:bg-white hover:text-black"
                         >
                           Close
                         </button>
                       </div>
                       <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 text-[#e2d9eb]">
                         <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5">
-                          <div className="font-semibold text-[#ff74b1]">🎮 Movement &amp; Action</div>
+                          <div className="font-semibold text-[#C4B5FD]">🎮 Movement &amp; Action</div>
                           <div className="text-[11px] space-y-1">
                             <div><strong className="text-white">Arrow Keys / WASD</strong> : Move forward, backward, turn</div>
                             <div><strong className="text-white">Ctrl / Mouse Left</strong> : Fire weapon / Shoot</div>
@@ -727,7 +736,7 @@ export default function LaptopShowcase() {
                         </div>
 
                         <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5">
-                          <div className="font-semibold text-[#38ef7d]">🔫 Weapons &amp; Combat</div>
+                          <div className="font-semibold text-[#C084FC]">🔫 Weapons &amp; Combat</div>
                           <div className="text-[11px] space-y-1">
                             <div><strong className="text-white">1</strong> : Fist / Chainsaw</div>
                             <div><strong className="text-white">2</strong> : Pistol</div>
@@ -738,10 +747,10 @@ export default function LaptopShowcase() {
                         </div>
 
                         <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5 sm:col-span-2">
-                          <div className="font-semibold text-[#ffd166]">💡 Pro Tips &amp; Sound</div>
-                          <div className="text-[11px] space-y-1 text-[#b9cbe0]">
+                          <div className="font-semibold text-[#C4B5FD]">💡 Pro Tips &amp; Sound</div>
+                          <div className="text-[11px] space-y-1 text-[#BCAEE3]">
                             <div>• Click inside the game window once to lock mouse/keyboard focus.</div>
-                            <div>• Press <strong className="text-white">ESC</strong> in-game for the options/save menu, or click <strong className="text-[#ff74b1]">Exit</strong> above to return to the terminal.</div>
+                            <div>• Press <strong className="text-white">ESC</strong> in-game for the options/save menu, or click <strong className="text-[#C4B5FD]">Exit</strong> above to return to the terminal.</div>
                             <div>• Powered by DOSBox WebAssembly JIT with SoundBlaster 16 stereo emulation.</div>
                           </div>
                         </div>
@@ -795,16 +804,16 @@ export default function LaptopShowcase() {
                       onClick={() => inputRef.current?.focus({ preventScroll: true })}
                       className={`flex-1 overflow-y-auto no-scrollbar px-4 py-4 text-[13px] leading-relaxed transition-all duration-200 sm:text-[14px] ${activeFont}`}
                     >
-                      <p className="text-[#b9cbe0]">
+                      <p className="text-[#BCAEE3]">
                         DanishOS v2.4 (x86_64-wasm) · {PROJECTS.length} systems &amp; emulator builds.
                       </p>
-                      <p className="mt-1 text-[#5f7590]">
+                      <p className="mt-1 text-[#8A7BB8]">
                         # Quick commands: <code className="text-accent-bright">ls</code> · <code className="text-accent-bright">neofetch</code> · <code className="text-accent-bright">stats</code> · <code className="text-accent-bright">emu</code>
                       </p>
 
                       {/* Interactive suggestion pills */}
                       <div className={`mt-3 flex flex-wrap items-center gap-1.5 border-b pb-3 transition-colors ${activeTheme.border}`}>
-                        <span className="text-[11px] text-[#7b93ad] mr-1">Suggestions:</span>
+                        <span className="text-[11px] text-[#8A7BB8] mr-1">Suggestions:</span>
                         {SUGGESTIONS.map((s) => (
                           <button
                             key={s.cmd}
@@ -844,7 +853,7 @@ export default function LaptopShowcase() {
                                   >
                                     {p.id}
                                   </button>
-                                  <span className="text-[#96abc4] text-[12px]">{p.tag}</span>
+                                  <span className="text-[#BCAEE3] text-[12px]">{p.tag}</span>
                                   <button
                                     type="button"
                                     onClick={() => openProject(p.id)}
@@ -900,7 +909,7 @@ export default function LaptopShowcase() {
                           autoComplete="off"
                           autoCapitalize="off"
                           aria-label="Terminal command input"
-                          className={`min-w-[8ch] flex-1 bg-transparent caret-accent-bright outline-none placeholder:text-[#5f7590] ${activeTheme.text}`}
+                          className={`min-w-[8ch] flex-1 bg-transparent caret-accent-bright outline-none placeholder:text-[#8A7BB8] ${activeTheme.text}`}
                           placeholder="type a command or press Tab…"
                         />
                       </div>
@@ -923,12 +932,12 @@ export default function LaptopShowcase() {
                         )}
                       </div>
 
-                      <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-[#b9cbe0]">
+                      <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-[#BCAEE3]">
                         {activeProject.description}
                       </p>
 
                       {activeProject.why && (
-                        <div className="mt-4 rounded-xl border border-line/40 bg-surface/30 p-4 text-[14px] leading-relaxed text-[#96abc4]">
+                        <div className="mt-4 rounded-xl border border-line/40 bg-surface/30 p-4 text-[14px] leading-relaxed text-[#BCAEE3]">
                           <p className="font-mono text-[11px] uppercase tracking-wider text-accent mb-1">
                             Why it matters
                           </p>
@@ -946,7 +955,7 @@ export default function LaptopShowcase() {
                         <button
                           type="button"
                           onClick={() => setView("cli")}
-                          className="inline-flex items-center gap-2 rounded-full border border-term-line px-4 py-2 font-mono text-[13px] text-[#b9cbe0] transition-colors hover:border-accent-bright hover:text-white"
+                          className="inline-flex items-center gap-2 rounded-full border border-term-line px-4 py-2 font-mono text-[13px] text-[#BCAEE3] transition-colors hover:border-accent-bright hover:text-white"
                         >
                           ← back to terminal
                         </button>
@@ -993,25 +1002,25 @@ export default function LaptopShowcase() {
 function NeofetchOutput() {
   const n = PORTFOLIO_CONFIG.terminal.neofetch;
   return (
-    <div className="my-2 grid grid-cols-1 gap-4 rounded-lg bg-[#0b1220]/80 p-3.5 sm:grid-cols-[140px_1fr]">
+    <div className="my-2 grid grid-cols-1 gap-4 rounded-lg bg-[#221052]/80 p-3.5 sm:grid-cols-[140px_1fr]">
       <pre className="font-mono text-[10px] leading-tight text-accent select-none">
 {n.asciiArt}
       </pre>
       <div className="space-y-0.5 font-mono text-[12px]">
         <p className="font-bold text-accent-bright">{PORTFOLIO_CONFIG.githubUsername}@portfolio</p>
-        <p className="text-[#5f7590]">-----------------------</p>
-        <p><span className="text-[#2563eb]">OS:</span> {n.os}</p>
-        <p><span className="text-[#2563eb]">Host:</span> {n.host}</p>
-        <p><span className="text-[#2563eb]">Kernel:</span> {n.kernel}</p>
-        <p><span className="text-[#2563eb]">Commits:</span> {n.commits}</p>
-        <p><span className="text-[#2563eb]">Languages:</span> {n.languages}</p>
-        <p><span className="text-[#2563eb]">Hardware:</span> {n.hardware}</p>
+        <p className="text-[#8A7BB8]">-----------------------</p>
+        <p><span className="text-[#C084FC]">OS:</span> {n.os}</p>
+        <p><span className="text-[#C084FC]">Host:</span> {n.host}</p>
+        <p><span className="text-[#C084FC]">Kernel:</span> {n.kernel}</p>
+        <p><span className="text-[#C084FC]">Commits:</span> {n.commits}</p>
+        <p><span className="text-[#C084FC]">Languages:</span> {n.languages}</p>
+        <p><span className="text-[#C084FC]">Hardware:</span> {n.hardware}</p>
         <div className="mt-1.5 flex gap-1.5 pt-1">
-          <span className="h-3 w-4 rounded-sm bg-[#2563eb]" />
-          <span className="h-3 w-4 rounded-sm bg-[#3b82f6]" />
-          <span className="h-3 w-4 rounded-sm bg-[#38bdf8]" />
-          <span className="h-3 w-4 rounded-sm bg-[#0284c7]" />
-          <span className="h-3 w-4 rounded-sm bg-[#28c840]" />
+          <span className="h-3 w-4 rounded-sm bg-[#7C3AED]" />
+          <span className="h-3 w-4 rounded-sm bg-[#7C3AED]" />
+          <span className="h-3 w-4 rounded-sm bg-[#C084FC]" />
+          <span className="h-3 w-4 rounded-sm bg-[#C084FC]" />
+          <span className="h-3 w-4 rounded-sm bg-[#C4B5FD]" />
         </div>
       </div>
     </div>
@@ -1022,28 +1031,28 @@ function NeofetchOutput() {
 function StatsOutput({ stats }: { stats: import("@/lib/githubDirectStats").GitHubDirectStats }) {
   return (
     <div className="my-2 space-y-2 font-mono text-[12px]">
-      <div className="rounded-lg border border-accent/20 bg-[#0b1526] p-3.5">
+      <div className="rounded-lg border border-accent/20 bg-[#221052] p-3.5">
         <div className="flex items-center justify-between">
           <p className="font-bold text-accent-bright">GitHub Activity &amp; Streaks (@{PORTFOLIO_CONFIG.githubUsername})</p>
         </div>
-        <div className="mt-2.5 grid grid-cols-1 gap-2 text-[#b9cbe0] sm:grid-cols-3">
+        <div className="mt-2.5 grid grid-cols-1 gap-2 text-[#BCAEE3] sm:grid-cols-3">
           <div className="rounded bg-black/40 p-2.5 text-center">
-            <p className="text-[18px] font-bold text-[#2563eb]">
+            <p className="text-[18px] font-bold text-[#C084FC]">
               {stats.loading ? "..." : stats.totalContributions}
             </p>
-            <p className="text-[10px] text-[#7b93ad]">Total Contributions</p>
+            <p className="text-[10px] text-[#8A7BB8]">Total Contributions</p>
           </div>
           <div className="rounded bg-black/40 p-2.5 text-center">
-            <p className="text-[18px] font-bold text-[#28c840]">
+            <p className="text-[18px] font-bold text-[#C084FC]">
               {stats.loading ? "..." : `${stats.currentStreak} Days`}
             </p>
-            <p className="text-[10px] text-[#7b93ad]">Current Streak</p>
+            <p className="text-[10px] text-[#8A7BB8]">Current Streak</p>
           </div>
           <div className="rounded bg-black/40 p-2.5 text-center">
-            <p className="text-[18px] font-bold text-[#38bdf8]">
+            <p className="text-[18px] font-bold text-[#C084FC]">
               {stats.loading ? "..." : `${stats.longestStreak} Days`}
             </p>
-            <p className="text-[10px] text-[#7b93ad]">Longest Streak</p>
+            <p className="text-[10px] text-[#8A7BB8]">Longest Streak</p>
           </div>
         </div>
       </div>
@@ -1054,8 +1063,8 @@ function StatsOutput({ stats }: { stats: import("@/lib/githubDirectStats").GitHu
 /* ── Custom Virtual Firmware Emu Ticker ── */
 function EmuOutput() {
   return (
-    <div className="my-2 rounded-lg border border-[#28c840]/30 bg-[#0d1611] p-3 font-mono text-[11px] leading-relaxed text-[#28c840]">
-      <p className="text-[#a2f0b0] font-bold">▶ [BOOT] Initializing virtual Cortex-M3 (STM32F103) &amp; RV32 runner...</p>
+    <div className="my-2 rounded-lg border border-accent/30 bg-[#221052] p-3 font-mono text-[11px] leading-relaxed text-[#C4B5FD]">
+      <p className="text-accent-bright font-bold">▶ [BOOT] Initializing virtual Cortex-M3 (STM32F103) &amp; RV32 runner...</p>
       <p>[WASM] Memory mapped: 0x08000000 - 0x08020000 (128 KB Flash)</p>
       <p>[UART] Baud 115200 · Virtual Host Controller Interface: OK</p>
       <p>[LwIP] Wi-Fi packet frame padded (0 drop rate)</p>
@@ -1064,7 +1073,7 @@ function EmuOutput() {
   );
 }
 
-/* ── Real Animated Matrix Digital Rain Component ── */
+/* ── Violet Signal Rain (Royal Violet take on the matrix rain) ── */
 function MatrixOutput() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -1093,8 +1102,8 @@ function MatrixOutput() {
       if (time - lastDraw < fpsInterval) return;
       lastDraw = time;
 
-      // Translucent black background for trailing effect
-      ctx.fillStyle = "rgba(10, 14, 12, 0.25)";
+      // Translucent night-purple background for trailing effect
+      ctx.fillStyle = "rgba(20, 9, 43, 0.25)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = `${fontSize}px monospace`;
@@ -1104,8 +1113,8 @@ function MatrixOutput() {
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Head character is bright white-green, tail is classic terminal green
-        ctx.fillStyle = drops[i] > 1 && Math.random() > 0.8 ? "#a2f0b0" : "#28c840";
+        // Head character is bright lilac, tail is royal violet
+        ctx.fillStyle = drops[i] > 1 && Math.random() > 0.8 ? "#E9D5FF" : "#C084FC";
         ctx.fillText(text, x, y);
 
         if (y > canvas.height && Math.random() > 0.96) {
@@ -1123,9 +1132,9 @@ function MatrixOutput() {
   }, []);
 
   return (
-    <div className="my-2 overflow-hidden rounded-lg border border-[#28c840]/40 bg-black/90 p-2 font-mono text-[11px] select-none">
-      <div className="flex items-center justify-between px-2 pb-1.5 text-[10px] text-[#28c840]/70">
-        <span>▶ MATRIX DIGITAL RAIN [DANISH_WASM_CORE]</span>
+    <div className="my-2 overflow-hidden rounded-lg border border-[#7C3AED]/40 bg-[#1E0E44]/90 p-2 font-mono text-[11px] select-none">
+      <div className="flex items-center justify-between px-2 pb-1.5 text-[10px] text-[#C084FC]/70">
+        <span>▶ VIOLET SIGNAL RAIN [DANISH_WASM_CORE]</span>
         <span>STREAM ACTIVE</span>
       </div>
       <canvas
@@ -1140,11 +1149,11 @@ function MatrixOutput() {
 /* ── Custom Danish Face Art Component ── */
 function DanishOutput() {
   return (
-    <div className="my-2 rounded-lg border border-accent/30 bg-[#0b1526] p-3 font-mono text-[12px]">
-      <pre className="font-mono text-[11px] leading-tight text-[#2563eb] select-none">
+    <div className="my-2 rounded-lg border border-accent/30 bg-[#221052] p-3 font-mono text-[12px]">
+      <pre className="font-mono text-[11px] leading-tight text-[#C084FC] select-none">
 {PORTFOLIO_CONFIG.terminal.danishFaceArt}
       </pre>
-      <div className="mt-2 flex flex-wrap items-center justify-between border-t border-term-line/60 pt-2 text-[11px] text-[#b9cbe0]">
+      <div className="mt-2 flex flex-wrap items-center justify-between border-t border-term-line/60 pt-2 text-[11px] text-[#BCAEE3]">
         <span>👤 {PORTFOLIO_CONFIG.name}</span>
         <span>⚡ {PORTFOLIO_CONFIG.role}</span>
         <span className="text-accent">@{PORTFOLIO_CONFIG.githubUsername}</span>
@@ -1156,14 +1165,14 @@ function DanishOutput() {
 /* ── Custom WhoAmI ASCII Banner & Bio Component ── */
 function WhoamiOutput() {
   return (
-    <div className="my-2 rounded-lg border border-accent/30 bg-[#0b1526] p-4 font-mono text-[12px]">
+    <div className="my-2 rounded-lg border border-accent/30 bg-[#221052] p-4 font-mono text-[12px]">
       <pre className="font-mono text-[10px] leading-tight text-accent-bright sm:text-[12px] select-none overflow-x-auto">
 {PORTFOLIO_CONFIG.terminal.whoamiBanner}
       </pre>
-      <p className="mt-2 text-[#e7f0f9] leading-relaxed">
+      <p className="mt-2 text-[#EFE9FF] leading-relaxed">
         {PORTFOLIO_CONFIG.terminal.whoami}
       </p>
-      <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-term-line/60 pt-2 text-[11px] text-[#96abc4]">
+      <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-term-line/60 pt-2 text-[11px] text-[#BCAEE3]">
         <span>Location: India</span>
         <span>•</span>
         <span>Focus: Emulators, WASM, Firmware &amp; Full-Stack Toolchains</span>
@@ -1290,20 +1299,20 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
   };
 
   return (
-    <div className="my-2 rounded-lg border border-[#28c840]/40 bg-[#0a120c] p-3.5 font-mono text-[12px] select-none text-[#28c840]">
+    <div className="my-2 rounded-lg border border-[#7C3AED]/40 bg-[#1E0E44] p-3.5 font-mono text-[12px] select-none text-[#C4B5FD]">
       {/* Game Header */}
-      <div className="flex flex-wrap items-center justify-between border-b border-[#28c840]/30 pb-2 text-[11px]">
-        <span className="font-bold text-[#a2f0b0]">🐍 DANISH_WASM_SNAKE v1.0</span>
+      <div className="flex flex-wrap items-center justify-between border-b border-[#7C3AED]/30 pb-2 text-[11px]">
+        <span className="font-bold text-[#C084FC]">🐍 DANISH_WASM_SNAKE v1.0</span>
         <div className="flex items-center gap-3">
           <span>Score: <strong className="text-white">{score}</strong></span>
-          <span>Best: <strong className="text-[#a2f0b0]">{highScore}</strong></span>
+          <span>Best: <strong className="text-[#C084FC]">{highScore}</strong></span>
         </div>
       </div>
 
       {/* ASCII Grid View */}
       <div className="my-3 flex justify-center overflow-x-auto">
         <div
-          className="grid gap-[2.5px] rounded-md border border-[#28c840]/30 bg-black/90 p-2.5 shadow-inner"
+          className="grid gap-[2.5px] rounded-md border border-[#7C3AED]/30 bg-[#1E0E44]/90 p-2.5 shadow-inner"
           style={{
             gridTemplateColumns: `repeat(${gridWidth}, 16px)`,
             gridTemplateRows: `repeat(${gridHeight}, 16px)`,
@@ -1315,16 +1324,16 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
               const isBody = snake.slice(1).some((s) => s.x === x && s.y === y);
               const isFood = food.x === x && food.y === y;
 
-              let cellColor = "bg-[#0f1f13]";
+              let cellColor = "bg-[#281359]";
               let cellContent = "";
 
               if (isHead) {
-                cellColor = "bg-[#a2f0b0] shadow-sm";
+                cellColor = "bg-[#C4B5FD] shadow-sm";
                 cellContent = "•";
               } else if (isBody) {
-                cellColor = "bg-[#28c840]";
+                cellColor = "bg-[#7C3AED]";
               } else if (isFood) {
-                cellColor = "bg-[#ff4e9b] animate-pulse";
+                cellColor = "bg-[#C084FC] animate-pulse";
                 cellContent = "★";
               }
 
@@ -1345,18 +1354,18 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
       <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px]">
         {gameOver ? (
           <div className="flex items-center gap-2">
-            <span className="font-bold text-[#ff4e9b]">💥 GAME OVER!</span>
+            <span className="font-bold text-[#C084FC]">💥 GAME OVER!</span>
             <button
               type="button"
               onClick={restartGame}
-              className="rounded bg-[#28c840] px-2 py-0.5 font-bold text-black hover:bg-[#a2f0b0]"
+              className="rounded bg-[#7C3AED] px-2 py-0.5 font-bold text-white hover:bg-[#C084FC]"
             >
               Play Again (R)
             </button>
           </div>
         ) : (
-          <span className="text-[#8c7ba0]">
-            Controls: <code className="text-[#a2f0b0]">WASD</code> or <code className="text-[#a2f0b0]">Arrows</code> · <code className="text-[#a2f0b0]">Space</code> pause
+          <span className="text-[#8A7BB8]">
+            Controls: <code className="text-[#C4B5FD]">WASD</code> or <code className="text-[#C4B5FD]">Arrows</code> · <code className="text-[#C4B5FD]">Space</code> pause
           </span>
         )}
 
@@ -1365,7 +1374,7 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
           <button
             type="button"
             onClick={() => dirRef.current !== "RIGHT" && setDirection("LEFT")}
-            className="rounded bg-[#1a3320] px-2 py-1 text-white active:bg-[#28c840]"
+            className="rounded bg-[#281359] px-2 py-1 text-white active:bg-[#7C3AED]"
           >
             ◀
           </button>
@@ -1373,14 +1382,14 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
             <button
               type="button"
               onClick={() => dirRef.current !== "DOWN" && setDirection("UP")}
-              className="rounded bg-[#1a3320] px-2 py-0.5 text-white active:bg-[#28c840]"
+              className="rounded bg-[#281359] px-2 py-0.5 text-white active:bg-[#7C3AED]"
             >
               ▲
             </button>
             <button
               type="button"
               onClick={() => dirRef.current !== "UP" && setDirection("DOWN")}
-              className="rounded bg-[#1a3320] px-2 py-0.5 text-white active:bg-[#28c840]"
+              className="rounded bg-[#281359] px-2 py-0.5 text-white active:bg-[#7C3AED]"
             >
               ▼
             </button>
@@ -1388,7 +1397,7 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
           <button
             type="button"
             onClick={() => dirRef.current !== "LEFT" && setDirection("RIGHT")}
-            className="rounded bg-[#1a3320] px-2 py-1 text-white active:bg-[#28c840]"
+            className="rounded bg-[#281359] px-2 py-1 text-white active:bg-[#7C3AED]"
           >
             ▶
           </button>

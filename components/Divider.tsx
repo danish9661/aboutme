@@ -1,14 +1,13 @@
 /**
- * Full-bleed gradient hairline used between sections — softer and more vibrant
- * than a flat border, with a small centered signal tick.
+ * Register rule between sections — a plain 1px line, left-anchored tick.
+ * The tick marks the address of the section that follows; no centered
+ * ornament, no gradient hairline.
  */
 export default function Divider() {
   return (
-    <div className="relative h-px w-full" aria-hidden>
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-accent/35 to-transparent" />
-      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-bg px-3 font-mono text-[10px] text-accent-2/70">
-        ∿
-      </span>
+    <div className="flex w-full items-center gap-3" aria-hidden>
+      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent-2/60" />
+      <div className="h-px w-full bg-line" />
     </div>
   );
 }

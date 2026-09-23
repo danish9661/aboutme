@@ -40,41 +40,37 @@ const JSON_LD = {
 const STACK = [
   {
     title: "Languages",
-    grad: "linear-gradient(135deg,#3b82f6,#60a5fa)",
-    color: "#1d4ed8",
-    wash: "rgba(59,130,246,0.12)",
+    color: "#7C3AED",
+    wash: "rgba(124,58,237,0.12)",
     items: ["C", "C++", "Rust", "TypeScript", "JavaScript", "Python", "Assembly"],
   },
   {
     title: "Emulators & Systems",
-    grad: "linear-gradient(135deg,#2563eb,#3b82f6)",
-    color: "#2563eb",
-    wash: "rgba(37,99,235,0.12)",
+    color: "#A855F7",
+    wash: "rgba(192,132,252,0.14)",
     items: ["WebAssembly (WASM)", "Unicorn Engine", "RISC-V (RV32)", "ARM Cortex-M", "QEMU", "Renode"],
   },
   {
     title: "Embedded & Hardware",
-    grad: "linear-gradient(135deg,#38bdf8,#2563eb)",
-    color: "#38bdf8",
-    wash: "rgba(56,189,248,0.13)",
+    color: "#A855F7",
+    wash: "rgba(192,132,252,0.14)",
     items: ["STM32 (F1/F4)", "ESP32-S3", "RP2040", "USB HID / FIDO2", "BLE / Wi-Fi", "I2C / SPI / UART"],
   },
   {
     title: "Web & DevOps",
-    grad: "linear-gradient(135deg,#60a5fa,#2563eb)",
-    color: "#0284c7",
-    wash: "rgba(96,165,250,0.16)",
+    color: "#7C3AED",
+    wash: "rgba(124,58,237,0.12)",
     items: ["React / Next.js", "Node.js", "Web Workers", "Docker", "CI/CD", "Tailwind"],
   },
 ];
 
 const FACTS = [
-  { key: "FOCUS", value: "Systems · WASM Emulation", color: "#3b82f6" },
-  { key: "OPEN SOURCE", value: "Core Contributor @ OpenHW Studio", color: "#2563eb" },
-  { key: "DELIVERED", value: "550+ Commits · 480k+ LoC", color: "#1d4ed8" },
-  { key: "SPECIALTY", value: "Emulators, Firmware, Microcontrollers", color: "#38bdf8" },
-  { key: "LOOKING FOR", value: "Systems & SWE roles / Internships", color: "#1d4ed8" },
-  { key: "BASED", value: "India · remote-friendly", color: "#0284c7" },
+  { key: "focus", value: "Systems · WASM Emulation", color: "#7C3AED" },
+  { key: "open source", value: "Core Contributor @ OpenHW Studio", color: "#7C3AED" },
+  { key: "delivered", value: "550+ Commits · 480k+ LoC", color: "#A855F7" },
+  { key: "specialty", value: "Emulators, Firmware, Microcontrollers", color: "#A855F7" },
+  { key: "looking for", value: "Systems & SWE roles / Internships", color: "#7C3AED" },
+  { key: "based", value: "India · remote-friendly", color: "#A855F7" },
 ];
 
 export default function Home() {
@@ -90,12 +86,12 @@ export default function Home() {
       <LaptopShowcase />
 
       {/* ── Selected work ── */}
-      <Section id="work" eyebrow="Selected work">
+      <Section id="work" eyebrow="work">
         {/* Flagship OpenHW Studio */}
         <div className="mb-5 flex items-center gap-2.5">
           <PulseDot />
-          <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2">
-            Flagship · Core Contribution
+          <h3 className="font-mono text-[11px] text-ink-2">
+            flagship — core contribution
           </h3>
         </div>
         <Reveal>
@@ -105,8 +101,8 @@ export default function Home() {
         {/* Emulators, Security & Systems projects */}
         <div className="mb-5 mt-14 flex items-center gap-2.5">
           <span className="h-2 w-2 rounded-full bg-ink-3" aria-hidden />
-          <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">
-            Emulators &amp; Hardware Security
+          <h3 className="font-mono text-[11px] text-ink-3">
+            emulators + hardware security
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -123,7 +119,7 @@ export default function Home() {
       </Section>
 
       {/* ── About ── */}
-      <Section id="about" eyebrow="About">
+      <Section id="about" eyebrow="about">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-16">
           <div>
             <Reveal>
@@ -136,7 +132,7 @@ export default function Home() {
                 <p>
                   As a core contributor at <span className="font-medium text-ink">OpenHW Studio</span>,
                   I authored over 550+ commits and 480k+ lines of code—engineering real-time Web Worker execution
-                  pipelines, WASM networking stacks (Wi-Fi/BLE), dual-layer compilation caching (<span className="text-candy">&lt;200ms latency</span>),
+                  pipelines, WASM networking stacks (Wi-Fi/BLE), dual-layer compilation caching (&lt;200ms latency),
                   and automated netlist routing algorithms.
                 </p>
                 <p>
@@ -147,8 +143,8 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.05}>
-              <dl className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_18px_50px_-24px_rgba(56,189,248,0.35)]">
-                <div className="bg-candy h-1.5 w-full" aria-hidden />
+              <dl className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface">
+                <div className="h-1.5 w-full bg-accent" aria-hidden />
                 {FACTS.map((fact, i) => (
                   <div
                     key={fact.key}
@@ -156,7 +152,7 @@ export default function Home() {
                       i % 2 === 1 ? "bg-bg" : ""
                     }`}
                   >
-                    <dt className="flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em]">
+                    <dt className="flex items-center gap-2.5 font-mono text-[11px] font-medium">
                       <span
                         className="h-2 w-2 rounded-full"
                         style={{ background: fact.color }}
@@ -180,7 +176,7 @@ export default function Home() {
       </Section>
 
       {/* ── Field notes (notebook) ── */}
-      <Section eyebrow="Field notes">
+      <Section eyebrow="field notes">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div>
@@ -201,15 +197,15 @@ export default function Home() {
       </Section>
 
       {/* ── Stack ── */}
-      <Section id="stack" eyebrow="Stack">
+      <Section id="stack" eyebrow="stack">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {STACK.map((col, i) => (
             <Reveal key={col.title} delay={i * 0.05}>
-              <div className="group h-full overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_-20px_rgba(56,189,248,0.45)]">
-                <div className="h-1.5 w-full" style={{ background: col.grad }} aria-hidden />
+              <div className="group h-full overflow-hidden rounded-2xl border border-line bg-surface transition-colors duration-200 hover:border-accent/50">
+                <div className="h-1.5 w-full" style={{ background: col.color }} aria-hidden />
                 <div className="p-6">
                   <h3
-                    className="mb-4 font-mono text-[12px] font-semibold uppercase tracking-[0.12em]"
+                    className="mb-4 font-mono text-[12px] font-semibold"
                     style={{ color: col.color }}
                   >
                     {col.title}
@@ -218,7 +214,7 @@ export default function Home() {
                     {col.items.map((item) => (
                       <li
                         key={item}
-                        className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-ink"
+                        className="rounded-md px-3 py-1.5 text-[13px] font-medium text-ink"
                         style={{ background: col.wash }}
                       >
                         {item}
@@ -236,12 +232,12 @@ export default function Home() {
       <CricketSix />
 
       {/* ── Contact ── */}
-      <Section id="contact" eyebrow="Contact">
+      <Section id="contact" eyebrow="contact">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-[34px] font-semibold tracking-tightest sm:text-[46px]">
-              Let&apos;s build <span className="text-candy">something</span>.
-            </h2>
+              <h2 className="text-[34px] font-semibold tracking-tightest sm:text-[46px]">
+                Let&apos;s build something.
+              </h2>
             <p className="mt-5 text-[17px] leading-relaxed text-ink-2">
               I&apos;m looking for Systems &amp; Software Engineering roles. If you
               are building low-level systems, developer tooling, or hardware simulators, let&apos;s talk.

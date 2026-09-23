@@ -282,15 +282,14 @@ export default function CricketSix() {
           >
             <defs>
               <linearGradient id="sixGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#2563eb" />
-                <stop offset="50%" stopColor="#3b82f6" />
-                <stop offset="100%" stopColor="#38bdf8" />
+                <stop offset="0%" stopColor="#7C3AED" />
+                <stop offset="100%" stopColor="#C084FC" />
               </linearGradient>
 
               <linearGradient id="trailGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0" />
-                <stop offset="40%" stopColor="#2563eb" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.9" />
+                <stop offset="0%" stopColor="#C084FC" stopOpacity="0" />
+                <stop offset="40%" stopColor="#7C3AED" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#C084FC" stopOpacity="0.9" />
               </linearGradient>
 
               <radialGradient id="ballGrad" cx="35%" cy="35%" r="65%">
@@ -301,8 +300,8 @@ export default function CricketSix() {
 
               <radialGradient id="sparkGlow" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-                <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#2563eb" stopOpacity="0" />
+                <stop offset="50%" stopColor="#C084FC" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#7C3AED" stopOpacity="0" />
               </radialGradient>
             </defs>
 
@@ -341,14 +340,14 @@ export default function CricketSix() {
               cy="217"
               rx="16"
               ry="4"
-              fill="rgba(56,189,248,0.15)"
+              fill="rgba(124,58,237,0.16)"
             />
             <ellipse
               cx="155"
               cy="218"
               rx="46"
               ry="7"
-              fill="rgba(56,189,248,0.22)"
+              fill="rgba(124,58,237,0.24)"
             />
 
             {/* ── Stumps & Bails ── */}
@@ -405,7 +404,7 @@ export default function CricketSix() {
                 height="64"
                 rx="6"
                 fill="#ffffff"
-                stroke="#38bdf8"
+                stroke="#7C3AED"
                 strokeWidth="1.5"
               />
               {/* Pad Knee Rolls */}
@@ -414,7 +413,7 @@ export default function CricketSix() {
                 y1="174"
                 x2="176"
                 y2="174"
-                stroke="#38bdf8"
+                stroke="#7C3AED"
                 strokeWidth="1.5"
               />
               <line
@@ -422,7 +421,7 @@ export default function CricketSix() {
                 y1="179"
                 x2="176"
                 y2="179"
-                stroke="#38bdf8"
+                stroke="#7C3AED"
                 strokeWidth="1.5"
               />
               <ellipse cx="168" cy="216" rx="12" ry="5.5" fill="#0f1e33" />
@@ -434,12 +433,12 @@ export default function CricketSix() {
                 width="44"
                 height="56"
                 rx="14"
-                fill="#2563eb"
+                fill="#7C3AED"
               />
               {/* Jersey accent sash */}
               <path
                 d="M 134 112 Q 154 130 174 120 L 174 132 Q 154 142 134 124 Z"
-                fill="#38bdf8"
+                fill="#C084FC"
                 opacity="0.8"
               />
 
@@ -448,7 +447,7 @@ export default function CricketSix() {
                 <path
                   d="M 142 114 Q 150 126 156 130 M 166 114 Q 160 126 156 130"
                   fill="none"
-                  stroke="#2563eb"
+                  stroke="#7C3AED"
                   strokeWidth="8"
                   strokeLinecap="round"
                 />
@@ -490,8 +489,8 @@ export default function CricketSix() {
             {/* ── Bat (Swings dynamically around the hands pivot) ── */}
             <g ref={batRef} transform="translate(156 130) rotate(-42)">
               {/* Batting Gloves */}
-              <circle cx="0" cy="0" r="7.5" fill="#ffffff" stroke="#38bdf8" strokeWidth="1.5" />
-              <circle cx="0" cy="-7" r="6.5" fill="#ffffff" stroke="#38bdf8" strokeWidth="1.5" />
+              <circle cx="0" cy="0" r="7.5" fill="#ffffff" stroke="#7C3AED" strokeWidth="1.5" />
+              <circle cx="0" cy="-7" r="6.5" fill="#ffffff" stroke="#7C3AED" strokeWidth="1.5" />
               {/* Cane Handle & Rubber Grip */}
               <rect x="-4" y="-32" width="8" height="26" rx="3" fill="#0f1e33" />
               {/* Bat Blade */}
@@ -499,7 +498,7 @@ export default function CricketSix() {
               {/* Bat Spine / Ridge highlight */}
               <line x1="0" y1="-104" x2="0" y2="-34" stroke="#caa269" strokeWidth="2.2" />
               {/* Manufacturer Colored Sticker */}
-              <rect x="-7" y="-72" width="14" height="20" rx="2" fill="#2563eb" opacity="0.9" />
+              <rect x="-7" y="-72" width="14" height="20" rx="2" fill="#7C3AED" opacity="0.9" />
             </g>
 
             {/* ── Contact Shockwave Spark ── */}
@@ -511,8 +510,8 @@ export default function CricketSix() {
               <circle cx="0" cy="0" r="22" fill="url(#sparkGlow)" />
               <line x1="-18" y1="0" x2="18" y2="0" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
               <line x1="0" y1="-18" x2="0" y2="18" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="-12" y1="-12" x2="12" y2="12" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" />
-              <line x1="-12" y1="12" x2="12" y2="-12" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" />
+              <line x1="-12" y1="-12" x2="12" y2="12" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" />
+              <line x1="-12" y1="12" x2="12" y2="-12" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" />
             </g>
 
             {/* ── Curve-following Trail Ghosts ── */}
@@ -521,14 +520,14 @@ export default function CricketSix() {
               transform={`translate(${P_START.x} ${P_START.y})`}
               style={{ opacity: 0 }}
             >
-              <circle cx="0" cy="0" r="4.5" fill="#3b82f6" />
+              <circle cx="0" cy="0" r="4.5" fill="#C084FC" />
             </g>
             <g
               ref={trail2Ref}
               transform={`translate(${P_START.x} ${P_START.y})`}
               style={{ opacity: 0 }}
             >
-              <circle cx="0" cy="0" r="6" fill="#2563eb" />
+              <circle cx="0" cy="0" r="6" fill="#7C3AED" />
             </g>
             <g
               ref={trail1Ref}

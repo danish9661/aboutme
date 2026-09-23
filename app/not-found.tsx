@@ -16,7 +16,7 @@ export default function NotFound() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(56,189,248,0.12) 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(124,58,237,0.12) 1px, transparent 1px)",
             backgroundSize: "22px 22px",
             maskImage: "linear-gradient(to bottom, black, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
@@ -26,8 +26,8 @@ export default function NotFound() {
 
       <Eyebrow>Error 404</Eyebrow>
 
-      <h1 className="mt-6 text-[64px] font-semibold leading-none tracking-tightest sm:text-[88px]">
-        <span className="text-candy">404</span>
+      <h1 className="mt-6 text-[64px] font-semibold leading-none tracking-tightest text-accent sm:text-[88px]">
+        404
       </h1>
 
       <p className="mt-6 max-w-md text-[17px] leading-relaxed text-ink-2">

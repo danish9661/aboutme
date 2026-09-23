@@ -15,8 +15,7 @@ export default function Hero() {
             </span>
 
             <h1 className="mt-7 text-[40px] font-semibold leading-[1.05] tracking-tightest text-ink sm:text-[54px] lg:text-[60px]">
-              I build systems that run{" "}
-              <span className="text-candy">close to the metal</span>.
+              I build systems that run close to the metal.
             </h1>
 
             <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-2 sm:text-[19px]">

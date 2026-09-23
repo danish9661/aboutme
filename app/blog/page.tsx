@@ -36,7 +36,7 @@ export default function BlogIndex() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(56,189,248,0.12) 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(124,58,237,0.12) 1px, transparent 1px)",
             backgroundSize: "22px 22px",
             maskImage: "linear-gradient(to bottom, black, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
@@ -46,9 +46,9 @@ export default function BlogIndex() {
 
       <header>
         <Eyebrow>Blog</Eyebrow>
-        <h1 className="mt-5 text-[40px] font-semibold leading-[1.05] tracking-tightest sm:text-[52px]">
-          Notes from <span className="text-candy">the build</span>.
-        </h1>
+          <h1 className="mt-5 text-[40px] font-semibold leading-[1.05] tracking-tightest sm:text-[52px]">
+            Notes from the build.
+          </h1>
         <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-2">
           Applied ML, healthcare biosignals, shipping SaaS — written up the way
           I actually figured it out.

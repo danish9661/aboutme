@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 };
 
 const STACK_PILLS = [
-  { label: "TypeScript", color: "#2563eb", wash: "rgba(37,99,235,0.12)" },
-  { label: "WebAssembly", color: "#38bdf8", wash: "rgba(56,189,248,0.13)" },
-  { label: "Rust", color: "#1d4ed8", wash: "rgba(59,130,246,0.14)" },
-  { label: "Web Workers", color: "#0284c7", wash: "rgba(96,165,250,0.18)" },
+  { label: "TypeScript", color: "#7C3AED", wash: "rgba(124,58,237,0.12)" },
+  { label: "WebAssembly", color: "#A855F7", wash: "rgba(192,132,252,0.14)" },
+  { label: "Rust", color: "#7C3AED", wash: "rgba(124,58,237,0.12)" },
+  { label: "Web Workers", color: "#A855F7", wash: "rgba(192,132,252,0.14)" },
   { label: "Node.js / Express", color: "#5a5a5f", wash: "rgba(90,90,95,0.08)" },
-  { label: "Docker", color: "#2496ed", wash: "rgba(36,150,237,0.12)" },
+  { label: "Docker", color: "#7C3AED", wash: "rgba(124,58,237,0.12)" },
 ];
 
 const AT_A_GLANCE = [
@@ -122,15 +122,15 @@ export default function OpenHWStudioCaseStudy() {
 
       {/* ── At a glance table ── */}
       <div className="mt-14 overflow-hidden rounded-2xl border border-line bg-surface">
-        <div className="bg-candy h-1.5 w-full" aria-hidden />
+        <div className="h-1.5 w-full bg-accent" aria-hidden />
         <dl className="divide-y divide-line">
           {AT_A_GLANCE.map((row) => (
             <div
               key={row.key}
               className="grid grid-cols-1 gap-2 p-5 sm:grid-cols-[200px_1fr] sm:gap-6"
             >
-              <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">
-                {row.key}
+              <dt className="font-mono text-[11px] text-ink-3">
+                {row.key.toLowerCase()}
               </dt>
               <dd className="text-[14px] font-medium text-ink break-words">
                 {row.value.startsWith("http") ? (

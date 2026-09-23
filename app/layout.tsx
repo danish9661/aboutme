@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Caveat } from "next/font/google";
+import { Inter, JetBrains_Mono, Caveat } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import ScrollProgress from "@/components/ScrollProgress";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { SITE_URL } from "@/lib/posts";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-sans",
+  weight: ["400", "500", "600"],
+});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -61,8 +68,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f9ff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#150A2E" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -80,7 +87,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${jetbrainsMono.variable} ${caveat.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${caveat.variable}`}
     >
       <head>
         <meta

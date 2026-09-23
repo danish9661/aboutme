@@ -93,7 +93,7 @@ export default function Avatar3D() {
       />
 
       {/* speech bubble — sits by the waving hand (upper-left) */}
-      <div className="absolute left-0 top-6 z-10 rounded-2xl rounded-bl-sm bg-candy px-3 py-1.5 shadow-lg pointer-events-none">
+      <div className="absolute left-0 top-6 z-10 rounded-2xl rounded-bl-sm bg-accent px-3 py-1.5 shadow-lg pointer-events-none">
         <motion.span
           key={clicks}
           initial={reduce ? false : { scale: 0.7, opacity: 0 }}
@@ -134,13 +134,12 @@ export default function Avatar3D() {
           >
             <defs>
               <linearGradient id="shirtGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#2563eb" />
-                <stop offset="50%" stopColor="#3b82f6" />
-                <stop offset="100%" stopColor="#38bdf8" />
+                <stop offset="0%" stopColor="#7C3AED" />
+                <stop offset="100%" stopColor="#C084FC" />
               </linearGradient>
               <linearGradient id="pantsGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6f4aa8" />
-                <stop offset="100%" stopColor="#1e3a5f" />
+                <stop offset="0%" stopColor="#7C3AED" />
+                <stop offset="100%" stopColor="#3B0764" />
               </linearGradient>
               <radialGradient id="faceShade" cx="38%" cy="34%" r="75%">
                 <stop offset="0%" stopColor="#ffd9b8" />
@@ -149,7 +148,7 @@ export default function Avatar3D() {
             </defs>
 
             {/* ground shadow */}
-            <ellipse cx="110" cy="280" rx="54" ry="8" fill="rgba(56,189,248,0.18)" />
+            <ellipse cx="110" cy="280" rx="54" ry="8" fill="rgba(124,58,237,0.2)" />
 
             <g className="char-bob">
               {/* ── legs ── */}

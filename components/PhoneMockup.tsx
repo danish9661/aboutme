@@ -16,7 +16,7 @@ export default function PhoneMockup() {
         aria-hidden
       />
 
-      <div className="animate-float relative rounded-[2.9rem] border-[3px] border-[#2a2a2e] bg-[#0e0e10] p-[6px] shadow-[0_40px_80px_-30px_rgba(56,189,248,0.6)]">
+      <div className="animate-float relative rounded-[2.9rem] border-[3px] border-[#2a2a2e] bg-[#0e0e10] p-[6px] shadow-[0_40px_80px_-30px_rgba(124,58,237,0.55)]">
         {/* side buttons */}
         <span className="absolute -left-[5px] top-24 h-11 w-[3px] rounded-l bg-[#2a2a2e]" aria-hidden />
         <span className="absolute -left-[5px] top-[150px] h-11 w-[3px] rounded-l bg-[#2a2a2e]" aria-hidden />
@@ -36,8 +36,8 @@ export default function PhoneMockup() {
             </span>
           </div>
 
-          {/* app header */}
-          <div className="bg-candy px-5 py-3 text-white">
+          {/* app header — solid royal-violet identity, data below stays soft violet */}
+          <div className="bg-accent px-5 py-3 text-white">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[14px] font-semibold">OpenHW Studio</span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-2 py-0.5 font-mono text-[10px]">
@@ -60,7 +60,7 @@ export default function PhoneMockup() {
                 <span className="text-[30px] font-semibold tracking-tightest text-ink">
                   12,480
                 </span>
-                <span className="mb-1.5 font-mono text-[11px] text-accent">▲ 8.2%</span>
+                <span className="mb-1.5 font-mono text-[11px] text-accent-2">▲ 8.2%</span>
               </div>
             </div>
 
@@ -70,8 +70,8 @@ export default function PhoneMockup() {
                 {BARS.map((h, i) => (
                   <div
                     key={i}
-                    className="w-full rounded-t-md bg-candy"
-                    style={{ height: `${h}%`, opacity: 0.5 + (i % 3) * 0.2 }}
+                    className="w-full rounded-t-md bg-accent-2"
+                    style={{ height: `${h}%`, opacity: 0.45 + (i % 3) * 0.2 }}
                   />
                 ))}
               </div>

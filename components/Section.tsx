@@ -9,15 +9,15 @@ interface SectionProps {
 }
 
 /**
- * Section eyebrow: mono, 11px, uppercase, tracked, ink-3,
- * prefixed with the small teal "∿" signal tick.
+ * Section eyebrow: small mono register tag — `scope · name`.
+ * Lowercase, single accent-2 tick; the tick marks a live register,
+ * never decoration. No ALL-CAPS tracking, no centered ornament.
  */
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">
-      <span className="text-accent" aria-hidden>
-        ∿
-      </span>
+    <p className="flex items-center gap-2 font-mono text-[12px] text-ink-3">
+      <span className="h-1.5 w-1.5 rounded-full bg-accent-2" aria-hidden />
+      <span className="text-ink-2">~/</span>
       {children}
     </p>
   );

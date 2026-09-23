@@ -11,16 +11,16 @@ interface BadgeProps {
 
 export default function Badge({ label, variant = "wash", pulse = false }: BadgeProps) {
   const styles: Record<BadgeVariant, string> = {
-    live: "bg-accent-wash text-accent border-transparent",
-    wash: "bg-accent-wash text-accent border-transparent",
-    warm: "bg-accent-2-wash text-accent-2 border-transparent",
-    candy: "bg-candy text-white border-transparent",
+    live: "bg-accent-2-wash text-accent-2 border-line",
+    wash: "bg-accent-wash text-accent border-line",
+    warm: "bg-accent-3-wash text-accent-3 border-line",
+    candy: "bg-accent text-white border-transparent",
     muted: "bg-surface/70 text-ink-3 border-line",
   };
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.08em] ${styles[variant]}`}
+      className={`inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 font-mono text-[11px] ${styles[variant]}`}
     >
       {pulse && <PulseDot />}
       {label}

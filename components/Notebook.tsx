@@ -2,8 +2,8 @@ const RINGS = Array.from({ length: 10 });
 
 /**
  * Spiral-bound notebook with handwritten "field notes" — a personal touch
- * (inspired by danielsun.space). Uses the handwriting font and a yellow
- * highlighter to bring in the warm accent.
+ * (inspired by danielsun.space). Uses the handwriting font; the signal-amber
+ * highlighter is the only warm accent allowed on the page (PALETTE.md).
  */
 export default function Notebook() {
   return (
@@ -18,24 +18,24 @@ export default function Notebook() {
         ))}
       </div>
 
-      {/* a bit of "tape" */}
+      {/* a bit of "tape" — signal amber, the only warm note on the page */}
       <span
-        className="absolute -right-3 -top-3 z-20 h-8 w-16 rotate-12 rounded-sm bg-accent-3/40 backdrop-blur-sm"
+        className="absolute -right-3 -top-3 z-20 h-8 w-16 rotate-12 rounded-sm bg-accent-3/30 backdrop-blur-sm"
         aria-hidden
       />
 
-      <div className="relative overflow-hidden rounded-2xl border border-line bg-surface px-9 pb-9 pt-10 shadow-[0_34px_70px_-28px_rgba(56,189,248,0.5)]">
+      <div className="relative overflow-hidden rounded-2xl border border-line bg-surface px-9 pb-9 pt-10">
         {/* ruled lines */}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 top-10"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(transparent 0 35px, rgba(56,189,248,0.12) 35px 36px)",
+              "repeating-linear-gradient(transparent 0 35px, rgba(124,58,237,0.12) 35px 36px)",
           }}
           aria-hidden
         />
         {/* margin line */}
-        <div className="pointer-events-none absolute bottom-0 left-14 top-0 w-px bg-accent/25" aria-hidden />
+        <div className="pointer-events-none absolute bottom-0 left-14 top-0 w-px bg-accent-2/25" aria-hidden />
 
         <div className="relative font-hand text-ink">
           <p className="text-[30px] font-bold leading-none">how i build —</p>
@@ -43,7 +43,7 @@ export default function Notebook() {
           <ul className="mt-5 space-y-[11px] text-[23px] leading-snug">
             <li>
               1. find what actually{" "}
-              <mark className="rounded bg-accent-3/60 px-1" style={{ color: "#241733" }}>
+              <mark className="rounded bg-accent-3/25 px-1 text-ink">
                 matters
               </mark>
             </li>
@@ -52,7 +52,7 @@ export default function Notebook() {
             <li>4. measure → fix → repeat</li>
           </ul>
 
-          <div className="mt-5 flex items-center gap-3 text-[22px] text-accent">
+          <div className="mt-5 flex items-center gap-3 text-[22px] text-ink-2">
             <span>so far, so good</span>
             <span className="text-accent-2" aria-hidden>
               ∿∿∿
