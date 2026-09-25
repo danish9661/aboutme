@@ -14,7 +14,7 @@ export interface PostData {
   /** e.g. "6 min" */
   readingTime: string;
   tags: string[];
-  /** Emoji shown in the card's gradient tile. */
+  /** Short monogram shown in the card's tile (2-3 ASCII chars, no emoji). */
   glyph: string;
 }
 
@@ -36,7 +36,7 @@ export interface PostData {
  *   date: "2026-07-14",
  *   readingTime: "6 min",
  *   tags: ["ML", "Evaluation"],
- *   glyph: "🫀",
+ *   glyph: "ML",
  * }
  */
 export const POSTS: PostData[] = [];

@@ -121,7 +121,7 @@
           function notifyGraphicsReady(source) {
             if (!graphicsReadySent) {
               graphicsReadySent = true;
-              console.log("[DOOM Core] 🎮 DOOM VGA Graphics active! (Reason: " + source + ", Canvas: " + canvas.width + "x" + canvas.height + "). Emitting DOOM_GRAPHICS_READY.");
+              console.log("[DOOM Core] DOOM VGA Graphics active! (Reason: " + source + ", Canvas: " + canvas.width + "x" + canvas.height + "). Emitting DOOM_GRAPHICS_READY.");
               window.parent.postMessage({ type: "DOOM_GRAPHICS_READY" }, "*");
               focusCanvas();
               isGameStarted = true;

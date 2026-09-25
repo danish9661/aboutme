@@ -3,7 +3,7 @@ export type BadgeVariant = "live" | "warm" | "candy" | "muted";
 export interface ProjectData {
   id: string;
   title: string;
-  /** Emoji glyph shown in the card's gradient icon. */
+  /** Short monogram shown in the card's tile (2-3 ASCII chars, no emoji). */
   glyph: string;
   /** Short one-liner shown in the terminal `ls` listing. */
   tag: string;
@@ -15,6 +15,8 @@ export interface ProjectData {
   /** Plain muted "why it matters" supporting paragraph */
   why?: string;
   link?: { href: string; label: string; external?: boolean };
+  /** Secondary repo link shown under the primary demo link (demo-first cards) */
+  sourceUrl?: string;
   featured?: boolean;
 }
 
@@ -47,53 +49,141 @@ export const PORTFOLIO_CONFIG = {
   },
 
   // Featured Engineering Projects (rendered on homepage cards and terminal ls/open)
+  // Layout contract (see app/page.tsx): OpenHW Studio stays the org flagship,
+  // then the 10-repo emulator fleet grid, then the hardware-security row.
   projects: [
     {
       id: "openhw-studio",
       title: "OpenHW Studio",
-      glyph: "⚡",
-      tag: "Core Contributor · Full-stack in-browser hardware simulation & compiler engine",
+      glyph: "OH",
+      tag: "Org flagship · Core Contributor · In-browser hardware simulation & compiler engine (FOSSEE, IIT Bombay)",
       description:
         "Full-stack in-browser hardware simulation platform for FOSSEE, IIT Bombay. Engineered Web Worker execution threads, WASM ESP32 networking engine, dual-layer compilation caching (<200ms latency), and auto-wiring BFS routing algorithms across 550+ commits and 480k+ lines of code.",
       chips: ["TypeScript", "Rust", "WASM", "Web Workers", "Docker", "Node.js"],
       badge: { label: "550+ Commits · Live at IIT Bombay", variant: "live" as BadgeVariant, pulse: true },
       link: { href: "/work/openhw-studio", label: "Full case study & architecture →" },
     },
-    {
-      id: "stm32-bluepill-emu",
-      title: "STM32 Bluepill Emulator",
-      glyph: "🕹️",
-      tag: "STM32F103 emulator running real Arduino firmware in the browser",
-      description:
-        "In-browser Cortex-M3 emulator written in Rust and compiled to WebAssembly via Unicorn engine. Capable of executing raw compiled Arduino binaries and simulating hardware registers at 60fps.",
-      why: "Hardware debugging on physical microcontrollers can be slow and brittle. I built this in-browser emulator so developers and students can test STM32 firmware instantly with zero driver installation, complete with cycle-accurate peripheral telemetry.",
-      chips: ["Rust", "WASM", "Unicorn", "Cortex-M3", "STM32F103"],
-      badge: { label: "Live Demo", variant: "live" as BadgeVariant, pulse: true },
-      link: { href: "https://danish9661.github.io/STM32-Bluepill-emu/", label: "Try Emulator Demo →", external: true },
-    },
-    {
-      id: "es32s3-hid",
-      title: "ESP32-S3 Hardware Security Suite",
-      glyph: "🔒",
-      tag: "FIDO2 authenticator, TOTP generator, password manager & Rubber Ducky",
-      description:
-        "All-in-one hardware security dongle built on the ESP32-S3 with native USB HID emulation, FIDO2/WebAuthn authentication, hardware-encrypted TOTP keys, and programmable keystroke injection.",
-      why: "Commercial security keys are closed-source black boxes. This project brings transparency to physical hardware authentication by implementing open-standard FIDO2 protocols, secure enclave key storage, and dual-mode USB/BLE interfaces.",
-      chips: ["C++", "ESP-IDF", "FIDO2", "USB HID", "Hardware Crypto"],
-      badge: { label: "Hardware Security", variant: "warm" as BadgeVariant },
-      link: { href: "https://github.com/danish9661/es32s3-hid", label: "View Source Code →", external: true },
-    },
+    // ── Emulator fleet (10) — demo first, repo linked via sourceUrl ──
     {
       id: "stm32f4-emulator",
-      title: "STM32F4 Simulator & WASM Engine",
-      glyph: "⚙️",
-      tag: "ARM Cortex-M4 simulator with WebAssembly execution engine",
+      title: "STM32F4 Emulator",
+      glyph: "F4",
+      tag: "STM32F407 Cortex-M4F + Ethernet · Rust WASM core · 268 commits · DOOM @35fps",
       description:
-        "Emulates STM32F4 hardware architectures in WebAssembly, providing cycle budgeting, memory mapping, interrupt vectors, and peripheral communication over virtual bus protocols.",
-      why: "Emulating complex 32-bit ARM cores in browser sandboxes requires strict memory isolation and optimized instruction dispatch loops. This project demonstrates high-performance WASM instruction execution for embedded education.",
-      chips: ["C", "WebAssembly", "Unicorn", "ARM Cortex-M4"],
-      badge: { label: "Open Source", variant: "muted" as BadgeVariant },
-      link: { href: "https://danish9661.github.io/stm32F4-emulator/", label: "Explore Project →", external: true },
+        "STM32F407 emulator: Rust Thumb-2 + VFPv4-SP FPU core with a Rust peripheral model (RCC, USART, GPIO, DMA, ETH, TIM, NVIC) in one WASM module. Boots real firmware headless in Node or a browser tab — DHCP + TCP + HTTP over simulated or gVisor-backed Ethernet, LwIP 2.2.1, 223 bundled binaries, DOOM 1 shareware at 35fps with save/load.",
+      chips: ["Rust", "WASM", "Cortex-M4F", "Ethernet", "DOOM"],
+      link: { href: "https://danish9661.github.io/STM32F4-emulator/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/STM32F4-emulator",
+    },
+    {
+      id: "stm32f1-emulator",
+      title: "STM32F1 Bluepill Emulator",
+      glyph: "F1",
+      tag: "STM32F103C8 Cortex-M3 · ~70M IPS headless · 39/39 firmware checks · npm stm32f1-emu",
+      description:
+        "Full-system STM32F1 emulator (Blue Pill, GD32F103, Maple Mini, Nucleo-F103RB) running real unmodified Arduino/STM32Cube firmware in Node or the browser. Native Rust CPU + peripherals in one WASM module with MPU enforcement, GDB + SWD/JTAG debug, 8 chip variants, 764 unit checks.",
+      chips: ["Rust", "WASM", "Cortex-M3", "Arduino", "GDB"],
+      link: { href: "https://danish9661.github.io/STM32F1-emulator/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/STM32F1-emulator",
+    },
+    {
+      id: "picoemu",
+      title: "Picoemu",
+      glyph: "RP",
+      tag: "RP2040 + RP2350 (M0+/M33/RV32) · 426/426 tests · UF2/ELF · npm picoemu",
+      description:
+        "From-scratch RP2040/RP2350 emulator: Cortex-M0+, Cortex-M33 and Hazard3 RV32IMAC cores with UF2/ELF auto-detect, dual-core, PIO, CYW43 Wi-Fi, W5500 Ethernet, MicroPython REPL, and a browser UI with serial monitor and GPIO viewer.",
+      chips: ["C", "WASM", "RP2040", "RP2350", "RISC-V"],
+      link: { href: "https://danish9661.github.io/picoemu/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/picoemu",
+    },
+    {
+      id: "esp32-emulator",
+      title: "ESP32 Emulator",
+      glyph: "E32",
+      tag: "Xtensa LX6 dual-core · Rust WASM engine · 53 Arduino firmwares · npm esp32emu",
+      description:
+        "ESP32 emulator with a Rust-compiled WASM Xtensa LX6 core and native-Rust peripherals (UART, GPIO, SPI, I2C, Wi-Fi, EMAC, SHA/AES). Boots the real boot ROM plus 53 prebuilt Arduino images with live UART and MIPS readout; MicroPython REPL works out of the box.",
+      chips: ["Rust", "WASM", "Xtensa LX6", "Wi-Fi", "MicroPython"],
+      link: { href: "https://danish9661.github.io/esp32-emulator/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/esp32-emulator",
+    },
+    {
+      id: "esp32s3-emulator",
+      title: "ESP32-S3 Emulator",
+      glyph: "S3",
+      tag: "Xtensa LX7 dual-core · 111/111 firmware proofs · browser serial + GPIO",
+      description:
+        "From-scratch ESP32-S3 emulator in Rust → WASM. LX7 core with windowed registers and exceptions, full SoC (UART, GPIO, timers, interrupt matrix, SPI/I2C flash, PSRAM/cache MMU), ROM stubs + partition-table boot, validated by 111 real arduino-cli firmware proofs plus Playwright browser E2E.",
+      chips: ["Rust", "WASM", "Xtensa LX7", "ESP-IDF", "Arduino"],
+      link: { href: "https://danish9661.github.io/esp32s3-emulator/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/esp32s3-emulator",
+    },
+    {
+      id: "esp-rv32",
+      title: "ESP RV32 Emulator",
+      glyph: "RV",
+      tag: "ESP32-C3/C6/H2/P4 RISC-V · one binary, runtime chip select · WASM",
+      description:
+        "RISC-V ESP32 emulator extending rv32emu with per-chip SoC models (memory maps, ROM hooks, SYSTIMER, UART, GPIO, SPI flash cache, PLIC/INTC/CLIC). One binary serves C3, C6, H2 and P4/P4-SMP with runtime chip selection.",
+      chips: ["C", "WASM", "RISC-V", "ESP32-C3/C6/H2/P4"],
+      link: { href: "https://github.com/danish9661/esp-rv32-in-C", label: "View Source Code →", external: true },
+    },
+    {
+      id: "8086emu",
+      title: "8086emu Multi-CPU",
+      glyph: "86",
+      tag: "8086/8088/8085/8051/6502/Z80/RV32 · one Rust crate → one WASM module · npm",
+      description:
+        "Single Rust crate emulating six classic CPUs — 8086/8088 (8259 PIC + 8253 PIT, timer IRQs end-to-end), 8085, 8051, 6502, Z80 and RV32IM — each with a matching assembler, compiling to one WASM module plus a dependency-free web IDE for students.",
+      chips: ["Rust", "WASM", "x86", "6502", "Z80"],
+      link: { href: "https://danish9661.github.io/8086emu/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/8086emu",
+    },
+    {
+      id: "microbit-emulator",
+      title: "micro:bit Emulator",
+      glyph: "uB",
+      tag: "nRF52833 Cortex-M4 · 220/220 proofs · BLE + 802.15.4 · browser demo",
+      description:
+        "micro:bit v2.2 (nRF52833) emulator: all 39 SVD peripherals cross-checked against the models, 220 passing proofs (crypto, QSPI, SPIM, UARTE, RTC, BLE pairing legs), firmware-proven drivers, and a live browser demo.",
+      chips: ["Rust", "WASM", "Cortex-M4", "nRF52", "BLE"],
+      link: { href: "https://danish9661.github.io/microbit-emulator/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/microbit-emulator",
+    },
+    {
+      id: "uno-r4-emulator",
+      title: "UNO R4 Emulator",
+      glyph: "R4",
+      tag: "RA4M1 Cortex-M33 · 127 + 90 proofs · browser demo",
+      description:
+        "Arduino UNO R4 (Renesas RA4M1, Cortex-M33) emulator with a 127-proof peripheral suite plus 90 R4 board proofs, browser demo, and a hardware-exact bus model shared with the STM32F4 CPU lineage.",
+      chips: ["Rust", "WASM", "Cortex-M33", "Arduino", "Renesas"],
+      link: { href: "https://danish9661.github.io/uno-r4-emulator/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/uno-r4-emulator",
+    },
+    {
+      id: "wasm-game",
+      title: "Starfall (WASM Game)",
+      glyph: "SF",
+      tag: "Rust WebGPU isometric RPG · client sim + authoritative co-op server",
+      description:
+        "2.5D isometric survival RPG in pure Rust (wasm-pack + wgpu): procedural chunks, day/night, gathering, crafting, combat with an enraging boss, quests, gamepad + touch, IndexedDB saves. Same simulation runs client-side solo or on an authoritative co-op server with room codes.",
+      chips: ["Rust", "WASM", "WebGPU", "Multiplayer", "Game"],
+      link: { href: "https://danish9661.github.io/wasm-game/", label: "Try Live Demo →", external: true },
+      sourceUrl: "https://github.com/danish9661/wasm-game",
+    },
+    // ── Hardware security (separate row, not an emulator) ──
+    {
+      id: "es32s3-hid",
+      title: "ESP32-S3 HID Console & KVM",
+      glyph: "SK",
+      tag: "FIDO2 + YubiKey emulation · encrypted vault · HID injection & KVM bridge",
+      description:
+        "Professional USB HID injection engine and ultra-low-latency KVM bridge on the ESP32-S3 N16R8: Ducky HID + mass storage, FIDO2 passkeys, YubiKey 5 emulation (ykman/OATH-TOTP/OTP), action recorder, web OTA, and a cross-platform KVM client.",
+      chips: ["C++", "ESP-IDF", "FIDO2", "USB HID", "KVM"],
+      link: { href: "https://danish9661.github.io/es32s3-hid", label: "Try Live Console →", external: true },
+      sourceUrl: "https://github.com/danish9661/es32s3-hid",
     },
   ] as ProjectData[],
 
@@ -113,7 +203,7 @@ export const PORTFOLIO_CONFIG = {
     sudoGrantedText:
       "[sudo] password for danish: ********** → Authentication successful. User has full engineer privileges.",
     sudoDeniedText:
-      "🚨 Permission denied: Root override protected. DanishOS kernel prevented filesystem destruction.",
+      "Permission denied: Root override protected. DanishOS kernel prevented filesystem destruction.",
 
     // Custom terminal commands anyone can define
     customCommands: [

@@ -87,35 +87,53 @@ export default function Home() {
 
       {/* ── Selected work ── */}
       <Section id="work" eyebrow="work">
-        {/* Flagship OpenHW Studio */}
+        {/* Org flagship — OpenHW Studio (FOSSEE, IIT Bombay) */}
         <div className="mb-5 flex items-center gap-2.5">
           <PulseDot />
           <h3 className="font-mono text-[11px] text-ink-2">
-            flagship — core contribution
+            org flagship — OpenHW Studio · FOSSEE, IIT Bombay
           </h3>
         </div>
         <Reveal>
           <ProjectCard project={PROJECTS_BY_ID["openhw-studio"]} />
         </Reveal>
 
-        {/* Emulators, Security & Systems projects */}
+        {/* Emulator fleet — 10 standalone repos */}
         <div className="mb-5 mt-14 flex items-center gap-2.5">
           <span className="h-2 w-2 rounded-full bg-ink-3" aria-hidden />
           <h3 className="font-mono text-[11px] text-ink-3">
-            emulators + hardware security
+            emulator fleet — 10 standalone builds
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <Reveal>
-            <ProjectCard project={PROJECTS_BY_ID["stm32-bluepill-emu"]} />
-          </Reveal>
-          <Reveal delay={0.05}>
-            <ProjectCard project={PROJECTS_BY_ID["es32s3-hid"]} />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <ProjectCard project={PROJECTS_BY_ID["stm32f4-emulator"]} />
-          </Reveal>
+          {[
+            "stm32f4-emulator",
+            "stm32f1-emulator",
+            "picoemu",
+            "esp32-emulator",
+            "esp32s3-emulator",
+            "esp-rv32",
+            "8086emu",
+            "microbit-emulator",
+            "uno-r4-emulator",
+            "wasm-game",
+          ].map((id, i) => (
+            <Reveal key={id} delay={(i % 3) * 0.05}>
+              <ProjectCard project={PROJECTS_BY_ID[id]} />
+            </Reveal>
+          ))}
         </div>
+
+        {/* Hardware security — separate row, not an emulator */}
+        <div className="mb-5 mt-14 flex items-center gap-2.5">
+          <span className="h-2 w-2 rounded-full bg-ink-3" aria-hidden />
+          <h3 className="font-mono text-[11px] text-ink-3">
+            hardware security — ESP32-S3 key + KVM
+          </h3>
+        </div>
+        <Reveal>
+          <ProjectCard project={PROJECTS_BY_ID["es32s3-hid"]} />
+        </Reveal>
       </Section>
 
       {/* ── About ── */}

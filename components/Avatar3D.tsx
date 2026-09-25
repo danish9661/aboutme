@@ -4,12 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const MESSAGES = [
-  "Hi, I'm Danish 👋",
-  "wheee! 🌀",
+  "Hi, I'm Danish",
+  "wheee!",
   "spin me again!",
-  "ship it 🚀",
-  "still dizzy 😵‍💫",
-  "okay, one more 😄",
+  "ship it",
+  "still dizzy",
+  "okay, one more",
 ];
 
 /**

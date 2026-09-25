@@ -90,7 +90,7 @@ README.md             short public readme
 ## 4. Signature interactions (how they work)
 
 ### Avatar3D
-Chibi SVG of Danish (glasses, brown hair, plaid-gradient shirt). Grouped limbs animate on their own joints via CSS keyframes in globals.css: `.char-bob` (body), `.char-leg-l/-r` (swing), `.char-arm-l` (sway), `.char-wave` (waving right arm), `.char-blink` (both eyes — wink was removed per feedback). Speech bubble "Hi, I'm Danish 👋" sits by the waving hand (upper-left, `left-0 top-6`, tail `rounded-bl-sm`).
+Chibi SVG of Danish (glasses, brown hair, plaid-gradient shirt). Grouped limbs animate on their own joints via CSS keyframes in globals.css: `.char-bob` (body), `.char-leg-l/-r` (swing), `.char-arm-l` (sway), `.char-wave` (waving right arm), `.char-blink` (both eyes — wink was removed per feedback). Speech bubble "Hi, I'm Danish" sits by the waving hand (upper-left, `left-0 top-6`, tail `rounded-bl-sm`). Note: all emoji were removed from the rendered site in 2026-09 — cards use ASCII monograms (OH/F4/F1/RP/E32/S3/RV/86/uB/R4/SF/SK), terminal/avatar use plain text.
 
 ### ScrollProgress (replaced the old ECG "vitals monitor")
 `useScroll().scrollYProgress` → `useSpring` → bar `width`; a glowing node rides the leading edge. Hidden under reduced motion. Lives in the sticky header above the nav.
@@ -100,7 +100,7 @@ A big MacBook whose lid opens (`rotateX` on scroll-in). The screen is an "OS" wi
 - **home:** bright candy "DanishOS · 4 things I've shipped", clickable project pills, "▶ Click to view projects".
 - **cli:** real terminal. Commands: `ls`/`projects` (lists projects, rows clickable), `open <id>` / `cat` / `know` (opens detail), `about|stack|contact` (scrolls), `whoami`, `help`, `clear`, `home`/`exit`. Hint comments shown.
 - **project:** detail window inside the laptop (badge, description, callout, chips, real link) with `← back` to cli.
-- **macOS traffic lights are functional:** 🔴 red = close → home; 🟡 yellow = minimize → returns to home with a "Terminal — click to restore" **dock** at the bottom; 🟢 green decorative. Hover shows ×/– glyphs. (The old "⌂ home" text button was removed; red does it now.)
+- **macOS traffic lights are functional:** red = close → home; yellow = minimize → returns to home with a "Terminal — click to restore" **dock** at the bottom; green decorative. Hover shows ×/– glyphs. (The old "⌂ home" text button was removed; red does it now.)
 - Reduced motion: lid starts open, still interactive.
 
 ### CricketSix — scroll-driven "straight six"

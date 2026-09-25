@@ -93,8 +93,8 @@ const AUTOCOMPLETE_LIST = [
 
 const SUGGESTIONS = [
   { cmd: "ls", label: "ls" },
-  { cmd: "snake", label: "🐍 snake" },
-  { cmd: "doom", label: "🎮 doom" },
+  { cmd: "snake", label: "snake" },
+  { cmd: "doom", label: "doom" },
   { cmd: "danish", label: "danish" },
   { cmd: "email", label: "email" },
   { cmd: PROJECTS[0] ? `open ${PROJECTS[0].id}` : "ls", label: PROJECTS[0] ? `open ${PROJECTS[0].id}` : "ls" },
@@ -211,7 +211,7 @@ export default function LaptopShowcase() {
         if (targetId === "resume" || targetId === "md-danish-resume.pdf" || targetId === "resume.pdf") {
           next.push({
             kind: "sys",
-            text: `📄 ${PORTFOLIO_CONFIG.name} — Resume & Deliverables. Downloading PDF...`,
+            text: `${PORTFOLIO_CONFIG.name} — Resume & Deliverables. Downloading PDF...`,
           });
           if (typeof window !== "undefined") {
             window.open(PORTFOLIO_CONFIG.resumePdfPath, "_blank");
@@ -278,7 +278,7 @@ export default function LaptopShowcase() {
         }
         next.push({
           kind: "sys",
-          text: `📧 ${PORTFOLIO_CONFIG.email} (Copied to clipboard!)`,
+          text: `${PORTFOLIO_CONFIG.email} (Copied to clipboard!)`,
         });
         if (typeof window !== "undefined") {
           window.open(`mailto:${PORTFOLIO_CONFIG.email}`, "_blank");
@@ -359,7 +359,7 @@ export default function LaptopShowcase() {
           const others = availableThemes.filter((t) => t !== terminalTheme);
           const picked = others[Math.floor(Math.random() * others.length)];
           setTerminalTheme(picked);
-          next.push({ kind: "sys", text: `🎲 Random theme set to '${picked}'` });
+          next.push({ kind: "sys", text: `Random theme set to '${picked}'` });
         } else {
           const raw = (sub === "set" ? rest[1] : sub) || "default";
           const choice = (ALIASES[raw] ?? raw) as TerminalTheme;
@@ -369,7 +369,7 @@ export default function LaptopShowcase() {
               raw !== choice ? ` (alias '${raw}' → '${choice}')` : "";
             next.push({
               kind: "sys",
-              text: `🎨 Terminal theme set to '${choice}'${note}. Try \`theme list\` for all four.`,
+              text: `Terminal theme set to '${choice}'${note}. Try \`theme list\` for all four.`,
             });
           } else {
             next.push({
@@ -393,7 +393,7 @@ export default function LaptopShowcase() {
             setTerminalFont(choice as TerminalFont);
             next.push({
               kind: "sys",
-              text: `🔤 Terminal font set to '${choice}'. Options: mono · pixel · hacker · sans`,
+              text: `Terminal font set to '${choice}'. Options: mono · pixel · hacker · sans`,
             });
           } else {
             next.push({
@@ -420,7 +420,7 @@ export default function LaptopShowcase() {
         if (rest[0] === "clear") {
           cmdHistoryRef.current = [];
           historyIndexRef.current = -1;
-          next.push({ kind: "sys", text: "✓ Command history buffer cleared." });
+          next.push({ kind: "sys", text: "Command history buffer cleared." });
         } else {
           const recorded = cmdHistoryRef.current;
           if (recorded.length === 0) {
@@ -443,7 +443,7 @@ export default function LaptopShowcase() {
       } else if (cmd === "resume") {
         next.push({
           kind: "sys",
-          text: `📄 Opening ${PORTFOLIO_CONFIG.name} Resume & Deliverables...`,
+          text: `Opening ${PORTFOLIO_CONFIG.name} Resume & Deliverables...`,
         });
         if (typeof window !== "undefined") {
           window.open(PORTFOLIO_CONFIG.resumePdfPath, "_blank");
@@ -669,7 +669,7 @@ export default function LaptopShowcase() {
                         {view === "project" && activeProject
                           ? `~/projects/${activeProject.id}`
                           : view === "doom"
-                          ? "🎮 DOOM (1993) — WASM JIT"
+                          ? "DOOM (1993) — WASM JIT"
                           : "danish — zsh — projects"}
                       </span>
                     </div>
@@ -715,7 +715,7 @@ export default function LaptopShowcase() {
                   {view === "doom" && showDoomHelp && (
                     <div className="absolute inset-x-0 top-[30px] z-40 max-h-[85%] overflow-y-auto no-scrollbar border-b border-[#7C3AED]/40 bg-[#1E0E44]/95 p-4 text-[12px] shadow-2xl backdrop-blur-md">
                       <div className="flex items-center justify-between border-b border-[#7C3AED]/30 pb-2">
-                        <span className="font-bold text-[#C4B5FD]">📖 DOOM Controls &amp; Gameplay Guide</span>
+                        <span className="font-bold text-[#C4B5FD]">DOOM Controls &amp; Gameplay Guide</span>
                         <button
                           type="button"
                           onClick={() => setShowDoomHelp(false)}
@@ -726,7 +726,7 @@ export default function LaptopShowcase() {
                       </div>
                       <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 text-[#e2d9eb]">
                         <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5">
-                          <div className="font-semibold text-[#C4B5FD]">🎮 Movement &amp; Action</div>
+                          <div className="font-semibold text-[#C4B5FD]">Movement &amp; Action</div>
                           <div className="text-[11px] space-y-1">
                             <div><strong className="text-white">Arrow Keys / WASD</strong> : Move forward, backward, turn</div>
                             <div><strong className="text-white">Ctrl / Mouse Left</strong> : Fire weapon / Shoot</div>
@@ -736,7 +736,7 @@ export default function LaptopShowcase() {
                         </div>
 
                         <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5">
-                          <div className="font-semibold text-[#C084FC]">🔫 Weapons &amp; Combat</div>
+                          <div className="font-semibold text-[#C084FC]">Weapons &amp; Combat</div>
                           <div className="text-[11px] space-y-1">
                             <div><strong className="text-white">1</strong> : Fist / Chainsaw</div>
                             <div><strong className="text-white">2</strong> : Pistol</div>
@@ -747,7 +747,7 @@ export default function LaptopShowcase() {
                         </div>
 
                         <div className="space-y-1.5 rounded border border-white/10 bg-black/50 p-2.5 sm:col-span-2">
-                          <div className="font-semibold text-[#C4B5FD]">💡 Pro Tips &amp; Sound</div>
+                          <div className="font-semibold text-[#C4B5FD]">Pro Tips &amp; Sound</div>
                           <div className="text-[11px] space-y-1 text-[#BCAEE3]">
                             <div>• Click inside the game window once to lock mouse/keyboard focus.</div>
                             <div>• Press <strong className="text-white">ESC</strong> in-game for the options/save menu, or click <strong className="text-[#C4B5FD]">Exit</strong> above to return to the terminal.</div>
@@ -786,7 +786,7 @@ export default function LaptopShowcase() {
                           setHistory((prev) => [
                             ...prev,
                             { kind: "out", text: "C:\\> DOOM.EXE\nDOOM Shareware Startup v1.9 (id Software)\nV_Init: allocate screens (320x200 8-bit VGA).\nZ_Init: 8.0MB zone memory.\nW_Init: adding doom1.wad ... OK\nS_Init: sound initialized (SB16 44.1kHz Stereo)\nP_Init: playloop initialized." },
-                            { kind: "sys", text: "🚀 DOOM VGA Graphics ready! Switching to display..." }
+                            { kind: "sys", text: "DOOM VGA Graphics ready! Switching to display..." }
                           ]);
                           setTimeout(() => {
                             setDoomReady(true);
@@ -977,6 +977,16 @@ export default function LaptopShowcase() {
                               {activeProject.link.label}
                             </a>
                           ))}
+                        {activeProject.sourceUrl && (
+                          <a
+                            href={activeProject.sourceUrl}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="font-mono text-[12px] text-[#BCAEE3] underline decoration-term-line underline-offset-4 transition-colors hover:text-white"
+                          >
+                            Source ↗
+                          </a>
+                        )}
                       </div>
                     </div>
                   )}
@@ -1068,7 +1078,7 @@ function EmuOutput() {
       <p>[WASM] Memory mapped: 0x08000000 - 0x08020000 (128 KB Flash)</p>
       <p>[UART] Baud 115200 · Virtual Host Controller Interface: OK</p>
       <p>[LwIP] Wi-Fi packet frame padded (0 drop rate)</p>
-      <p className="text-white font-semibold">✓ Core running at 72 MHz · All 9 peripheral hooks operational.</p>
+      <p className="text-white font-semibold">[OK] Core running at 72 MHz · All 9 peripheral hooks operational.</p>
     </div>
   );
 }
@@ -1154,8 +1164,8 @@ function DanishOutput() {
 {PORTFOLIO_CONFIG.terminal.danishFaceArt}
       </pre>
       <div className="mt-2 flex flex-wrap items-center justify-between border-t border-term-line/60 pt-2 text-[11px] text-[#BCAEE3]">
-        <span>👤 {PORTFOLIO_CONFIG.name}</span>
-        <span>⚡ {PORTFOLIO_CONFIG.role}</span>
+        <span>{PORTFOLIO_CONFIG.name}</span>
+        <span>{PORTFOLIO_CONFIG.role}</span>
         <span className="text-accent">@{PORTFOLIO_CONFIG.githubUsername}</span>
       </div>
     </div>
@@ -1302,7 +1312,7 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
     <div className="my-2 rounded-lg border border-[#7C3AED]/40 bg-[#1E0E44] p-3.5 font-mono text-[12px] select-none text-[#C4B5FD]">
       {/* Game Header */}
       <div className="flex flex-wrap items-center justify-between border-b border-[#7C3AED]/30 pb-2 text-[11px]">
-        <span className="font-bold text-[#C084FC]">🐍 DANISH_WASM_SNAKE v1.0</span>
+        <span className="font-bold text-[#C084FC]">DANISH_WASM_SNAKE v1.0</span>
         <div className="flex items-center gap-3">
           <span>Score: <strong className="text-white">{score}</strong></span>
           <span>Best: <strong className="text-[#C084FC]">{highScore}</strong></span>
@@ -1334,7 +1344,7 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
                 cellColor = "bg-[#7C3AED]";
               } else if (isFood) {
                 cellColor = "bg-[#C084FC] animate-pulse";
-                cellContent = "★";
+                cellContent = "+";
               }
 
               return (
@@ -1354,7 +1364,7 @@ function SnakeGame({ onExit }: { onExit?: () => void }) {
       <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px]">
         {gameOver ? (
           <div className="flex items-center gap-2">
-            <span className="font-bold text-[#C084FC]">💥 GAME OVER!</span>
+            <span className="font-bold text-[#C084FC]">GAME OVER!</span>
             <button
               type="button"
               onClick={restartGame}
